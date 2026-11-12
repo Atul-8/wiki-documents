@@ -1,0 +1,8 @@
+position: 1.5 # float position is supported
+label: 'XIAO Robot Kit'
+collapsible: true # make the category collapsible
+collapsed: true # keep the category open by default
+className: xiao_robot_kit
+link:
+  type: "doc"
+  id: 'Sensor/SeeedStudio_XIAO_Gadgets/xiao_robot_kit/getting_started_with_xiao_robot_kit'
