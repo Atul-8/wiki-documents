@@ -9,8 +9,8 @@ keywords:
   - encoder motor
   - imu
 image: https://files.seeedstudio.com/wiki/seeed_logo/logo_2023.png
-sidebar_position: 1
 slug: /xiao_robot_kit_getting_started
+sku: 100058302
 type: gettingstarted
 last_update:
   date: 11/11/2026
@@ -24,7 +24,15 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/
 
 ## Introduction
 
-The XIAO Robot Kit is a compact robot development kit built around the **Seeed Studio XIAO ESP32-S3 Plus**. The carrier board packs everything a small robot needs onto a single PCB: a 6-axis IMU, dual DC gear-motor drivers with quadrature encoders, four servo ports, a WS2812 LED-strip driver, a user button and battery management.
+The XIAO Robot Kit is a modular robotics development kit built around the **Seeed Studio XIAO ESP32-S3 Plus**. The carrier board already holds the electronics of a small mobile robot: an ESP32-S3 controller with Wi-Fi and Bluetooth LE, two N20 gear motors with quadrature encoders, four servo channels, a 6-axis IMU and battery management. The kit adds two Feetech FT1190M metal-gear servos and Grove connectors for whatever you attach later. The body is yours to design and print — the motion hardware is already on the board.
+
+- **Build your own robot**: the electronics are done, so the structure is the part you get to invent. Print a wheeled chassis, or a character with moving arms.
+- **More ways to move, sense and interact**: two independently driven wheels, four servo channels and a 6-axis IMU, plus the two FT1190M metal-gear servos that come in the kit.
+- **Encoder feedback**: each N20 motor reports how far its wheel has actually turned, so a sketch can measure motion instead of assuming it from a delay.
+- **Wireless**: Wi-Fi and Bluetooth LE on the ESP32-S3 Plus, enough for a phone-controlled robot or a link to an external AI application.
+- **AI-assisted coding**: describe the behavior you want and let a coding agent such as Codex or Claude Code write the Arduino sketch with you.
+
+The rest of this page covers the board layout and four minimal examples, one per subsystem.
 
 ## Hardware Overview
 
@@ -571,7 +579,7 @@ A: Power-cycle the kit (unplug and replug the USB cable). If the message persist
 
 ### Q5: The servo or motor twitches and the board resets
 
-A: The Motor_5V rail is starved when running on USB power alone. Use a lithium battery on the 2-pin battery socket or an external 5 V supply — see the power note in Hardware Overview.
+A: The Motor_5V rail is starved when running on USB power alone. Use a lithium battery on the battery connector or an external 5 V supply — see the power note in Hardware Overview.
 
 ### Q6: Example 4 prints `rpm=0.0` even though the wheel spins
 
@@ -582,6 +590,6 @@ A: The encoder leads are not connected — the motor is probably plugged into th
 - **[PDF]** [XIAO Robot Board V1.0 Schematic](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Board_V1_0_SCH_261111.pdf)
 - **[ZIP]** [XIAO Robot Board V1.0 KiCad Project](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Board_V1_0_KICAD_261111.zip)
 - **[STEP]** [XIAO Robot Kit 3D Print Files (0924 optimized version)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Kit_3D_Print_Files_0924_Optimized.stp)
-{/* HD_N20 datasheet is uploaded but intentionally not linked yet — add it back as a list item when ready: https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/HD_N20_Encoder_Motor_1218_ShortShaft_6V_270RPM_Datasheet_261111.pdf */}
+{/* Commented out for now: HD_N20 datasheet (uploaded, not linked yet) - https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/HD_N20_Encoder_Motor_1218_ShortShaft_6V_270RPM_Datasheet_261111.pdf */}
 - **[PDF]** [N20 Encoder Motor + Cable Harness Spec (5 V / 170 RPM)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/HR-N20-1218-5V-170-101_Encoder_Motor_with_Cable_Spec_261111.pdf)
 - **[PDF]** [FT-1190-C016 Digital Servo Spec (6 V / 1.8 kg·cm)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/FT-1190-C016_Servo_6V_1.8kgcm_Spec_261111.pdf)
