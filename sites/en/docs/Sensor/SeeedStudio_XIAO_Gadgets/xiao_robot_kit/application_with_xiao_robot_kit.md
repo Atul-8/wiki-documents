@@ -34,7 +34,9 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_application/
 
 ## Overview
 
-The kit already gives you the electronics of a small mobile robot, so an application is mostly software: motors, four servo channels, a 6-axis IMU and Wi-Fi all sit on the carrier board. The two applications below are complete builds that were shown in public rather than experiments — one on stage, one driven from a phone browser.
+This page introduces two practical examples. The first moves the chassis by writing ready-made commands from a phone over BLE; the second drives the car live from a browser over Wi-Fi. Both projects live in the repository linked under **[TBD-35]**, one folder each.
+
+These pages cover the basic use only. To build something of your own, the faster route is to open the repository and keep vibe coding there — the chassis, arm and gesture code is all reusable.
 
 Peripheral wiring, pin mapping and power are covered elsewhere: [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) maps every pin, and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/) walks through the motor, IMU and RGB peripherals one at a time.
 
