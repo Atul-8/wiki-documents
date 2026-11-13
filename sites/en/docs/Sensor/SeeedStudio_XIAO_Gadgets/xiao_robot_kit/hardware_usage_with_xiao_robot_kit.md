@@ -41,7 +41,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
 To work through all three experiments you need the **[XIAO Robot Kit](https://www.seeedstudio.com/XIAO-Robot-Kit-p-100058302.html?utm_source=wiki)**, a USB-C **data** cable, and a computer. Experiments 1 and 2 add nothing: the IMU sits on the carrier board, and the encoder motor arrives with its cable in the box. Experiment 3 is the only one that asks you to supply a part — a WS2812 light board. The photos show a board from CH Maker Ed, but nothing in the sketch depends on it: any WS2812 board wired to `D13` works, and the single number you have to match is `LED_COUNT`, the number of LEDs it carries.
 
 :::tip
-The motor draws from the **Motor_5V** rail, so a laptop's USB port alone can brown out the board. Power the kit from a charged battery on the **battery connector**, or a power bank on its own USB-C port.
+Motors and servos draw a large current. A computer's USB port alone can be too weak, so power the kit from the **battery connector** when you drive them.
 :::
 
 ### Software Preparation

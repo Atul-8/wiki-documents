@@ -75,7 +75,7 @@ A `Dxx` marking is **not** a GPIO number. For example, `D11` maps to `GPIO38`.
 | M2 PWM1 | D19 | GPIO11 | Motor 2 drive |
 
 :::tip
-The kit takes power from the **USB-C port** or the **lithium battery connector**. Motors and servos run on a separate **Motor_5V** rail, so USB alone can brown out the board — use a battery for Examples 3 and 4.
+Motors and servos draw a large current. A computer's USB port alone can be too weak, so power the kit from the **battery connector** for Examples 3 and 4.
 :::
 
 ## Getting Started
