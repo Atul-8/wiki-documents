@@ -577,7 +577,7 @@ A: The Motor_5V rail is starved when running on USB power alone. Use a lithium b
 
 ### Q5: Example 4 prints `rpm=0.0` even though the wheel spins
 
-A: The encoder leads are not connected — the motor is probably plugged into the **DC motor connector** instead of the **encoder motor connector**. Move the cable to the encoder motor connector so both the motor and encoder leads reach the board.
+A: Make sure the cable is pushed fully into its socket and locked. If `rpm` still stays at 0, swap in a motor that has never been dropped or knocked — a damaged encoder inside the motor stops reporting.
 
 ## Resources
 
