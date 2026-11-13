@@ -598,5 +598,6 @@ A: Make sure the cable is pushed fully into its socket and locked. If `rpm` stil
 - **📄[Datasheet]** [FT-1190-C016 Digital Servo Spec (6 V / 1.8 kg·cm)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/FT-1190-C016_Servo_6V_1.8kgcm_Spec_261111.pdf)
 <!-- - **[PDF]** [HD-N20 Encoder Motor Datasheet (6 V / 270 RPM, short shaft)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/HD_N20_Encoder_Motor_1218_ShortShaft_6V_270RPM_Datasheet_261111.pdf) -->
 
-**Mechanical Design**
-- **📄[3D Model]** [XIAO Robot Kit 3D Print Files (0924 optimized version)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Kit_3D_Print_Files_0924_Optimized.stp)
+<!-- Mechanical Design hidden until the 3D model files are cleared for release -->
+<!-- **Mechanical Design** -->
+<!-- - **📄[3D Model]** [XIAO Robot Kit 3D Print Files (0924 optimized version)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Kit_3D_Print_Files_0924_Optimized.stp) -->
