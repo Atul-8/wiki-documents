@@ -1,5 +1,5 @@
 ---
-description: Application examples for the XIAO Robot Kit — the BLE command firmware used in the HONOR Robot Phone demo, and a Wi-Fi remote-controlled car with battery monitoring.
+description: Application examples for the XIAO Robot Kit — BLE control of pre-written motion commands, and a Wi-Fi remote-controlled car with battery monitoring.
 title: Application with XIAO Robot Kit
 keywords:
   - xiao robot kit
@@ -34,7 +34,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_application/
 
 ## Overview
 
-This page introduces two practical examples. The first moves the chassis by writing ready-made commands from a phone over BLE; the second drives the car live from a browser over Wi-Fi. Both projects live in the repository linked under **[TBD-35]**, one folder each.
+This page introduces two practical examples. The first drives the chassis by writing pre-written motion commands over BLE; the second drives the car live from a browser over Wi-Fi. Both projects live in the repository linked under **[TBD-35]**, one folder each.
 
 These pages cover the basic use only. To build something of your own, the faster route is to open the repository and keep vibe coding there — the chassis, arm and gesture code is all reusable.
 
@@ -42,14 +42,14 @@ Pins, wiring and power are covered in [Getting Started](https://wiki.seeedstudio
 
 | Application | What it does | Extra hardware |
 | --- | --- | --- |
-| XIAO Robot Kit with HONOR Robot Phone | BLE chassis firmware driven by text commands from the phone | None — the kit's own motors, servos, IMU and LED |
+| BLE Control of Pre-written Motion Commands | Drive the chassis by writing text commands to one BLE characteristic | None — the kit's own motors, servos, IMU and LED |
 | Wi-Fi Remote-Controlled Car with Battery Monitoring | Drive the car from a phone browser over Wi-Fi and read the pack voltage on the same page | A lithium battery pack and a phone |
 
-## Application 1: XIAO Robot Kit with HONOR Robot Phone
+## Application 1: BLE Control of Pre-written Motion Commands
 
-This is the firmware that ran the stage demo. It turns the kit into a BLE peripheral: the phone writes a text command to one GATT characteristic and the chassis moves.
+The firmware turns the kit into a BLE peripheral. Any BLE client — a phone app, a laptop or a test tool — writes a text command to one GATT characteristic and the chassis moves.
 
-The project lives in `examples/xiao_robot_kit_with_honor_robot_phone` in **[TBD-35]**. **[TBD-34]**
+The project lives in `examples/xiao_robot_kit_with_honor_robot_phone` in **[TBD-35]**.
 
 ### Build and Flash
 
@@ -120,7 +120,7 @@ The motion frame the phone app already sends still works: `M|20|20|$` is transla
 - `cpslog start`, `cpslog stop`, `cpslog list`, `cpslog summary`, `cpslog dump`
 - `btname set`, `btname show`, `btname reset`
 
-#### Example: wave at the camera
+#### Example: wave the hand
 
 ```text
 wave_hand        →  OK|wave_hand|$
