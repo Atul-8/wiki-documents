@@ -697,7 +697,7 @@ The sketch advertises as **XIAO Robot Kit** and waits for a write. Your phone's 
 - iOS: [nRF Connect](https://apps.apple.com/us/app/nrf-connect-for-mobile/id1054362403)
 
 :::note
-nRF Connect is a third-party app published by Nordic Semiconductor ASA. It is not part of the kit, Seeed Studio does not maintain it, and the two links above point at the official store listings. *nRF Connect* is a trademark of Nordic Semiconductor ASA.
+nRF Connect is a third-party app published by Nordic Semiconductor. It is not part of the kit, Seeed Studio does not maintain it, and the two links above point at the official store listings. *nRF Connect* is a trademark of Nordic Semiconductor.
 :::
 
 Then follow the four screenshots: scan for **XIAO Robot Kit** and connect, open **Unknown Service**, and type a command into the write field. Keep the data format at **UTF-8** rather than hex.
