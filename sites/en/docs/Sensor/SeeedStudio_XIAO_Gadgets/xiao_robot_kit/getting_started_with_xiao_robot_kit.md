@@ -588,8 +588,6 @@ A: Make sure the cable is pushed fully into its socket and locked. If `rpm` stil
 
 ## Resources
 
-### For XIAO Robot Kit
-
 **Hardware Design**
 - **📄[Schematic]** [XIAO Robot Board V1.0 Schematic](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Board_V1_0_SCH_261111.pdf)
 - **🗃️[PCB Design Files]**
