@@ -734,7 +734,7 @@ The light board used in this experiment is a WS2812 board from **CH Maker Ed**, 
 
 In the Arduino IDE, open **File > New Sketch**, delete the template code, and paste the sketch below.
 
-Then set `LED_COUNT` to the number of LEDs your own board carries — the sketch starts at `8`. Only the first `LED_COUNT` LEDs are ever written, so a shorter board ignores the surplus and a longer one leaves the rest dark. Change the number before you upload.
+Set `LED_COUNT` to the number of LEDs on your board before uploading; the sketch ships with `8`. Data is generated for that many LEDs only, so a longer strip stays dark past `LED_COUNT`, and on a shorter strip the extra data reaches no LED at all.
 
 <details>
 
