@@ -34,16 +34,6 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
     </a>
 </div><br />
 
-## Introduction
-
-The kit wraps a servo driver, an encoder-motor driver, a 6-axis IMU and an RGB output around the **XIAO ESP32-S3 Plus**, all on one carrier board. The three experiments below each take one of those a step further — turning raw 6-axis data into angles, driving the motor from a phone over Bluetooth, and stepping a light board through a color palette with one button.
-
-| Experiment | Extra hardware | What it demonstrates |
-| --- | --- | --- |
-| IMU Zero Calibration + Euler Angle Fusion | None — the on-board LSM6DS3TR-C only | Turning raw 6-axis data into a stable `roll` / `pitch` / `yaw` |
-| BLE Control of the Encoder Motor | None — the included encoder motor and its cable | Sending motion commands from a phone over Bluetooth LE |
-| Button-Switched RGB LED | A WS2812 light board you supply yourself; the example uses one from CH Maker Ed | Stepping a WS2812 board through a color palette from one button |
-
 ## Getting Started
 
 ### Hardware Preparation
@@ -397,7 +387,6 @@ Four `#define`s at the top of the sketch cover the cases where the defaults do n
 The hardware side is one cable — no jumpers, no breadboard:
 
 ![Experiment 2 hardware connection](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_hardware_connection.jpg)
-
 
 **Step 1. Create the sketch**
 

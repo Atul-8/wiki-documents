@@ -588,9 +588,15 @@ A: Make sure the cable is pushed fully into its socket and locked. If `rpm` stil
 
 ## Resources
 
-- **[PDF]** [XIAO Robot Board V1.0 Schematic](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Board_V1_0_SCH_261111.pdf)
-- **[ZIP]** [XIAO Robot Board V1.0 KiCad Project](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Board_V1_0_KICAD_261111.zip)
-- **[STEP]** [XIAO Robot Kit 3D Print Files (0924 optimized version)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Kit_3D_Print_Files_0924_Optimized.stp)
-{/* Commented out for now: HD_N20 datasheet (uploaded, not linked yet) - https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/HD_N20_Encoder_Motor_1218_ShortShaft_6V_270RPM_Datasheet_261111.pdf */}
-- **[PDF]** [N20 Encoder Motor + Cable Harness Spec (5 V / 170 RPM)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/HR-N20-1218-5V-170-101_Encoder_Motor_with_Cable_Spec_261111.pdf)
-- **[PDF]** [FT-1190-C016 Digital Servo Spec (6 V / 1.8 kg·cm)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/FT-1190-C016_Servo_6V_1.8kgcm_Spec_261111.pdf)
+### For XIAO Robot Kit
+
+**Hardware Design**
+- **📄[Schematic]** [XIAO Robot Board V1.0 Schematic](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Board_V1_0_SCH_261111.pdf)
+- **🗃️[PCB Design Files]**
+  - [XIAO Robot Board V1.0 KiCad Project](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Board_V1_0_KICAD_261111.zip)
+- **📄[Datasheet]** [N20 Encoder Motor with Cable Harness Spec (5 V / 170 RPM)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/HR-N20-1218-5V-170-101_Encoder_Motor_with_Cable_Spec_261111.pdf)
+- **📄[Datasheet]** [FT-1190-C016 Digital Servo Spec (6 V / 1.8 kg·cm)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/FT-1190-C016_Servo_6V_1.8kgcm_Spec_261111.pdf)
+<!-- - **[PDF]** [HD-N20 Encoder Motor Datasheet (6 V / 270 RPM, short shaft)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/HD_N20_Encoder_Motor_1218_ShortShaft_6V_270RPM_Datasheet_261111.pdf) -->
+
+**Mechanical Design**
+- **📄[3D Model]** [XIAO Robot Kit 3D Print Files (0924 optimized version)](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Resources/XIAO_Robot_Kit_3D_Print_Files_0924_Optimized.stp)
