@@ -60,8 +60,6 @@ Arduino IDE with the ESP32 board package installed, and `XIAO_ESP32S3_PLUS` sele
 
 ## Experiment 1: IMU Zero Calibration + Euler Angle Fusion
 
-The on-board **LSM6DS3TR-C** hands out raw acceleration and angular rate. The sketch reads it over the internal I2C bus at `0x6A` and turns that into an attitude — `roll`, `pitch` and `yaw` in degrees, printed 50 times a second. No wiring is involved, but the first 18 seconds go into warm-up and offset measurement, so leave the kit flat on the desk until the angle lines start scrolling.
-
 ### Step 1. Create the sketch
 
 In the Arduino IDE, open **File > New Sketch**, delete the template code, and paste the sketch below:
@@ -397,8 +395,6 @@ Four `#define`s at the top of the sketch cover the cases where the defaults do n
 | `CALIB_MS` | 6000 | Re-zeroing is not repeatable enough (raise it), at the cost of a longer wait on **KEY**. |
 
 ## Experiment 2: BLE Control of the Encoder Motor
-
-The motor in the kit carries a quadrature encoder on its shaft, so this sketch closes the loop: ask for a number of revolutions and it counts encoder edges until the shaft gets there — 7200 counts per revolution. Commands come in over Bluetooth LE from a phone, or over USB from the Serial Monitor, and both accept the same line. The motor plugs into the **encoder motor connector** and that is the whole wiring — but do connect the battery, because the motor runs off the **Motor_5V** rail and USB alone can brown out under load.
 
 The hardware side is one cable — no jumpers, no breadboard:
 
@@ -741,10 +737,8 @@ done: 10.00 rev, enc=72000 (0.00 rev past target)
 
 ## Experiment 3: Button-Switched RGB LED
 
-The carrier board brings the WS2812 data line out on `D13` (GPIO40), so the light board needs one data wire and power and nothing else. The sketch below builds the whole bit stream on the RMT peripheral and pulls in no library at all: press **KEY** and the board steps to the next color in a fixed palette — off → red → green → blue — repainting one LED every 60 ms, so the change crawls along the board instead of jumping on all at once.
-
 :::note
-The light board in the photos is a WS2812 board from **CH Maker Ed**, a third party. It is not part of the kit — you supply your own — and it is not required to be that particular board: the sketch only sends the standard WS2812 bit stream, so any WS2812 board wired to `D13` behaves the same way.
+The light board used in this experiment is a WS2812 board from **CH Maker Ed**, a third party. It is not part of the kit — you supply your own — and it is not required to be that particular board: the sketch only sends the standard WS2812 bit stream, so any WS2812 board wired to `D13` behaves the same way.
 :::
 
 ### Step 1. Create the sketch
