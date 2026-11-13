@@ -58,7 +58,7 @@ Arduino IDE with the ESP32 board package installed, and `XIAO_ESP32S3_PLUS` sele
 
 ## Experiment 1: IMU Zero Calibration + Euler Angle Fusion
 
-### Step 1. Create the sketch
+**Step 1. Create the sketch**
 
 In the Arduino IDE, open **File > New Sketch**, delete the template code, and paste the sketch below:
 
@@ -350,11 +350,11 @@ void loop() {
 
 </details>
 
-### Step 2. Upload the sketch
+**Step 2. Upload the sketch**
 
 Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows your board, then click **Upload** (→).
 
-### Step 3. Observe the result
+**Step 3. Observe the result**
 
 Open the **Serial Monitor** (the magnifier icon, top right) and set the baud rate to **115200**. For the first 12 seconds the sketch prints the die temperature twice a second; the next 6 seconds measure the gyro offset; after that the angles start scrolling:
 
@@ -399,7 +399,7 @@ The hardware side is one cable — no jumpers, no breadboard:
 ![Experiment 2 hardware connection](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_hardware_connection.jpg)
 
 
-### Step 1. Create the sketch
+**Step 1. Create the sketch**
 
 In the Arduino IDE, open **File > New Sketch**, delete the template code, and paste the sketch below:
 
@@ -683,11 +683,11 @@ void loop() {
 
 </details>
 
-### Step 2. Upload the sketch
+**Step 2. Upload the sketch**
 
 Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows your board, then click **Upload** (→).
 
-### Step 3. Send commands over Bluetooth LE
+**Step 3. Send commands over Bluetooth LE**
 
 The sketch advertises as **XIAO Robot Kit** and waits for a write. Your phone's system Bluetooth settings cannot write to a characteristic, so you need a BLE scanner app — the walkthrough below uses **nRF Connect**:
 
@@ -739,7 +739,7 @@ done: 10.00 rev, enc=72000 (0.00 rev past target)
 The light board used in this experiment is a WS2812 board from **CH Maker Ed**, a third party. It is not part of the kit — you supply your own — and it is not required to be that particular board: the sketch only sends the standard WS2812 bit stream, so any WS2812 board wired to `D13` behaves the same way.
 :::
 
-### Step 1. Create the sketch
+**Step 1. Create the sketch**
 
 In the Arduino IDE, open **File > New Sketch**, delete the template code, and paste the sketch below.
 
@@ -867,11 +867,11 @@ void loop() {
 
 </details>
 
-### Step 2. Upload the sketch
+**Step 2. Upload the sketch**
 
 Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows your board, then click **Upload** (→).
 
-### Step 3. Press KEY
+**Step 3. Press KEY**
 
 The board starts dark. Every press of **KEY** advances the palette by one step, and the LEDs take the new color in order rather than all at once:
 

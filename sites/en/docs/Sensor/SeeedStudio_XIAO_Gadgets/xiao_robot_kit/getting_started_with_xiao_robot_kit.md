@@ -81,7 +81,7 @@ The kit has two power inputs: the **USB-C port** and the **lithium battery conne
 
 ### Hardware Preparation
 
-#### Step 1. Connect to the computer
+**Step 1. Connect to the computer**
 
 ##### Method 1
 
@@ -101,11 +101,11 @@ A charge-only cable shows up as no COM port, or the device does not respond at a
 
 ### Software Preparation
 
-#### Step 1. Install the Arduino IDE
+**Step 1. Install the Arduino IDE**
 
 Download the latest **Arduino IDE 2.x** from [arduino.cc/en/software](https://www.arduino.cc/en/software) and install it for your operating system.
 
-#### Step 2. Add the ESP32 board package
+**Step 2. Add the ESP32 board package**
 
 Launch Arduino IDE, open **File > Preferences**, and paste the URL below into **"Additional Boards Manager URLs"**:
 
@@ -115,7 +115,7 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 Then open **Tools > Board > Boards Manager**, search for `esp32`, and install **esp32 by Espressif Systems**.
 
-#### Step 3. Select the board and port
+**Step 3. Select the board and port**
 
 Connect the kit with the USB-C cable, then in **Tools > Board > esp32** choose **XIAO_ESP32S3_PLUS**. Open **Tools > Port** and pick the new COM port that appeared when you plugged the board in.
 
@@ -127,7 +127,7 @@ For more detailed **XIAO ESP32-S3 Plus** setup instructions, see the Software Pr
 
 This is the "hello world" of the kit and the quickest way to confirm that your toolchain works. The sketch does two things: it prints `hello world N` once per second, and it counts every press of the on-board **KEY** button — no wiring needed, because the button is already on the board.
 
-### Step 1. Create the sketch
+**Step 1. Create the sketch**
 
 In the Arduino IDE, open **File > New Sketch**, delete the template code, and paste the sketch below:
 
@@ -186,11 +186,11 @@ void loop()
 
 </details>
 
-### Step 2. Upload the sketch
+**Step 2. Upload the sketch**
 
 Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows your board, then click **Upload** (→).
 
-### Step 3. Observe the result
+**Step 3. Observe the result**
 
 Open the **Serial Monitor** (magnifier icon, top right) and set the baud rate to **115200**. You should see one `hello world N` line per second. Now press the on-board **KEY** button a few times — each press appends a `button pressed = N` line:
 
@@ -214,7 +214,7 @@ If the Serial Monitor stays empty or prints garbled text, check the selected por
 
 This example reads the on-board **LSM6DS3TR-C** 6-axis IMU (3-axis accelerometer + 3-axis gyroscope) and streams all seven channels at 20 Hz — acceleration in `g`, angular rate in `dps`, and die temperature in `°C` — so you can watch the readings respond as you move the board. Again, no wiring is needed.
 
-### Step 1. Create the sketch
+**Step 1. Create the sketch**
 
 Create a new sketch (**File > New Sketch**) and paste the full code below:
 
@@ -309,11 +309,11 @@ void loop() {
 
 </details>
 
-### Step 2. Upload the sketch
+**Step 2. Upload the sketch**
 
 Upload as in Example 1. On boot the sketch checks the IMU's `WHO_AM_I` register and prints `IMU init failed` if the chip does not answer — otherwise you get `IMU ready`.
 
-### Step 3. Observe the result
+**Step 3. Observe the result**
 
 With the board lying flat on the desk, the Serial Monitor shows a steady stream at 20 Hz. Try these checks:
 
@@ -338,7 +338,7 @@ This example drives a **position servo** connected to servo port **SERVO1**. It 
 
 Just connect the included servo and its cable to the **SERVO1** connector on the board.
 
-### Step 1. Create the sketch
+**Step 1. Create the sketch**
 
 Create a new sketch and paste the full code below:
 
@@ -412,11 +412,11 @@ void loop() {
 
 </details>
 
-### Step 2. Upload the sketch
+**Step 2. Upload the sketch**
 
 Upload as before. On boot the servo is commanded to center (`normPos = 0`, 1500 µs) before the sweep starts.
 
-### Step 3. Observe the result
+**Step 3. Observe the result**
 
 After power-up, watch the servo horn move and check the Serial Monitor output — it should match the two figures below.
 
@@ -436,7 +436,7 @@ This example drives the **M1 DC gear motor** and reads its **quadrature encoder*
 
 Just connect the included motor and its cable to the **encoder motor connector**.
 
-### Step 1. Create the sketch
+**Step 1. Create the sketch**
 
 Create a new sketch and paste the full code below:
 
@@ -547,11 +547,11 @@ void loop() {
 
 </details>
 
-### Step 2. Upload the sketch
+**Step 2. Upload the sketch**
 
 Upload as before. The motor stays still until the first rising quarter of the sine wave ramps the duty cycle up.
 
-### Step 3. Observe the result
+**Step 3. Observe the result**
 
 Watch the wheel driven by M1 and check the Serial Monitor output — it should match the two figures below.
 
