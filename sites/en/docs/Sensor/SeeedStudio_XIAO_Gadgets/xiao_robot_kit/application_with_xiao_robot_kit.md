@@ -38,7 +38,7 @@ This page introduces two practical examples. The first moves the chassis by writ
 
 These pages cover the basic use only. To build something of your own, the faster route is to open the repository and keep vibe coding there — the chassis, arm and gesture code is all reusable.
 
-Peripheral wiring, pin mapping and power are covered elsewhere: [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) maps every pin, and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/) walks through the motor, IMU and RGB peripherals one at a time.
+Pins, wiring and power are covered in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/).
 
 | Application | What it does | Extra hardware |
 | --- | --- | --- |
@@ -47,7 +47,7 @@ Peripheral wiring, pin mapping and power are covered elsewhere: [Getting Started
 
 ## Application 1: XIAO Robot Kit with HONOR Robot Phone
 
-This is the firmware that ran the stage demo. It turns the kit into a BLE peripheral: the phone writes a text command to one GATT characteristic and the chassis moves. The same command set is available over the USB serial shell, so everything can be tested on a desk before a phone is involved.
+This is the firmware that ran the stage demo. It turns the kit into a BLE peripheral: the phone writes a text command to one GATT characteristic and the chassis moves.
 
 The project lives in `examples/xiao_robot_kit_with_honor_robot_phone` in **[TBD-35]**. **[TBD-34]**
 
@@ -75,7 +75,7 @@ The board advertises as `XIAO-Robot-Kit-` followed by the last two bytes of its 
 
 ### Command API
 
-Write UTF-8 text of up to 63 bytes to that characteristic. Each write is answered on the same characteristic:
+Write UTF-8 text to that characteristic, 63 bytes at most — a full-length command needs the phone to negotiate an ATT MTU of 66. Each write is answered on the same characteristic:
 
 ```text
 OK|<command>|$     the command ran
@@ -92,13 +92,7 @@ ERR|LENGTH|$       frame longer than 63 bytes
 - `stop` — stop both wheels immediately.
 - `motor <1-2> <-100..100>` and `motorinv <1-2> <0|1>` — one wheel at a time, and its polarity.
 
-The motion frame the phone app already sends is still accepted and translated to `drive`:
-
-```text
-M|20|20|$      →  drive 20 20
-M|-20|20|$     →  drive -20 20
-M|0|0|$        →  drive 0 0
-```
+The motion frame the phone app already sends still works: `M|20|20|$` is translated to `drive 20 20`.
 
 #### Preset chassis actions
 
@@ -126,25 +120,25 @@ M|0|0|$        →  drive 0 0
 - `cpslog start`, `cpslog stop`, `cpslog list`, `cpslog summary`, `cpslog dump`
 - `btname set`, `btname show`, `btname reset`
 
-### Example: wave at the camera
+#### Example: wave at the camera
 
 ```text
 wave_hand        →  OK|wave_hand|$
 ```
 
-The right arm waves four times, then returns to 0°. Typing the same text at the `robot>` prompt does exactly the same thing.
+The right arm waves four times, then returns to 0°.
 
 **[TBD-38]**
 
 ### Safety
 
 - Lift the wheels off the desk for the first test, and keep the power switch within reach.
-- There is no idle timeout: `drive`, `speed` and `motor` keep running until `stop`, another drive command, or a BLE disconnect.
-- Losing the BLE link stops every motor, and so does a NimBLE reset.
+- There is no idle timeout: `drive`, `speed` and `motor` keep running until `stop` or another drive command.
+- A BLE disconnect or a NimBLE reset stops every motor.
 
 ## Application 2: Wi-Fi Remote-Controlled Car with Battery Monitoring
 
-The car takes commands from a phone browser over Wi-Fi and shows the battery voltage on the same page, so you can see the pack sag while the motor is under load instead of guessing from a low-voltage cutoff.
+The car takes commands from a phone browser over Wi-Fi and shows the battery voltage on the same page, so you can watch the pack sag while the motor is under load.
 
 ### How it works
 
@@ -157,7 +151,7 @@ The car takes commands from a phone browser over Wi-Fi and shows the battery vol
 ### Required parts
 
 - A **XIAO Robot Kit**
-- A charged lithium battery on the **battery connector** — the motor runs off the **Motor_5V** rail, and USB alone browns out under load
+- A charged lithium battery on the **battery connector**
 - A phone or laptop with a browser, on the same Wi-Fi network
 
 ### Sketch
