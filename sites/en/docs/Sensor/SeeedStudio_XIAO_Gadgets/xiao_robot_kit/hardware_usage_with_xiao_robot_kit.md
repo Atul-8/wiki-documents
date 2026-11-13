@@ -26,9 +26,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
 
 # Hardware Usage with XIAO Robot Kit
 
-<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/XIAO_Robot_Board_Front_Side.jpg" style={{width:800, height:'auto'}}/></div>
-
-{/* TBD: placeholder product URL (SKU 100058302) - replace with the real Seeed product page before publishing */}
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/bazaar_xiao_robot_board1.jpg" style={{width:800, height:'auto'}}/></div>
 
 <div class="get_one_now_container" style={{textAlign: 'center'}}>
     <a class="get_one_now_item" href="https://www.seeedstudio.com/XIAO-Robot-Kit-p-100058302.html?utm_source=wiki" target="_blank">

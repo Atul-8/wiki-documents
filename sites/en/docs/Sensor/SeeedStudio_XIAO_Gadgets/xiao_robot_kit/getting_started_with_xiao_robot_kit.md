@@ -22,6 +22,14 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/
 
 # Getting Started with XIAO Robot Kit
 
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/bazaar_xiao_robot_board1.jpg" style={{width:800, height:'auto'}}/></div>
+
+<div class="get_one_now_container" style={{textAlign: 'center'}}>
+    <a class="get_one_now_item" href="https://www.seeedstudio.com/XIAO-Robot-Kit-p-100058302.html?utm_source=wiki" target="_blank">
+            <strong><span><font color={'FFFFFF'} size={"4"}> Get One Now 🖱️</font></span></strong>
+    </a>
+</div><br />
+
 ## Introduction
 
 The XIAO Robot Kit is a modular robotics development kit built around the **Seeed Studio XIAO ESP32-S3 Plus**. The carrier board already holds the electronics of a small mobile robot: an ESP32-S3 controller with Wi-Fi and Bluetooth LE, two N20 gear motors with quadrature encoders, four servo channels, a 6-axis IMU and battery management. The kit adds two Feetech FT1190M metal-gear servos and Grove connectors for whatever you attach later. The body is yours to design and print — the motion hardware is already on the board.
