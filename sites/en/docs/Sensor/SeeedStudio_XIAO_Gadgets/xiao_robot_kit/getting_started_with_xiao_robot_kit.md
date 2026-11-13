@@ -11,6 +11,7 @@ keywords:
 image: https://files.seeedstudio.com/wiki/seeed_logo/logo_2023.png
 slug: /xiao_robot_kit_getting_started
 sku: 100058302
+sidebar_position: 1
 type: gettingstarted
 last_update:
   date: 11/11/2026
