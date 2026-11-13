@@ -32,8 +32,6 @@ The XIAO Robot Kit is a modular robotics development kit built around the **Seee
 - **Wireless**: Wi-Fi and Bluetooth LE on the ESP32-S3 Plus, enough for a phone-controlled robot or a link to an external AI application.
 - **AI-assisted coding**: describe the behavior you want and let a coding agent such as Codex or Claude Code write the Arduino sketch with you.
 
-The rest of this page covers the board layout and four minimal examples, one per subsystem.
-
 ## Hardware Overview
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/XIAO_Robot_Board_Front_Side.jpg" style={{width:800, height:'auto'}}/></div>
