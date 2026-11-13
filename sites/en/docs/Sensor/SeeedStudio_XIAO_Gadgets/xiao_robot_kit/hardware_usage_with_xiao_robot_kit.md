@@ -894,11 +894,11 @@ A press that lands while a sweep is still running is ignored — wait until the 
 
 ### Q1: Roll and pitch are fine but yaw drifts
 
-A: Three things are going on, and only the first one is a fault.
+A: Three different situations all show up as a drifting yaw, and only the first one is a fault.
 
-- **The bias was measured while the board was moving.** The 6-second average then stores a wrong offset. Hold the board still and press **KEY** to measure it again.
-- **Nothing is compensated during warm-up.** For the first 18 seconds the raw gyro offsets are integrated as they come, so the angles wander until the header line `roll=deg pitch=deg yaw=deg temp=C` appears. That is normal, not a fault.
-- **Yaw is relative on this board.** There is no magnetometer, so yaw only knows how far the board has turned since the filter was reset, and a long session will drift. While the board sits still the still-tracker (`STILL_DPS` / `STILL_MS` / `BIAS_ALPHA`) feeds the leftover rate back into the bias and holds yaw flat; it cannot help once the board is moving.
+- **Zeroed while the board was moving.** The 6-second average stored a wrong offset. Hold the board still and press **KEY** again.
+- **Still inside the first 18 seconds.** Nothing is compensated yet, so the raw gyro offsets go straight into the angles. Once the header line `roll=deg pitch=deg yaw=deg temp=C` shows up, this is over.
+- **Yaw is relative on this board.** There is no magnetometer, so it only knows how far the board turned since the last reset, and a long session will drift. While the board is still, the still-tracker (`STILL_DPS` / `STILL_MS` / `BIAS_ALPHA`) folds the leftover rate back into the bias and holds yaw flat. Start moving and it can no longer help.
 
 ## Tech Support & Product Discussion
 
