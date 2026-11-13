@@ -42,8 +42,6 @@ The XIAO Robot Kit is a modular robotics development kit built around the **Seee
 
 ## Hardware Overview
 
-<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/XIAO_Robot_Board_Front_Side.jpg" style={{width:800, height:'auto'}}/></div>
-
 The **XIAO ESP32-S3 Plus** module forms the core of the kit. The table below maps each on-board hardware function to its dedicated pin.
 
 :::caution `Dxx` is a silkscreen marking, not a GPIO number
