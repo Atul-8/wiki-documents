@@ -56,7 +56,7 @@ Power is worth settling before you start. The motor pulls from the **Motor_5V** 
 
 ### Software Preparation
 
-Arduino IDE with the ESP32 board package installed, and `XIAO_ESP32S3_PLUS` selected under **Tools > Board** — [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/#software-preparation) covers the install if you have not done it yet. None of the three experiments needs a library beyond the ESP32 core: Experiment 1 reads the IMU over raw I2C on `Wire` with a hand-written Mahony filter, Experiment 2 uses the BLE stack that ships with the core, and Experiment 3 drives the LED data line through the core's RMT driver.
+Arduino IDE with the ESP32 board package installed, and `XIAO_ESP32S3_PLUS` selected under **Tools > Board** — [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/#software-preparation) covers the install if you have not done it yet. Nothing beyond the ESP32 core needs installing: all three sketches build with only what the board package already ships with.
 
 ## Experiment 1: IMU Zero Calibration + Euler Angle Fusion
 
