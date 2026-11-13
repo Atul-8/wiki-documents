@@ -1,6 +1,6 @@
 ---
 description: Application examples for the XIAO Robot Kit — BLE control of pre-written motion commands, and a Wi-Fi remote-controlled car with battery monitoring.
-title: Application with XIAO Robot Kit
+title: Application
 keywords:
   - xiao robot kit
   - esp32s3
@@ -22,7 +22,7 @@ updatedAt: '2026-11-13'
 url: https://wiki.seeedstudio.com/xiao_robot_kit_application/
 ---
 
-# Application with XIAO Robot Kit
+# Application
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/bazaar_xiao_robot_board1.jpg" style={{width:800, height:'auto'}}/></div>
 

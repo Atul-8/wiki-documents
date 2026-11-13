@@ -1,6 +1,6 @@
 ---
 description: Hardware usage guide for the XIAO Robot Kit — IMU zero calibration with Euler-angle fusion, BLE control of the encoder motor, and a button-switched WS2812 light board.
-title: Hardware Usage with XIAO Robot Kit
+title: Hardware Usage
 keywords:
   - xiao robot kit
   - esp32s3
@@ -24,7 +24,7 @@ updatedAt: '2026-11-11'
 url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
 ---
 
-# Hardware Usage with XIAO Robot Kit
+# Hardware Usage
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/bazaar_xiao_robot_board1.jpg" style={{width:800, height:'auto'}}/></div>
 
