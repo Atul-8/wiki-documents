@@ -40,11 +40,6 @@ These pages cover the basic use only. To build something of your own, the faster
 
 Pins, wiring and power are covered in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/).
 
-| Application | What it does | Extra hardware |
-| --- | --- | --- |
-| BLE Control of Pre-written Motion Commands | Drive the chassis by writing text commands to one BLE characteristic | None — the kit's own motors, servos, IMU and LED |
-| Wi-Fi Remote-Controlled Car with Battery Monitoring | Drive the car from a phone browser over Wi-Fi and read the pack voltage on the same page | A lithium battery pack and a phone |
-
 ## Application 1: BLE Control of Pre-written Motion Commands
 
 The firmware turns the kit into a BLE peripheral. Any BLE client — a phone app, a laptop or a test tool — writes a text command to one GATT characteristic and the chassis moves.
