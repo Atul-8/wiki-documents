@@ -571,15 +571,11 @@ A: Hold the **BOOT** button on the XIAO, tap **RST**, release **BOOT** to force 
 
 A: The examples run at **115200** baud — make sure the baud rate selected in the lower-right corner of the Serial Monitor matches.
 
-### Q4: Example 2 prints `IMU init failed`
-
-A: Power-cycle the kit (unplug and replug the USB cable). If the message persists, reseat the XIAO on the carrier board so the I2C pins (D4/D5) make good contact.
-
-### Q5: The servo or motor twitches and the board resets
+### Q4: The servo or motor twitches and the board resets
 
 A: The Motor_5V rail is starved when running on USB power alone. Use a lithium battery on the battery connector or an external 5 V supply — see the power note in Hardware Overview.
 
-### Q6: Example 4 prints `rpm=0.0` even though the wheel spins
+### Q5: Example 4 prints `rpm=0.0` even though the wheel spins
 
 A: The encoder leads are not connected — the motor is probably plugged into the **DC motor connector** instead of the **encoder motor connector**. Move the cable to the encoder motor connector so both the motor and encoder leads reach the board.
 
