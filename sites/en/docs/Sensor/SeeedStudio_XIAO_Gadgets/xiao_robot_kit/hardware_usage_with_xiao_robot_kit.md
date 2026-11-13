@@ -38,7 +38,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
 
 ## Introduction
 
-The kit wraps a servo driver, an encoder-motor driver, a 6-axis IMU and an RGB output around the **XIAO ESP32-S3 Plus**, all on one carrier board. [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) brings each of those up on its own; the three experiments below each take one of them a step further — turning raw 6-axis data into angles, driving the motor from a phone over Bluetooth, and stepping a light board through a color palette with one button.
+The kit wraps a servo driver, an encoder-motor driver, a 6-axis IMU and an RGB output around the **XIAO ESP32-S3 Plus**, all on one carrier board. The three experiments below each take one of those a step further — turning raw 6-axis data into angles, driving the motor from a phone over Bluetooth, and stepping a light board through a color palette with one button.
 
 | Experiment | Extra hardware | What it demonstrates |
 | --- | --- | --- |
@@ -54,7 +54,7 @@ You need the kit, a USB-C **data** cable, and a computer. Experiments 1 and 2 ad
 
 ### Software Preparation
 
-Arduino IDE with the ESP32 board package installed, and `XIAO_ESP32S3_PLUS` selected under **Tools > Board** — [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) covers the install if you have not done it yet. None of the three experiments needs a library beyond the ESP32 core: Experiment 1 reads the IMU over raw I2C on `Wire` with a hand-written Mahony filter, Experiment 2 uses the BLE stack that ships with the core, and Experiment 3 drives the LED data line through the core's RMT driver.
+Arduino IDE with the ESP32 board package installed, and `XIAO_ESP32S3_PLUS` selected under **Tools > Board** — [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/#software-preparation) covers the install if you have not done it yet. None of the three experiments needs a library beyond the ESP32 core: Experiment 1 reads the IMU over raw I2C on `Wire` with a hand-written Mahony filter, Experiment 2 uses the BLE stack that ships with the core, and Experiment 3 drives the LED data line through the core's RMT driver.
 
 ## Experiment 1: IMU Zero Calibration + Euler Angle Fusion
 
