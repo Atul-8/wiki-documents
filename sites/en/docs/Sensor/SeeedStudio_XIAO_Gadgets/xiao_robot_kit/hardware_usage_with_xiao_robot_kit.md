@@ -383,7 +383,7 @@ Set the board down flat and press the on-board **KEY** button: the sketch prints
 
 ### Re-zeroing and tuning
 
-A gyro reports a small non-zero rate even when nothing moves, and integrating that error is what makes `yaw` creep. Instead of assuming zero, the sketch measures the bias while the board sits still — which is why the warm-up has to happen on a flat desk. **KEY** repeats that measurement on demand, so re-zeroing never costs you a reflash.
+A gyro never reads exactly zero, and the leftover offset gets integrated into a `yaw` that slowly drifts. The sketch measures that offset while the board sits still (that is the 18-second warm-up), and **KEY** re-measures it on demand — no reflash needed.
 
 Four `#define`s at the top of the sketch cover the cases where the defaults do not fit. The defaults are what produced the log above.
 
