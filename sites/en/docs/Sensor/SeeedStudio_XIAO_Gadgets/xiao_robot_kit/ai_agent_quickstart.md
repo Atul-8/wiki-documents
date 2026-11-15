@@ -111,7 +111,7 @@ hello world in the serial log. Leave the motors and the driving page alone, and 
 which files you touched.
 ```
 
-Nothing to unplug: the whole change lives in code, which is what makes it a good fourth task. Expect a few rounds — the page, the request handler and the log line all have to line up. Answer its questions in one line each, and paste back the serial output when it compiles but prints nothing.
+Expect a few rounds — the page, the request handler and the log line all have to line up. Answer its questions in one line each, and paste back the serial output when it compiles but prints nothing.
 
 ## When It Goes Wrong
 
