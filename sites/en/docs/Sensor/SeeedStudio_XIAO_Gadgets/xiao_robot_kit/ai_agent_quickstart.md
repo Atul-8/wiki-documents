@@ -33,7 +33,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
 
 You type a sentence. An AI edits the firmware. You press upload and the car does something new.
 
-An AI can change values, find constants and explain code. It cannot wire anything, and it cannot feel the car — "too fast" is your call, not its. Three tasks below, easiest first.
+An AI can change a value, find the constant behind a behaviour and explain code it did not write. It cannot connect anything for you, and it cannot feel the car — "too fast" is your call, not its. Four short tasks below, easiest first.
 
 ## 1. Install One Tool {#setup}
 
@@ -45,18 +45,18 @@ git clone https://github.com/Atul-8/XIAO_Robot_Kit_Vibe.git
 
 No Git? Use **Code → Download ZIP** on that page and unzip it.
 
-| Your habit | Use it | Start |
+| Your habit | Tool | Start |
 | --- | --- | --- |
 | terminal is fine | **Claude Code** | Node.js 18+, then `npm install -g @anthropic-ai/claude-code`, then `claude` inside the folder |
-| prefer clicking | **Cursor** | Install, *Open Folder* on the repository, open the chat panel |
+| prefer clicking | **Cursor** | Install it, choose *Open Folder* on the repository, open the chat panel |
 
-Sign in once with the tool's own account, then open the **repository folder** — not your home directory. Test it with one word:
+Sign in once with your own account for that tool, then open the **repository folder** — not your home directory. Test it with one word:
 
 ```text
 test
 ```
 
-Any answer back means it is running.
+If it answers, it is running.
 
 ## 2. Change the Wi-Fi Password {#first-task}
 
@@ -70,13 +70,17 @@ SSID MyHome-2.4G, password 12345678.
 Tell me which file and which lines you changed.
 ```
 
-It reads the project, edits the values and reports the lines. Then flash it — either way works:
+It reads the project, edits the values and reports the lines.
+
+**[TBD-46]** Screenshot: the two changed lines side by side.
+
+Then flash it — either way works:
 
 - **You flash it.** Arduino IDE, board **XIAO ESP32S3 Plus**, open the `.ino`, click upload. Or ask it for the two `arduino-cli` commands and run them yourself.
-- **Let it flash for you.** It runs commands on your computer, so it asks permission each time — read the port name before you approve. `arduino-cli board list` prints the port; a guessed port fails silently instead of choosing the wrong board.
+- **Let it flash for you.** It has to run commands on your computer, and it will ask permission for each one — read the port name before you approve. `arduino-cli board list` prints the port that is really connected; a guessed port fails with no output at all.
 
 :::caution
-Two things the AI cannot check for you: the battery has to be on the **battery connector**, because the motors draw more than a USB port supplies, and the board it flashes has to be the one you are looking at. Approve a shell command only when the port in it matches.
+Two things the AI cannot check. The battery has to be on the **battery connector**, because the motors draw more than a USB port supplies. And the board it flashes has to be the one on your desk — approve a shell command only when the port in it matches that board.
 :::
 
 Open the serial monitor at 115200:
@@ -86,17 +90,17 @@ Open the serial monitor at 115200:
 open http://xiaorobot.local or http://192.168.1.42
 ```
 
-Then open that address in a browser and hold the forward key.
+Then open that address in a browser and hold the forward key on the page.
 
 :::tip
-The board joins **2.4 GHz** networks only. Password correct but still connecting usually means your router uses one name for both bands — give 2.4 GHz its own SSID.
+The board joins **2.4 GHz** networks only. If the password is right and it still will not connect, your router is probably publishing one name for both bands — give the 2.4 GHz band its own SSID.
 :::
 
-**[TBD-46]** Screenshot: the two changed lines side by side.
-
-Sentence, diff, upload. That loop is the whole idea.
+One sentence, one diff, one upload. That loop is the whole idea.
 
 ## 3. Make It Faster {#tune}
+
+Now change a number instead of a string:
 
 ```text
 DRIVE_MMPS in examples/xiao_robot_kit_web_remote/src/net/car_web.cpp is 150.
@@ -115,10 +119,10 @@ Expect a few rounds — the page, the request handler and the log line all have 
 
 ## When It Goes Wrong
 
-- **"Changed" and nothing changed.** Arduino caches builds. Ask for `compile --clean`, then upload again.
-- **It edited five files.** Say *revert everything except `car_config.h`*, then restate the scope.
-- **It says "should work".** Ask for the command and the output it actually produced.
-- **It guesses about hardware.** Power, pin assignment and flash layout are facts. Stop it, ask what evidence it has, decide yourself.
+- **It reports the edit, but nothing changed.** Arduino caches builds. Ask for `compile --clean`, then upload again.
+- **It edited five files.** Say *revert everything except `car_config.h`*, then repeat the task with the scope spelled out.
+- **It says "should work".** Ask for the command it ran and the output it produced.
+- **It guesses about hardware.** Power, pin assignment and flash layout are facts. Stop it, ask what it based the answer on, and decide yourself.
 
 ## Tech Support & Product Discussion
 

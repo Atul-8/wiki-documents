@@ -35,12 +35,12 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_application/
 
 ## Overview
 
-Two examples, easiest first — drive the car from a browser page, then from a BLE tool. Both are the same three moves: flash, open, drive.
+Two examples, easiest first — drive the car from a browser page, then from a BLE tool. Both are the same three moves: flash it, connect to it, drive it.
 
 - **[Application 1: Drive from a Browser](#app-1-browser)** — the board serves its own page over Wi-Fi. Nothing to install.
 - **[Application 2: Send BLE Commands](#app-2-ble)** — the board becomes a BLE peripheral, and any BLE client can write commands to it.
 
-Both projects live in the [example repository](https://github.com/Atul-8/XIAO_Robot_Kit_Vibe), one folder each. To change how the car moves, open that repository and keep vibe coding there. Pins, wiring and power are covered in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/).
+Both projects live in the [example repository](https://github.com/Atul-8/XIAO_Robot_Kit_Vibe), one folder each. Open it when you want to change how the car moves. Pins, wiring and power are covered in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/).
 
 ## Application 1: Drive from a Browser over Wi-Fi {#app-1-browser}
 
@@ -56,7 +56,7 @@ Flash one sketch and the kit becomes a web server: the page it serves is the ent
 
 ### Flash the Sketch
 
-1. Open `src/app/car_config.h` and fill in `WIFI_SSID` and `WIFI_PASS`. That file is the only place the credentials live — nothing else to install or upload.
+1. Open `src/app/car_config.h` and fill in `WIFI_SSID` and `WIFI_PASS`. That file is the only place the credentials live.
 2. Build and upload:
 
 ```bash
@@ -89,7 +89,7 @@ Type `http://xiaorobot.local` into the browser, or the IP address if your networ
 2. Hold a direction key to drive, release it to coast to a stop.
 3. Hold a second key at the same time to drive forward while turning.
 4. Press the center key to stop right away — the space bar and Esc do the same.
-5. **SET FORWARD** makes the current heading the new forward; **HOLD** keeps repeating the last direction with nothing pressed.
+5. **SET FORWARD** makes the current heading the new forward; **HOLD** repeats the last direction while no key is pressed.
 
 **[TBD-41]** GIF: hold forward, the car drives, release, the car coasts to a stop.
 
@@ -101,11 +101,15 @@ Type `http://xiaorobot.local` into the browser, or the IP address if your networ
 
 **[TBD-42]** Close-up: the battery row on the page, with the battery cable in frame.
 
-The battery connector feeds D16 through a 100 kΩ / 30 kΩ divider. On USB-C it sits at 8.3–8.4 V, because the Type-C 5 V goes through the charger and boost first — a reading near 8.5 V is correct, not a calibration error. The sketch treats 8.40 V as full and 6.00 V as empty.
+The battery connector feeds D16 through a 100 kΩ / 30 kΩ divider. With USB-C power and no battery fitted, that divider sits at 8.3–8.4 V: the 5 V from the connector passes through the charger and the boost converter first. A reading near 8.5 V is therefore correct, not a calibration error. The sketch treats 8.40 V as full and 6.00 V as empty.
 
 ### If the Page Does Not Open
 
-Three checks, in order. The serial log has to show the IP first. Pressing `i` in the monitor then prints the Wi-Fi state, the request counters and a one-line conclusion. And a request that never reaches the board points at a wrong IP, a phone on another network, or a router with AP isolation switched on.
+Three checks, in order:
+
+1. **The serial log has to show an IP.** Without one the sketch never joined the network — check the SSID, the password and the 2.4 GHz band.
+2. **Press `i` in the monitor.** It prints the Wi-Fi state, the request counters and a one-line verdict.
+3. **Still unreachable?** A request that never reaches the board usually means a wrong IP, a phone on a different network, or a router with AP isolation enabled.
 
 ### No Browser? Use the Serial Keys
 
@@ -120,7 +124,7 @@ Three checks, in order. The serial log has to show the IP first. Pressing `i` in
 
 ## Application 2: Send BLE Commands from a Tool {#app-2-ble}
 
-Flash one ESP-IDF project and the kit advertises as a BLE peripheral with a single writable characteristic. Whatever your client writes there is a command — the same command the USB serial shell accepts.
+Flash one ESP-IDF project and the kit advertises as a BLE peripheral with a single writable characteristic. Whatever your client writes is treated as a command, and it is the same command the USB serial shell accepts.
 
 **[TBD-43]** Screenshot: a BLE tool writing `drive 20 20` and the `OK` reply coming back.
 
@@ -143,7 +147,7 @@ The monitor drops you into a `robot>` prompt. Try `help`, then `drive 20 20` and
 
 ### Connect from Your Tool
 
-1. Scan for `XIAO Robot Kit`. That is the default name, so every kit starts out identical in the list.
+1. Scan for `XIAO Robot Kit`. That is the default name, so every kit shows up under the same name until it is renamed.
 2. Connect, then open the service below.
 3. Subscribe to notifications on its characteristic, so the replies have somewhere to arrive.
 
@@ -184,7 +188,7 @@ Rename the board by writing `btname set XIAO-Robot-Kit-01` in the same character
 | `rgb <r> <g> <b>`, `rainbow` | Light effects |
 | `battery`, `status` | Pack voltage and peripheral state |
 
-The firmware takes 45 commands in all, and `docs/BLE_COMMANDS.md` in the repository documents every one of them. Each also works in the `robot>` shell, which is the fastest place to debug.
+The firmware accepts 45 commands in total, and `docs/BLE_COMMANDS.md` in the repository documents every one of them. Each also works in the `robot>` shell, which is the fastest place to debug.
 
 ### Safety
 
