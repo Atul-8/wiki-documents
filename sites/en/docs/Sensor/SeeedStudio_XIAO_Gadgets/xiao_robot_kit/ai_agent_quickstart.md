@@ -1,5 +1,5 @@
 ---
-description: Type a sentence, let an AI edit the firmware, press upload and the car does something new. Three tasks, easiest first — Wi-Fi password, top speed, a new command.
+description: Type a sentence, let an AI edit the firmware, press upload and the car does something new. Four tasks, easiest first — Wi-Fi password, top speed, and a button that prints hello world.
 title: AI Agent Quickstart
 keywords:
   - xiao robot kit
@@ -103,16 +103,15 @@ DRIVE_MMPS in examples/xiao_robot_kit_web_remote/src/net/car_web.cpp is 150.
 Make it 250, touch nothing else, and tell me the line number.
 ```
 
-The page looks identical. The car does not.
-
-## 4. Add a Command That Does Not Exist {#extend}
+## 4. Add a Button {#extend}
 
 ```text
-In examples/xiao_robot_kit_ble_control, add a command called hello: turn 90 degrees left,
-90 degrees right, then forward for 1 second. Update docs/BLE_COMMANDS.md and tell me how to test it.
+In examples/xiao_robot_kit_web_remote, add a button to the web page. Pressing it prints
+hello world in the serial log. Leave the motors and the driving page alone, and tell me
+which files you touched.
 ```
 
-This one takes a few rounds. Answer its questions in one line each, and send it the serial log when something compiles but does not move.
+Nothing to unplug: the whole change lives in code, which is what makes it a good fourth task. Expect a few rounds — the page, the request handler and the log line all have to line up. Answer its questions in one line each, and paste back the serial output when it compiles but prints nothing.
 
 ## When It Goes Wrong
 
