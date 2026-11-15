@@ -65,14 +65,14 @@ The board joins **2.4 GHz** networks only. If your router publishes one name for
 
 ### Open the Page
 
-Flash with your own Wi-Fi already in the sketch, then open the serial monitor at 115200 baud. Once the board has joined your network it prints where the page is:
+Put your own Wi-Fi into the sketch first, flash, then open the serial monitor at 115200 baud. Once the board has joined your network it prints where the page is — the address below comes from one kit, so yours will be different:
 
 ```text
 [wifi] connected, IP 192.168.1.42
 open http://xiaorobot.local or http://192.168.1.42
 ```
 
-That address is an example — your router hands your kit a different one. Read the two lines your own board printed and use that address; the IP in your log always works.
+Read the two lines your own board printed and open that address. The IP in your log always works, whatever number your router handed out.
 
 `http://xiaorobot.local` is the fixed name the sketch announces over mDNS. It is the one worth remembering, but it only resolves on networks that pass mDNS through, so fall back to the IP when it does not.
 
