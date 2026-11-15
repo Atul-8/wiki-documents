@@ -54,14 +54,21 @@ Flash one sketch and the kit becomes a web server: the page it serves is the ent
 - A phone or laptop on the same Wi-Fi network as the board
 - Arduino IDE with the **esp32 core 3.x** installed, as described in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/)
 
-### Flash the Sketch
+### Set Your Wi-Fi
 
-1. Open `src/app/car_config.h` and fill in `WIFI_SSID` and `WIFI_PASS`.
-2. Open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE. Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows the port that appeared when you plugged the board in, then click **Upload** (→).
+Replace the `WIFI_SSID` and `WIFI_PASS` defaults — both are `HelloWorld` — with your own network name and password.
 
 :::tip
 The board joins **2.4 GHz** networks only. If your router publishes one name for both bands, give the 2.4 GHz band its own SSID and use that one.
 :::
+
+:::note
+Wi-Fi is configured in one place: `WIFI_SSID` and `WIFI_PASS`, the two lines at the top of `src/app/car_config.h`. The board joins the network only after both match your router, and every reflash onto a different network also changes the address the board prints at boot.
+:::
+
+### Flash the Sketch
+
+Open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE. Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows the port that appeared when you plugged the board in, then click **Upload** (→).
 
 ### Open the Page
 
@@ -77,10 +84,6 @@ Copy the address from your own two lines and paste it into the browser. That one
 Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new IP because the sketch advertises the name itself over mDNS. Some networks block mDNS and the name will not resolve there — the IP from your log is then the way in.
 
 **[TBD-40]** Screenshot: those two serial lines right after a successful boot.
-
-:::note
-Wi-Fi is configured in one place: `WIFI_SSID` and `WIFI_PASS`, the two lines at the top of `src/app/car_config.h`. The board joins the network only after both match your router, and every reflash with a different network also changes the address in that log.
-:::
 
 ### Drive It
 
@@ -113,18 +116,18 @@ Two checks, in order:
 
 ## Application 2: Send BLE Commands from a Tool {#app-2-ble}
 
-Flash one ESP-IDF project and the kit advertises as a BLE peripheral with a single writable characteristic. Whatever your client writes is treated as a command, and it is the same command the USB serial shell accepts.
+This one is an ESP-IDF project rather than an Arduino sketch. It makes the kit a BLE peripheral with a single writable characteristic, and whatever you write there runs as the same command the `robot>` shell accepts — the phone is a remote control for the firmware you already have.
 
 **[TBD-43]** Screenshot: a BLE tool writing `drive 20 20` and the `OK` reply coming back.
 
 ### Required Parts
 
 - A **XIAO Robot Kit** and a USB-C cable
-- A BLE client: a phone app such as nRF Connect or LightBlue, or any Web Bluetooth page on a laptop
+- A BLE scanner app on your phone, such as nRF Connect
 
 ### Flash the Firmware
 
-It is an ESP-IDF project, not an Arduino sketch, and ESP-IDF **v6.1** builds it. `sdkconfig.defaults` already pins the 16 MB flash, the 8 MB PSRAM and the USB Serial/JTAG console.
+ESP-IDF **v6.1**, with the 16 MB flash, the 8 MB PSRAM and the USB Serial/JTAG console already pinned in `sdkconfig.defaults`:
 
 ```bash
 cd examples/xiao_robot_kit_ble_control
@@ -132,15 +135,13 @@ idf.py set-target esp32s3
 idf.py -p <serial-port> flash monitor
 ```
 
-The monitor drops you into a `robot>` prompt. Try `help`, then `drive 20 20` and `stop` there first: a command that works over the cable separates a firmware problem from a radio problem.
+The monitor drops into a `robot>` prompt. Type `drive 20 20`, then `stop`. If the car drives over the cable, the firmware is fine and whatever is left to fix is in the radio.
 
-### Connect from Your Tool
+### Connect and Write
 
-1. Scan for `XIAO Robot Kit`. That is the default name, so every kit shows up under the same name until it is renamed.
-2. Connect, then open the service below.
-3. Subscribe to notifications on its characteristic, so the replies have somewhere to arrive.
-
-**[TBD-44]** Screenshot: the scanner list with the default name, and the characteristic expanded.
+1. Scan for **XIAO Robot Kit**, connect, and open **Unknown Service**. The scanner screens are the ones from [Experiment 2 in Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/#experiment-2-ble-control-of-the-encoder-motor) — same app, same screens, different name and different commands.
+2. Subscribe to notifications on the characteristic, otherwise the replies have nowhere to land.
+3. Keep the write format at **UTF-8** and write `drive 20 20`.
 
 | Item | Value |
 | --- | --- |
@@ -148,11 +149,7 @@ The monitor drops you into a `robot>` prompt. Try `help`, then `drive 20 20` and
 | Characteristic | `a2f39c11-7e4b-4d21-8a61-0f3bc9d15001` |
 | Properties | Read, Write, Write Without Response, Notify |
 
-### Write Your First Command
-
-Write `drive 20 20` as UTF-8 text. Both wheels turn, and the characteristic notifies `OK|drive 20 20|$`. Write `stop` to end the run.
-
-A write carries 63 bytes at most, so a full-length command needs the client to negotiate an ATT MTU of 66. The other replies are:
+Both wheels turn and the characteristic notifies back `OK|drive 20 20|$`. Write `stop` to end the run. The four replies are:
 
 ```text
 OK|<command>|$     the command ran
@@ -161,7 +158,9 @@ ERR|EXEC|$         the command failed while running
 ERR|LENGTH|$       frame longer than 63 bytes
 ```
 
-Rename the board by writing `btname set XIAO-Robot-Kit-01` in the same characteristic. A name is 1 to 26 characters from `A-Z`, `a-z`, `0-9`, `.`, `_` and `-`, and it is stored in NVS, so a power cycle or a reflash of the application keeps it.
+A write carries 63 bytes at most, so a full-length command needs the client to negotiate an ATT MTU of 66.
+
+Every kit leaves the factory called **XIAO Robot Kit**, so rename yours by writing `btname set XIAO-Robot-Kit-01`: 1 to 26 characters from `A-Z`, `a-z`, `0-9`, `.`, `_` and `-`, kept in NVS across power cycles and reflashes.
 
 ### Commands Worth Trying
 
