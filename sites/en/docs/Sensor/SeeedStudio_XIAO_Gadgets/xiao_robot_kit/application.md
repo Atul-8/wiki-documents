@@ -52,19 +52,12 @@ Flash one sketch and the kit becomes a web server: the page it serves is the ent
 
 - A **XIAO Robot Kit** with a charged battery on the **battery connector** — the motors pull more than a USB port can give
 - A phone or laptop on the same Wi-Fi network as the board
-- Arduino IDE or `arduino-cli` with the **esp32 core 3.x**
+- Arduino IDE with the **esp32 core 3.x** installed, as described in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/)
 
 ### Flash the Sketch
 
 1. Open `src/app/car_config.h` and fill in `WIFI_SSID` and `WIFI_PASS`. That file is the only place the credentials live.
-2. Build and upload:
-
-```bash
-arduino-cli compile --fqbn esp32:esp32:XIAO_ESP32S3_Plus examples/xiao_robot_kit_web_remote
-arduino-cli upload  --fqbn esp32:esp32:XIAO_ESP32S3_Plus -p <serial-port> examples/xiao_robot_kit_web_remote
-```
-
-In the Arduino IDE, select the **XIAO ESP32S3 Plus** board, open the `.ino` and click upload.
+2. Open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE. Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows the port that appeared when you plugged the board in, then click **Upload** (→).
 
 :::tip
 The board joins **2.4 GHz** networks only. If your router publishes one name for both bands, give the 2.4 GHz band its own SSID and use that one.
@@ -105,22 +98,10 @@ The battery connector feeds D16 through a 100 kΩ / 30 kΩ divider. With USB-C p
 
 ### If the Page Does Not Open
 
-Three checks, in order:
+Two checks, in order:
 
 1. **The serial log has to show an IP.** Without one the sketch never joined the network — check the SSID, the password and the 2.4 GHz band.
-2. **Press `i` in the monitor.** It prints the Wi-Fi state, the request counters and a one-line verdict.
-3. **Still unreachable?** A request that never reaches the board usually means a wrong IP, a phone on a different network, or a router with AP isolation enabled.
-
-### No Browser? Use the Serial Keys
-
-| Key | Action |
-| --- | --- |
-| `c` | IMU zero-rate calibration, the same routine as CALIBRATE |
-| `t` | Bench self test: both wheels forward, backward and a pivot, with pass or fail |
-| `l`, `r`, `s` | Pivot left, pivot right, stop |
-| `h` | Toggle IMU heading hold |
-| `y` | Print yaw, calibration state and standing drift |
-| `i` | Print Wi-Fi state, request counters and the network conclusion |
+2. **Still unreachable?** A request that never reaches the board usually means a wrong IP, a phone on a different network, or a router with AP isolation enabled.
 
 ## Application 2: Send BLE Commands from a Tool {#app-2-ble}
 
