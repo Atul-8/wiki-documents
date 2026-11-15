@@ -40,7 +40,7 @@ Two examples, easiest first — drive the car from a browser page, then from a B
 - **[Application 1: Drive from a Browser](#app-1-browser)** — the board serves its own page over Wi-Fi. Nothing to install.
 - **[Application 2: Send BLE Commands](#app-2-ble)** — the board becomes a BLE peripheral, and any BLE client can write commands to it.
 
-Both projects live in the [example repository](https://github.com/Atul-8/xiao_robot_kit_examples), one folder each. To change how the car moves, open that repository and keep vibe coding there. Pins, wiring and power are covered in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/).
+Both projects live in the [example repository](https://github.com/Atul-8/XIAO_Robot_Kit_Vibe), one folder each. To change how the car moves, open that repository and keep vibe coding there. Pins, wiring and power are covered in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/).
 
 ## Application 1: Drive from a Browser over Wi-Fi {#app-1-browser}
 

@@ -72,6 +72,14 @@ Pick one. Both are ordinary desktop tools; neither needs an account on this kit.
 
 Either way you will be asked to sign in or paste an API key once — that is the tool's own account, not something from Seeed.
 
+**First, get the code.** Everything lives in one repository — [XIAO_Robot_Kit_Vibe](https://github.com/Atul-8/XIAO_Robot_Kit_Vibe):
+
+```bash
+git clone https://github.com/Atul-8/XIAO_Robot_Kit_Vibe.git
+```
+
+No Git installed? Open the repository page, choose **Code → Download ZIP**, and unzip it somewhere you can find again.
+
 Two things matter more than which tool you pick:
 
 1. **Open the repository folder itself**, not your home directory. The AI looks for its instructions in the folder you opened.
