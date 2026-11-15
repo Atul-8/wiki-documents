@@ -40,13 +40,7 @@ Two tasks below, easiest first: change the Wi-Fi password, then add a button tha
 - A **XIAO Robot Kit** with a charged battery on the **battery connector** — the motors pull more than a USB port can give
 - Arduino IDE with the **esp32 core 3.x** installed, as described in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/)
 - The example code: [XIAO_Robot_Kit_Vibe](https://github.com/Atul-8/XIAO_Robot_Kit_Vibe) — `git clone https://github.com/Atul-8/XIAO_Robot_Kit_Vibe.git`, or **Code → Download ZIP** on that page if you have no Git
-- One AI coding tool, installed and signed in with your own account
-
-| Tool | Where you talk to it |
-| --- | --- |
-| **Claude Code** | the terminal, started inside the project folder |
-| **Cursor** | a chat panel in the editor, next to the files |
-| **GitHub Copilot** | a chat panel in VS Code |
+- One AI coding tool, installed and signed in with your own account — **Claude Code**, a terminal agent you start inside the project folder, or **Cursor**, an editor with a chat panel next to the files
 
 Install whichever one you pick from the vendor's own page — everything below starts once it is running. Open the **repository folder**, not your home directory, and say `test`: an answer means it is running.
 
