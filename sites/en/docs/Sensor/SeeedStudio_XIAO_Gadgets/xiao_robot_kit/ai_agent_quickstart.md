@@ -90,7 +90,7 @@ Open the serial monitor at 115200:
 open http://xiaorobot.local or http://192.168.1.42
 ```
 
-Then open that address in a browser and hold the forward key on the page.
+Yours will print a different IP, so open the address in your own log — or `xiaorobot.local` — and hold the forward key on the page.
 
 :::tip
 The board joins **2.4 GHz** networks only. If the password is right and it still will not connect, your router is probably publishing one name for both bands — give the 2.4 GHz band its own SSID.
