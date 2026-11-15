@@ -50,23 +50,34 @@ No Git? Use **Code → Download ZIP** on that page and unzip it.
 | terminal is fine | **Claude Code** | Node.js 18+, then `npm install -g @anthropic-ai/claude-code`, then `claude` inside the folder |
 | prefer clicking | **Cursor** | Install, *Open Folder* on the repository, open the chat panel |
 
-Sign in once with the tool's own account. Then open the **repository folder** — not your home directory — and send this:
+Sign in once with the tool's own account, then open the **repository folder** — not your home directory. Test it with one word:
 
 ```text
-Read AGENTS.md first. Which file holds the Wi-Fi name and password?
-Change nothing yet.
+test
 ```
+
+Any answer back means it is running.
 
 ## 2. Change the Wi-Fi Password {#first-task}
 
-Plug in the battery, connect USB, and paste:
+Plug in the battery, connect the USB cable, and paste this:
 
 ```text
-In examples/xiao_robot_kit_web_remote/src/app/car_config.h, set WIFI_SSID to MyHome-2.4G
-and WIFI_PASS to 12345678. Change nothing else. Show me the two lines, then the upload command.
+This folder holds two example projects: examples/xiao_robot_kit_web_remote (Arduino,
+a Wi-Fi remote control) and examples/xiao_robot_kit_ble_control (ESP-IDF, BLE commands).
+Read the Wi-Fi remote one and change its Wi-Fi to my home network:
+SSID MyHome-2.4G, password 12345678.
+Tell me which file and which lines you changed.
 ```
 
-Say yes when it shows you the lines. Upload — or ask it for the two `arduino-cli` commands and run those.
+It reads the project, edits the values and reports the lines. Then flash it — either way works:
+
+- **You flash it.** Arduino IDE, board **XIAO ESP32S3 Plus**, open the `.ino`, click upload. Or ask it for the two `arduino-cli` commands and run them yourself.
+- **Let it flash for you.** It runs commands on your computer, so it asks permission each time — read the port name before you approve. `arduino-cli board list` prints the port; a guessed port fails silently instead of choosing the wrong board.
+
+:::caution
+Two things the AI cannot check for you: the battery has to be on the **battery connector**, because the motors draw more than a USB port supplies, and the board it flashes has to be the one you are looking at. Approve a shell command only when the port in it matches.
+:::
 
 Open the serial monitor at 115200:
 
