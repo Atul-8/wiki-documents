@@ -154,12 +154,9 @@ The board leaves the factory called **XIAO Robot Kit**. Rename it by writing `bt
 | --- | --- |
 | `drive <left> <right>` | Open-loop PWM, `-100` to `100`, running until `stop` |
 | `speed <left> <right>` | The same range on the encoder PID: `100` asks for 5766 counts/s |
-| `forward`, `backward`, `left`, `right` | Shorthands for the two-wheel drive; the optional speed defaults to `40` |
 | `stop` | Cancels whatever is running and switches both wheels off |
-| `move_forward`, `reverse_park` | One second straight with the heading held on the IMU, or a 90° arc in reverse |
-| `spin_clockwise`, `spin_counterclockwise` | A full 360° turn, measured on the IMU |
-| `servo <1-2> <0..180>`, `wave_hand` | One arm servo to an angle, or a preset gesture |
-| `rgb <r> <g> <b>`, `rainbow` | The 10-pixel light strip |
+| `move_forward`, `spin_clockwise` | IMU-measured: one second straight, or a full 360° turn |
+| `rgb <r> <g> <b>` | The 10-pixel light strip |
 | `battery`, `status` | Pack voltage, or the full status dump |
 
 The firmware accepts 45 commands in total, and `docs/BLE_COMMANDS.md` in the repository documents every one of them. Each also works in the `robot>` shell, which is the fastest place to debug.
