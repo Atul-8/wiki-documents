@@ -64,7 +64,10 @@ The board joins **2.4 GHz** networks only. If your router publishes one name for
 
 ### Flash the Sketch
 
-Open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE. Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows the port that appeared when you plugged the board in, then click **Upload** (→).
+- Open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE.
+- Set **Tools > Board** to `XIAO_ESP32S3_PLUS`.
+- Set **Tools > Port** to the port that appeared when you plugged the board in.
+- Click **Upload** (→).
 
 ### Open the Page
 
