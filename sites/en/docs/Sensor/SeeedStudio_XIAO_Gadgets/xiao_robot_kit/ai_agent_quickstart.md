@@ -1,5 +1,5 @@
 ---
-description: Type a sentence, let an AI edit the firmware, press upload and the car does something new. Four tasks, easiest first — Wi-Fi password, top speed, and a button that prints hello world.
+description: Type a sentence, let an AI edit the firmware, press upload and the car does something new. Two tasks, easiest first — the Wi-Fi password, then a page button that prints hello world.
 title: AI Agent Quickstart
 keywords:
   - xiao robot kit
@@ -33,7 +33,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
 
 You type a sentence. An AI edits the firmware. You press upload and the car does something new.
 
-An AI can change a value, find the constant behind a behaviour and explain code it did not write. It cannot connect anything for you, and it cannot feel the car — "too fast" is your call, not its. Four short tasks below, easiest first.
+An AI can change a value, add a small feature and explain code it did not write. It cannot connect anything for you, and it cannot feel the car. Three short steps below, easiest first.
 
 ## 1. Install One Tool {#setup}
 
@@ -98,16 +98,7 @@ The board joins **2.4 GHz** networks only. If the password is right and it still
 
 One sentence, one diff, one upload. That loop is the whole idea.
 
-## 3. Make It Faster {#tune}
-
-Now change a number instead of a string:
-
-```text
-DRIVE_MMPS in examples/xiao_robot_kit_web_remote/src/net/car_web.cpp is 150.
-Make it 250, touch nothing else, and tell me the line number.
-```
-
-## 4. Add a Button {#extend}
+## 3. Add a Button {#extend}
 
 ```text
 In examples/xiao_robot_kit_web_remote, add a button to the web page. Pressing it prints
