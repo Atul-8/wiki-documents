@@ -1,5 +1,5 @@
 ---
-description: Application examples for the XIAO Robot Kit — flash the web remote sketch and drive the car from a browser page, or flash the BLE firmware and drive it from any BLE tool.
+description: Application examples for the XIAO Robot Kit — flash the web remote project and drive the car from a browser page, or flash the BLE firmware and drive it from any BLE tool.
 title: Application
 keywords:
   - xiao robot kit
@@ -44,7 +44,7 @@ Both projects live in the [example repository](https://github.com/Atul-8/XIAO_Ro
 
 ## Application 1: Drive from a Browser over Wi-Fi {#app-1-browser}
 
-Flash one sketch and the kit becomes a web server: the page it serves is the entire remote control, so there is no app to install and no library to add.
+Upload one project and the kit becomes a web server: the page it serves is the entire remote control, so there is no app to install and no library to add.
 
 **[TBD-39]** Photo: phone held in portrait with the page open, the car in the same frame.
 
@@ -62,7 +62,7 @@ Wi-Fi lives in one place: `WIFI_SSID` and `WIFI_PASS`, the two lines at the top 
 The board joins **2.4 GHz** networks only. If your router publishes one name for both bands, give the 2.4 GHz band its own SSID and use that one.
 :::
 
-### Flash the Sketch
+### Upload the Project
 
 - Open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE.
 - Set **Tools > Board** to `XIAO_ESP32S3_PLUS`.
@@ -71,7 +71,7 @@ The board joins **2.4 GHz** networks only. If your router publishes one name for
 
 ### Open the Page
 
-Put your own Wi-Fi into the sketch first, flash, then open the serial monitor at 115200 baud. Once the board has joined your network it prints where the page is — the address below comes from one kit, so yours will be different:
+Open the serial monitor at 115200 baud. Once the board has joined your network it prints where the page is — the address below comes from one kit, so yours will be different:
 
 ```text
 [wifi] connected, IP 192.168.1.42
@@ -80,7 +80,7 @@ open http://xiaorobot.local or http://192.168.1.42
 
 Copy the address from your own two lines and paste it into the browser. That one always works.
 
-Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new IP because the sketch advertises the name itself over mDNS. Some networks block mDNS and the name will not resolve there — the IP from your log is then the way in.
+Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new IP because the firmware advertises the name itself over mDNS. Some networks block mDNS and the name will not resolve there — the IP from your log is then the way in.
 
 **[TBD-40]** Screenshot: those two serial lines right after a successful boot.
 
@@ -103,14 +103,14 @@ Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new
 **[TBD-42]** Close-up: the battery row on the page, with the battery cable in frame.
 
 :::tip
-The battery sense sits on the **2S pack rail**, not on the 5 V input. The BQ25886 PMIC charges and boosts the pack, so on USB-C alone that connector already reads 8.3–8.4 V — 8.5 V is normal, not a calibration error. The sketch calls 8.40 V full and 6.00 V empty.
+The battery sense sits on the **2S pack rail**, not on the 5 V input. The BQ25886 PMIC charges and boosts the pack, so on USB-C alone that connector already reads 8.3–8.4 V — 8.5 V is normal, not a calibration error. The firmware calls 8.40 V full and 6.00 V empty.
 :::
 
 ### If the Page Does Not Open
 
 Two checks, in order:
 
-1. **The serial log has to show an IP.** Without one the sketch never joined the network — check the SSID, the password and the 2.4 GHz band.
+1. **The serial log has to show an IP.** Without one the board never joined the network — check the SSID, the password and the 2.4 GHz band.
 2. **Still unreachable?** A request that never reaches the board usually means a wrong IP, a phone on a different network, or a router with AP isolation enabled.
 
 ## Application 2: Send BLE Commands from a Tool {#app-2-ble}
