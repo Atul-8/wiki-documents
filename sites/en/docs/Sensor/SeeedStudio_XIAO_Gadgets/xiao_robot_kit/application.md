@@ -138,45 +138,29 @@ The monitor drops into a `robot>` prompt. Type `drive 20 20`, then `stop`. If th
 
 ### Connect and Write
 
-1. Scan for **XIAO Robot Kit**, connect, and open **Unknown Service**. The scanner screens are the ones from [Experiment 2 in Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/#experiment-2-ble-control-of-the-encoder-motor) — same app, same screens, different name and different commands.
-2. Subscribe to notifications on the characteristic, otherwise the replies have nowhere to land.
+1. Scan for **XIAO Robot Kit** and connect — the same scanner app and the same screens as [Experiment 2 in Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/#experiment-2-ble-control-of-the-encoder-motor).
+2. Open the service `a2f39c10-7e4b-4d21-8a61-0f3bc9d15001`, pick the single characteristic `a2f39c11-7e4b-4d21-8a61-0f3bc9d15001` under it, and subscribe to notifications.
 3. Keep the write format at **UTF-8** and write `drive 20 20`.
 
-| Item | Value |
-| --- | --- |
-| Service | `a2f39c10-7e4b-4d21-8a61-0f3bc9d15001` |
-| Characteristic | `a2f39c11-7e4b-4d21-8a61-0f3bc9d15001` |
-| Properties | Read, Write, Write Without Response, Notify |
+Both wheels turn and the characteristic notifies back `OK|drive 20 20|$`. Write `stop` to end the run.
 
-Both wheels turn and the characteristic notifies back `OK|drive 20 20|$`. Write `stop` to end the run. The four replies are:
+A command the shell does not know answers `ERR|UNKNOWN|$`, one that failed while running answers `ERR|EXEC|$`, and a write over 63 bytes answers `ERR|LENGTH|$` — 63 bytes is all a single write carries, so a full-length command needs an ATT MTU of 66.
 
-```text
-OK|<command>|$     the command ran
-ERR|UNKNOWN|$      no such command
-ERR|EXEC|$         the command failed while running
-ERR|LENGTH|$       frame longer than 63 bytes
-```
-
-A write carries 63 bytes at most, so a full-length command needs the client to negotiate an ATT MTU of 66.
-
-Every kit leaves the factory called **XIAO Robot Kit**, so rename yours by writing `btname set XIAO-Robot-Kit-01`: 1 to 26 characters from `A-Z`, `a-z`, `0-9`, `.`, `_` and `-`, kept in NVS across power cycles and reflashes.
+The board leaves the factory called **XIAO Robot Kit**. Rename it by writing `btname set XIAO-Robot-Kit-01`: 1 to 26 characters from `A-Z`, `a-z`, `0-9`, `.`, `_` and `-`, kept in NVS, so it survives power cycles and reflashes.
 
 ### Commands Worth Trying
 
 | Command | What it does |
 | --- | --- |
 | `drive <left> <right>` | Open-loop PWM, `-100` to `100`, running until `stop` |
-| `speed <left> <right>` | The same range on the encoder PID: `100` asks for 5766 counts/s, and targets up to `50` switch to a low-speed gain set |
-| `forward`, `backward`, `left`, `right` | Shorthands for the two-wheel drive; the optional argument is a speed and defaults to `40` |
+| `speed <left> <right>` | The same range on the encoder PID: `100` asks for 5766 counts/s |
+| `forward`, `backward`, `left`, `right` | Shorthands for the two-wheel drive; the optional speed defaults to `40` |
 | `stop` | Cancels whatever is running and switches both wheels off |
-| `move_forward`, `move_backward` | One second straight at 55 %, heading held with the IMU |
-| `turn_left`, `turn_right` | A 1.5 s pivot on one wheel |
+| `move_forward`, `reverse_park` | One second straight with the heading held on the IMU, or a 90° arc in reverse |
 | `spin_clockwise`, `spin_counterclockwise` | A full 360° turn, measured on the IMU |
-| `reverse_park` | Reverse along a 90° arc, with a 10 s timeout |
-| `wave_hand`, `open_arms`, `raise_both_arms`, `close_arms` | Arm gestures |
-| `servo <1-2> <0..180>` | One arm servo to an angle |
-| `rgb <r> <g> <b>`, `rainbow`, `rgboff` | The 10-pixel light strip |
-| `battery`, `imu`, `enc`, `status` | Pack voltage, fused attitude, encoder counts, and the full status dump |
+| `servo <1-2> <0..180>`, `wave_hand` | One arm servo to an angle, or a preset gesture |
+| `rgb <r> <g> <b>`, `rainbow` | The 10-pixel light strip |
+| `battery`, `status` | Pack voltage, or the full status dump |
 
 The firmware accepts 45 commands in total, and `docs/BLE_COMMANDS.md` in the repository documents every one of them. Each also works in the `robot>` shell, which is the fastest place to debug.
 
