@@ -56,7 +56,7 @@ Flash one sketch and the kit becomes a web server: the page it serves is the ent
 
 ### Flash the Sketch
 
-1. Open `src/app/car_config.h` and fill in `WIFI_SSID` and `WIFI_PASS`. That file is the only place the credentials live.
+1. Open `src/app/car_config.h` and fill in `WIFI_SSID` and `WIFI_PASS`.
 2. Open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE. Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows the port that appeared when you plugged the board in, then click **Upload** (→).
 
 :::tip
@@ -65,16 +65,22 @@ The board joins **2.4 GHz** networks only. If your router publishes one name for
 
 ### Open the Page
 
-Open the serial monitor at 115200 baud. Two lines tell you where the page is:
+Flash with your own Wi-Fi already in the sketch, then open the serial monitor at 115200 baud. Once the board has joined your network it prints where the page is:
 
 ```text
 [wifi] connected, IP 192.168.1.42
 open http://xiaorobot.local or http://192.168.1.42
 ```
 
+That address is an example — your router hands your kit a different one. Read the two lines your own board printed and use that address; the IP in your log always works.
+
+`http://xiaorobot.local` is the fixed name the sketch announces over mDNS. It is the one worth remembering, but it only resolves on networks that pass mDNS through, so fall back to the IP when it does not.
+
 **[TBD-40]** Screenshot: those two serial lines right after a successful boot.
 
-Type `http://xiaorobot.local` into the browser, or the IP address if your network does not resolve `.local` names.
+:::note
+Wi-Fi is configured in one place: `WIFI_SSID` and `WIFI_PASS`, the two lines at the top of `src/app/car_config.h`. The board joins the network only after both match your router, and every reflash with a different network also changes the address in that log.
+:::
 
 ### Drive It
 
