@@ -56,14 +56,10 @@ Flash one sketch and the kit becomes a web server: the page it serves is the ent
 
 ### Set Your Wi-Fi
 
-Replace the `WIFI_SSID` and `WIFI_PASS` defaults — both are `HelloWorld` — with your own network name and password.
+Wi-Fi lives in one place: `WIFI_SSID` and `WIFI_PASS`, the two lines at the top of `examples/xiao_robot_kit_web_remote/src/app/car_config.h`, both set to `HelloWorld`. Replace them with your own network name and password — the board joins only after both match your router, and a reflash onto a different network also changes the address the board prints at boot.
 
 :::tip
 The board joins **2.4 GHz** networks only. If your router publishes one name for both bands, give the 2.4 GHz band its own SSID and use that one.
-:::
-
-:::note
-Wi-Fi is configured in one place: `WIFI_SSID` and `WIFI_PASS`, the two lines at the top of `src/app/car_config.h`. The board joins the network only after both match your router, and every reflash onto a different network also changes the address the board prints at boot.
 :::
 
 ### Flash the Sketch
