@@ -72,9 +72,9 @@ Put your own Wi-Fi into the sketch first, flash, then open the serial monitor at
 open http://xiaorobot.local or http://192.168.1.42
 ```
 
-Read the two lines your own board printed and open that address. The IP in your log always works, whatever number your router handed out.
+Copy the address from your own two lines and paste it into the browser. That one always works.
 
-`http://xiaorobot.local` is the fixed name the sketch announces over mDNS. It is the one worth remembering, but it only resolves on networks that pass mDNS through, so fall back to the IP when it does not.
+Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new IP because the sketch advertises the name itself over mDNS. Some networks block mDNS and the name will not resolve there — the IP from your log is then the way in.
 
 **[TBD-40]** Screenshot: those two serial lines right after a successful boot.
 
@@ -84,7 +84,7 @@ Wi-Fi is configured in one place: `WIFI_SSID` and `WIFI_PASS`, the two lines at 
 
 ### Drive It
 
-1. Hold the car still for the first 1.2 s after power-on: the gyro is taking an uninterrupted zero-rate reading. Disturb it and the sketch retries once, so give it up to 2.5 s. Press **CALIBRATE** with the car standing still whenever it has been moved — the page shows *Calibrating* for 2.6 s, which covers that one retry.
+1. Leave the car still for 3–5 s after power-on: the gyro needs an uninterrupted zero-rate reading, and a disturbed attempt is retried once. Press **CALIBRATE** with the car standing still whenever it has been moved.
 2. Hold a direction key to drive, release it to coast to a stop.
 3. Hold a second key at the same time to drive forward while turning.
 4. Press the center key to stop right away — the space bar and Esc do the same.
@@ -100,7 +100,9 @@ Wi-Fi is configured in one place: `WIFI_SSID` and `WIFI_PASS`, the two lines at 
 
 **[TBD-42]** Close-up: the battery row on the page, with the battery cable in frame.
 
-The battery connector feeds D16 through a 100 kΩ / 30 kΩ divider. With USB-C power and no battery fitted, that divider sits at 8.3–8.4 V: the 5 V from the connector passes through the charger and the boost converter first. A reading near 8.5 V is therefore correct, not a calibration error. The sketch treats 8.40 V as full and 6.00 V as empty.
+:::tip
+The battery sense sits on the **2S pack rail**, not on the 5 V input. The BQ25886 PMIC charges and boosts the pack, so on USB-C alone that connector already reads 8.3–8.4 V — 8.5 V is normal, not a calibration error. The sketch calls 8.40 V full and 6.00 V empty.
+:::
 
 ### If the Page Does Not Open
 
