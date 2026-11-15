@@ -57,10 +57,6 @@ Read AGENTS.md first. Which file holds the Wi-Fi name and password?
 Change nothing yet.
 ```
 
-If the answer names `src/app/car_config.h`, you are ready.
-
-**[TBD-45]** Screenshot: that first answer.
-
 ## 2. Change the Wi-Fi Password {#first-task}
 
 Plug in the battery, connect USB, and paste:
