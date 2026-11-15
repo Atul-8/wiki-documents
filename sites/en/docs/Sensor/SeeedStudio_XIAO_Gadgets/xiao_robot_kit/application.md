@@ -40,7 +40,7 @@ Two examples, easiest first — drive the car from a browser page, then from a B
 - **[Application 1: Drive from a Browser](#app-1-browser)** — the board serves its own page over Wi-Fi. Nothing to install.
 - **[Application 2: Send BLE Commands](#app-2-ble)** — the board becomes a BLE peripheral, and any BLE client can write commands to it.
 
-Both projects live in the repository linked under **[TBD-35]**, one folder each. To change how the car moves, open that repository and keep vibe coding there. Pins, wiring and power are covered in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/).
+Both projects live in the [example repository](https://github.com/Atul-8/xiao_robot_kit_examples), one folder each. To change how the car moves, open that repository and keep vibe coding there. Pins, wiring and power are covered in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) and [Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/).
 
 ## Application 1: Drive from a Browser over Wi-Fi {#app-1-browser}
 
@@ -56,7 +56,7 @@ Flash one sketch and the kit becomes a web server: the page it serves is the ent
 
 ### Flash the Sketch
 
-1. Open `src/app/car_config.h` and fill in `WIFI_SSID` and `WIFI_PASS`. To keep the password out of the source tree, pass `-DWIFI_SSID=...` and `-DWIFI_PASS=...` on the build line instead.
+1. Open `src/app/car_config.h` and fill in `WIFI_SSID` and `WIFI_PASS`. That file is the only place the credentials live — nothing else to install or upload.
 2. Build and upload:
 
 ```bash
@@ -64,7 +64,11 @@ arduino-cli compile --fqbn esp32:esp32:XIAO_ESP32S3_Plus examples/xiao_robot_kit
 arduino-cli upload  --fqbn esp32:esp32:XIAO_ESP32S3_Plus -p <serial-port> examples/xiao_robot_kit_web_remote
 ```
 
-In the Arduino IDE, select the **XIAO ESP32S3 Plus** board, open the `.ino` and click upload. There is nothing else to install.
+In the Arduino IDE, select the **XIAO ESP32S3 Plus** board, open the `.ino` and click upload.
+
+:::tip
+The board joins **2.4 GHz** networks only. If your router publishes one name for both bands, give the 2.4 GHz band its own SSID and use that one.
+:::
 
 ### Open the Page
 
