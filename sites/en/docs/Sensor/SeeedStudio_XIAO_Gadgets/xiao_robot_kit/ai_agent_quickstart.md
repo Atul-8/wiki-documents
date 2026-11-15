@@ -31,36 +31,30 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
     </a>
 </div><br />
 
-You type a sentence. An AI edits the firmware. You press upload and the car does something new.
+You type a sentence. An AI edits the firmware. You upload it and the car does something new.
 
-An AI can change a value, add a small feature and explain code it did not write. It cannot connect anything for you, and it cannot feel the car. Three short steps below, easiest first.
+Two tasks below, easiest first: change the Wi-Fi password, then add a button that prints hello world.
 
-## 1. Install One Tool {#setup}
+## What You Need
 
-Get the code first: [XIAO_Robot_Kit_Vibe](https://github.com/Atul-8/XIAO_Robot_Kit_Vibe).
+- A **XIAO Robot Kit** with a charged battery on the **battery connector** — the motors pull more than a USB port can give
+- Arduino IDE with the **esp32 core 3.x** installed, as described in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/)
+- The example code: [XIAO_Robot_Kit_Vibe](https://github.com/Atul-8/XIAO_Robot_Kit_Vibe) — `git clone https://github.com/Atul-8/XIAO_Robot_Kit_Vibe.git`, or **Code → Download ZIP** on that page if you have no Git
+- One AI coding tool, installed and signed in with your own account
 
-```bash
-git clone https://github.com/Atul-8/XIAO_Robot_Kit_Vibe.git
-```
+| Tool | Where you talk to it |
+| --- | --- |
+| **Claude Code** | the terminal, started inside the project folder |
+| **Cursor** | a chat panel in the editor, next to the files |
+| **GitHub Copilot** | a chat panel in VS Code |
 
-No Git? Use **Code → Download ZIP** on that page and unzip it.
+Install whichever one you pick from the vendor's own page — everything below starts once it is running. Open the **repository folder**, not your home directory, and say `test`: an answer means it is running.
 
-| Your habit | Tool | Start |
-| --- | --- | --- |
-| terminal is fine | **Claude Code** | Node.js 18+, then `npm install -g @anthropic-ai/claude-code`, then `claude` inside the folder |
-| prefer clicking | **Cursor** | Install it, choose *Open Folder* on the repository, open the chat panel |
+## 1. Change the Wi-Fi Password {#first-task}
 
-Sign in once with your own account for that tool, then open the **repository folder** — not your home directory. Test it with one word:
+### The Prompt
 
-```text
-test
-```
-
-If it answers, it is running.
-
-## 2. Change the Wi-Fi Password {#first-task}
-
-Plug in the battery, connect the USB cable, and paste this:
+Plug the battery in, connect the USB cable, and paste this:
 
 ```text
 This folder holds two example projects: examples/xiao_robot_kit_web_remote (Arduino,
@@ -70,35 +64,37 @@ SSID MyHome-2.4G, password 12345678.
 Tell me which file and which lines you changed.
 ```
 
-It reads the project, edits the values and reports the lines.
+It reads the project, edits the two values and reports which lines changed.
 
 **[TBD-46]** Screenshot: the two changed lines side by side.
 
-Then flash it — either way works:
+### Upload It
 
-- **You flash it.** Arduino IDE, board **XIAO ESP32S3 Plus**, open the `.ino`, click upload. Or ask it for the two `arduino-cli` commands and run them yourself.
-- **Let it flash for you.** It has to run commands on your computer, and it will ask permission for each one — read the port name before you approve. `arduino-cli board list` prints the port that is really connected; a guessed port fails with no output at all.
+1. Open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE.
+2. Set **Tools > Board** to `XIAO_ESP32S3_PLUS`.
+3. Set **Tools > Port** to the port that appeared when you plugged the board in.
+4. Click **Upload** (→).
 
-:::caution
-Two things the AI cannot check. The battery has to be on the **battery connector**, because the motors draw more than a USB port supplies. And the board it flashes has to be the one on your desk — approve a shell command only when the port in it matches that board.
-:::
+Ask the tool to run the `arduino-cli` compile and upload for you instead, and it will ask permission for each command. Read the port in that command before you approve: `arduino-cli board list` prints the port that is really connected, and a guessed one fails with no output at all.
 
-Open the serial monitor at 115200:
+### Check the Log
+
+Open the serial monitor at 115200 baud:
 
 ```text
 [wifi] connected, IP 192.168.1.42
 open http://xiaorobot.local or http://192.168.1.42
 ```
 
-Yours will print a different IP, so open the address in your own log — or `xiaorobot.local` — and hold the forward key on the page.
+Your kit prints a different address, so open the one in your own log and hold a direction key on the page.
 
 :::tip
 The board joins **2.4 GHz** networks only. If the password is right and it still will not connect, your router is probably publishing one name for both bands — give the 2.4 GHz band its own SSID.
 :::
 
-One sentence, one diff, one upload. That loop is the whole idea.
+## 2. Add a Button {#extend}
 
-## 3. Add a Button {#extend}
+### The Second Prompt
 
 ```text
 In examples/xiao_robot_kit_web_remote, add a button to the web page. Pressing it prints
@@ -106,7 +102,11 @@ hello world in the serial log. Leave the motors and the driving page alone, and 
 which files you touched.
 ```
 
-Expect a few rounds — the page, the request handler and the log line all have to line up. Answer its questions in one line each, and paste back the serial output when it compiles but prints nothing.
+Expect a few rounds: the page, the request handler and the log line all have to line up. Answer its questions in one line each.
+
+### What You Should See
+
+Upload again, open the page and press the new button: the serial monitor prints `hello world`. If it compiles and nothing appears, paste the serial output back into the chat.
 
 ## When It Goes Wrong
 
