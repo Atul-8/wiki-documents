@@ -84,7 +84,7 @@ Wi-Fi is configured in one place: `WIFI_SSID` and `WIFI_PASS`, the two lines at 
 
 ### Drive It
 
-1. Leave the car still for about a second after power-on. The gyro is taking its zero-rate calibration, and the page keeps saying so until it finishes. Press **CALIBRATE** whenever the car has been moved.
+1. Hold the car still for the first 1.2 s after power-on: the gyro is taking an uninterrupted zero-rate reading. Disturb it and the sketch retries once, so give it up to 2.5 s. Press **CALIBRATE** with the car standing still whenever it has been moved — the page shows *Calibrating* for 2.6 s, which covers that one retry.
 2. Hold a direction key to drive, release it to coast to a stop.
 3. Hold a second key at the same time to drive forward while turning.
 4. Press the center key to stop right away — the space bar and Esc do the same.
@@ -165,15 +165,18 @@ Rename the board by writing `btname set XIAO-Robot-Kit-01` in the same character
 
 | Command | What it does |
 | --- | --- |
-| `drive <left> <right>` | Open-loop wheel speed, `-100` to `100` |
-| `speed <left> <right>` | The same range under PID; `25` and below cannot beat floor friction |
-| `forward`, `backward`, `left`, `right` | Shorthand, default speed `40` |
-| `stop` | Stop both wheels now |
-| `move_forward`, `reverse_park` | IMU-guided: one second straight, or a 90° fan reverse |
-| `spin_clockwise`, `spin_counterclockwise` | One full turn, measured on the IMU |
-| `wave_hand`, `close_arms`, `servo <1-2> <0..180>` | Arm presets and a direct angle |
-| `rgb <r> <g> <b>`, `rainbow` | Light effects |
-| `battery`, `status` | Pack voltage and peripheral state |
+| `drive <left> <right>` | Open-loop PWM, `-100` to `100`, running until `stop` |
+| `speed <left> <right>` | The same range on the encoder PID: `100` asks for 5766 counts/s, and targets up to `50` switch to a low-speed gain set |
+| `forward`, `backward`, `left`, `right` | Shorthands for the two-wheel drive; the optional argument is a speed and defaults to `40` |
+| `stop` | Cancels whatever is running and switches both wheels off |
+| `move_forward`, `move_backward` | One second straight at 55 %, heading held with the IMU |
+| `turn_left`, `turn_right` | A 1.5 s pivot on one wheel |
+| `spin_clockwise`, `spin_counterclockwise` | A full 360° turn, measured on the IMU |
+| `reverse_park` | Reverse along a 90° arc, with a 10 s timeout |
+| `wave_hand`, `open_arms`, `raise_both_arms`, `close_arms` | Arm gestures |
+| `servo <1-2> <0..180>` | One arm servo to an angle |
+| `rgb <r> <g> <b>`, `rainbow`, `rgboff` | The 10-pixel light strip |
+| `battery`, `imu`, `enc`, `status` | Pack voltage, fused attitude, encoder counts, and the full status dump |
 
 The firmware accepts 45 commands in total, and `docs/BLE_COMMANDS.md` in the repository documents every one of them. Each also works in the `robot>` shell, which is the fastest place to debug.
 
