@@ -106,13 +106,6 @@ Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new
 The battery sense sits on the **2S pack rail**, not on the 5 V input. The BQ25886 PMIC charges and boosts the pack, so on USB-C alone that connector already reads 8.3–8.4 V — 8.5 V is normal, not a calibration error. The firmware calls 8.40 V full and 6.00 V empty.
 :::
 
-### If the Page Does Not Open
-
-Two checks, in order:
-
-1. **The serial log has to show an IP.** Without one the board never joined the network — check the SSID, the password and the 2.4 GHz band.
-2. **Still unreachable?** A request that never reaches the board usually means a wrong IP, a phone on a different network, or a router with AP isolation enabled.
-
 ## Application 2: Send BLE Commands from a Tool {#app-2-ble}
 
 This one is an ESP-IDF project rather than an Arduino sketch. It makes the kit a BLE peripheral with a single writable characteristic, and whatever you write there runs as the same command the `robot>` shell accepts — the phone is a remote control for the firmware you already have.
@@ -166,6 +159,12 @@ The firmware accepts 45 commands in total, and `docs/BLE_COMMANDS.md` in the rep
 - Lift the wheels off the desk for the first test, and keep the power switch within reach.
 - There is no idle timeout: `drive`, `speed` and the presets keep running until `stop` or another drive command arrives.
 - A BLE disconnect or a NimBLE reset stops every motor and cancels any running preset.
+
+## FAQs
+
+### Q1: The page does not open in the browser
+
+A: Read the serial log first. Without an IP line the board never joined the network — check the SSID, the password and the 2.4 GHz band. If the log does show an IP and the page still will not load, the request is not reaching the board: a wrong address, a phone on a different network, or a router with AP isolation turned on.
 
 ## Tech Support & Product Discussion
 

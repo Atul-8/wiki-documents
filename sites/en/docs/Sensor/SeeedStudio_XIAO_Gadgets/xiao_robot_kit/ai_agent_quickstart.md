@@ -102,12 +102,23 @@ Expect a few rounds: the page, the request handler and the log line all have to 
 
 Upload again, open the page and press the new button: the serial monitor prints `hello world`. If it compiles and nothing appears, paste the serial output back into the chat.
 
-## When It Goes Wrong
+## FAQs
 
-- **It reports the edit, but nothing changed.** Arduino caches builds. Ask for `compile --clean`, then upload again.
-- **It edited five files.** Say *revert everything except `car_config.h`*, then repeat the task with the scope spelled out.
-- **It says "should work".** Ask for the command it ran and the output it produced.
-- **It guesses about hardware.** Power, pin assignment and flash layout are facts. Stop it, ask what it based the answer on, and decide yourself.
+### Q1: It reports the edit, but nothing changed
+
+A: Arduino caches builds. Ask for `compile --clean`, then upload again.
+
+### Q2: It edited five files instead of one
+
+A: Say *revert everything except `car_config.h`*, then repeat the task with the scope spelled out.
+
+### Q3: It just says "should work"
+
+A: Ask for the command it ran and the output it produced.
+
+### Q4: It answers about the hardware without checking
+
+A: Power, pin assignment and flash layout are facts. Stop it, ask what it based the answer on, and decide yourself.
 
 ## Tech Support & Product Discussion
 

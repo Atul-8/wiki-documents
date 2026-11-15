@@ -879,7 +879,7 @@ The board starts dark. Every press of **KEY** advances the palette by one step, 
 A press that lands while a sweep is still running is ignored — wait until the last LED has changed color before pressing again.
 :::
 
-## Troubleshooting
+## FAQs
 
 ### Q1: Roll and pitch are fine but yaw drifts
 

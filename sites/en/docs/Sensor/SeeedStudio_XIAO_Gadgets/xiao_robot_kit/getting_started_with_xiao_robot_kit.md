@@ -208,7 +208,7 @@ button pressed = 1
 ![Button serial log](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example1_button_log.gif)
 
 :::tip
-If the Serial Monitor stays empty or prints garbled text, check the selected port and the 115200 baud setting — see [Troubleshooting](#troubleshooting).
+If the Serial Monitor stays empty or prints garbled text, check the selected port and the 115200 baud setting — see [FAQs](#faqs).
 :::
 
 ## Example 2: IMU 6-Axis Raw Data + Temperature
@@ -564,7 +564,7 @@ Watch the wheel driven by M1 and check the Serial Monitor output — it should m
 `kCountsPerRev = 7200` = 12 PPR × 4 (quadrature ×4 decoding) × 150 (gear ratio). If you swap the gear motor, update this constant so the rpm reading stays correct.
 :::
 
-## Troubleshooting
+## FAQs
 
 ### Q1: No COM port appears after I plug in the board
 
