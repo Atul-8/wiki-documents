@@ -215,6 +215,7 @@ const sidebars = {
             { type: 'doc', id: 'Robotics/Robot_Kits/reBot_Arm/Courses/Paper_Reading/cn_Paper_Reading_WALL_OSS', label: 'WALL-OSS 论文精读' },
             { type: 'doc', id: 'Robotics/Robot_Kits/reBot_Arm/Courses/Paper_Reading/cn_Paper_Reading_LINGBOT_VLA2', label: 'LingBot-VLA 2.0 论文精读' },
             { type: 'doc', id: 'Robotics/Robot_Kits/reBot_Arm/Courses/Paper_Reading/cn_Paper_Reading_DM05', label: 'DM0.5 博客精读' },
+            { type: 'doc', id: 'Robotics/Robot_Kits/reBot_Arm/Courses/Paper_Reading/cn_Paper_Reading_G05', label: 'G0.5 论文精读' },
           ],
         },
         {
@@ -227,6 +228,7 @@ const sidebars = {
             { type: 'doc', id: 'Robotics/Robot_Kits/reBot_Arm/Courses/Paper_Reading/cn_Paper_Reading_VLA_JEPA', label: 'VLA-JEPA 论文精读' },
             { type: 'doc', id: 'Robotics/Robot_Kits/reBot_Arm/Courses/Paper_Reading/cn_Paper_Reading_LINGBOT_VA', label: 'LingBot-VA 论文精读' },
             { type: 'doc', id: 'Robotics/Robot_Kits/reBot_Arm/Courses/Paper_Reading/cn_Paper_Reading_GR00T_2', label: 'GR00T 2 论文精读' },
+            { type: 'doc', id: 'Robotics/Robot_Kits/reBot_Arm/Courses/Paper_Reading/cn_Paper_Reading_LAWAM', label: 'LaWAM 论文精读' },
           ],
         },
         {
