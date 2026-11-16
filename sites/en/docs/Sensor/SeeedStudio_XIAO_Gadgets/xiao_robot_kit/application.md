@@ -82,7 +82,7 @@ Copy the address from your own two lines and paste it into the browser. That one
 
 Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new IP because the firmware advertises the name itself over mDNS. Some networks block mDNS and the name will not resolve there — the IP from your log is then the way in.
 
-**[TBD-40]** Screenshot: those two serial lines right after a successful boot.
+![The two lines the board prints after the upload](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app1_serial_log.jpg)
 
 ### Drive It
 
@@ -92,13 +92,15 @@ Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new
 4. Press the center key to stop right away — the space bar and Esc do the same.
 5. **SET FORWARD** makes the current heading the new forward; **HOLD** repeats the last direction while no key is pressed.
 
-**[TBD-41]** GIF: hold forward, the car drives, release, the car coasts to a stop.
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app1_phone_driving.gif" style={{width:320, height:'auto'}}/></div>
 
 ### What You Should See
 
 - Telemetry arrives five times a second, and a log window mirrors everything the firmware prints, so the car can be watched with no USB cable attached.
 - The battery row shows the raw ADC count next to the volts, for example `ADC 2312 · 8.47 V`.
 - Kill the Wi-Fi link and the car stops within 1.5 s on its own.
+
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app1_page_on_phone.jpg" style={{width:320, height:'auto'}}/></div>
 
 :::tip
 The battery sense sits on the **2S pack rail**, not on the 5 V input. The BQ25886 PMIC charges and boosts the pack, so on USB-C alone that connector already reads 8.3–8.4 V — 8.5 V is normal, not a calibration error. The firmware calls 8.40 V full and 6.00 V empty.
@@ -124,6 +126,10 @@ cd examples/xiao_robot_kit_ble_control
 idf.py set-target esp32s3
 idf.py -p <serial-port> flash monitor
 ```
+
+In VS Code with the ESP-IDF extension the same build sits in the bottom bar as a button — either route ends at the same binary.
+
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_idf_build_bar.jpg" style={{width:600, height:'auto'}}/></div>
 
 The monitor drops into a `robot>` prompt. Type `drive 20 20`, then `stop`. If the car drives over the cable, the firmware is fine and whatever is left to fix is in the radio.
 
