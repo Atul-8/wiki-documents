@@ -73,14 +73,14 @@ Ask the tool to run the `arduino-cli` compile and upload for you instead, and it
 
 ### Check the Log
 
-Open the serial monitor at 115200 baud:
+Open the serial monitor at 115200 baud. The address below belongs to one computer on one network: your router hands out its own, so yours will be different, and it changes again on a different network.
 
 ```text
 [wifi] connected, IP 192.168.1.42
 open http://xiaorobot.local or http://192.168.1.42
 ```
 
-Your kit prints a different address, so open the one in your own log and hold a direction key on the page.
+Read the address from your own log and open it in the browser, then hold a direction key on the page. `http://xiaorobot.local` is shorter to type and survives a new IP — try it first, and fall back to the IP in your log if the name does not resolve.
 
 :::tip
 The board joins **2.4 GHz** networks only. If the password is right and it still will not connect, your router is probably publishing one name for both bands — give the 2.4 GHz band its own SSID.
