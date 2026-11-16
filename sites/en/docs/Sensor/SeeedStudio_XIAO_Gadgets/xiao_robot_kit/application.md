@@ -98,7 +98,7 @@ Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app1_page_on_phone.jpg" style={{width:320, height:'auto'}}/></div>
 
 :::tip
-The battery sense sits on the **2S pack rail**, not on the 5 V input. The BQ25886 PMIC charges and boosts the pack, so on USB-C alone that connector already reads 8.3–8.4 V — 8.5 V is normal, not a calibration error. The firmware calls 8.40 V full and 6.00 V empty.
+The battery sense sits on the **battery connector**, not on the 5 V input. The BQ25886 PMIC charges and boosts the pack, so on USB-C alone that connector already reads 8.3–8.4 V — 8.5 V is normal, not a calibration error. The firmware calls 8.40 V full and 6.00 V empty.
 :::
 
 ## Application 2: Send BLE Commands from a Tool {#app-2-ble}
