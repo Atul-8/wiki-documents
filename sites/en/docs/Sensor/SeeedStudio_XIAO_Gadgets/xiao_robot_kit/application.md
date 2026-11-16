@@ -87,7 +87,7 @@ Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new
 ### Drive It
 
 1. Switch the car on and leave it still for 3–5 s: the gyro takes an uninterrupted zero-rate reading, and a disturbed attempt is retried once.
-2. Hold a direction key to drive, release it to coast to a stop.
+2. Hold a direction key to drive, and release it to stop.
 3. Press **CALIBRATE** on the page whenever the car has been picked up or bumped, and keep it still until the *Calibrating* note clears — that is what re-zeros the gyro.
 4. Press the center key to stop right away — the space bar and Esc do the same.
 5. **SET FORWARD** makes the current heading the new forward; **HOLD** repeats the last direction while no key is pressed.
