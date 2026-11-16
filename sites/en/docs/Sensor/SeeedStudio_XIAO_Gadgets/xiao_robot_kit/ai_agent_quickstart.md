@@ -102,6 +102,12 @@ Expect a few rounds: the page, the request handler and the log line all have to 
 
 Upload again, open the page and press the new button: the serial monitor prints `hello world`. If it compiles and nothing appears, paste the serial output back into the chat.
 
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/AI_Agent_Quickstart/Image/ai_agent_hello_button.jpg" style={{width:320, height:'auto'}}/></div>
+
+:::note
+What you get may look different — the button lands wherever your agent decided to put it, so treat this as one possible result. What has to be true is the message: press the button, `hello world` shows up in the serial monitor.
+:::
+
 ## FAQs
 
 ### Q1: It reports the edit, but nothing changed
