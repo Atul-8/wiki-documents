@@ -88,13 +88,13 @@ Motors and servos draw a large current. A computer's USB port alone can be too w
 
 Use a **USB-C data cable** to connect the USB-C port on the **XIAO ESP32-S3 Plus** to your computer, then feed the kit's bottom USB-C / battery port from a separate power source such as a power bank or a battery.
 
-![Hardware connection](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/demo_hardware_connection1.jpg)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/demo_hardware_connection1.jpg" style={{width:700, height:'auto'}}/></div>
 
 ##### Method 2
 
 Use a **USB-C data cable** to connect the kit to your computer through the bottom USB-C port, leaving the USB-C port on the **XIAO ESP32-S3 Plus** unplugged. Slide the power switch to **ON**. Note: this method requires the computer's USB-C port to be backed by a self-powered dock or hub, so that the supply current is sufficient.
 
-![Hardware connection](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/demo_hardware_connection2.jpg)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/demo_hardware_connection2.jpg" style={{width:700, height:'auto'}}/></div>
 
 :::caution Use a data cable
 A charge-only cable shows up as no COM port, or the device does not respond at all — swap in a data cable first.
@@ -209,9 +209,9 @@ hello world 2
 button pressed = 1
 ```
 
-![Button demo](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example1_button_demo.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example1_button_demo.gif" style={{width:700, height:'auto'}}/></div>
 
-![Button serial log](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example1_button_log.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example1_button_log.gif" style={{width:700, height:'auto'}}/></div>
 
 :::tip
 If the Serial Monitor stays empty or prints garbled text, check the selected port and the 115200 baud setting — see [Troubleshooting](#troubleshooting).
@@ -333,9 +333,9 @@ IMU ready  (ax/ay/az in g, gx/gy/gz in dps, t in C)
 ax= 0.012 ay= 0.008 az= 0.995 gx=   0.12 gy=  -0.03 gz=   0.05 t=25.31 C
 ```
 
-![IMU demo](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example2_imu_demo.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example2_imu_demo.gif" style={{width:700, height:'auto'}}/></div>
 
-![IMU data](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example2_imu_data.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example2_imu_data.gif" style={{width:700, height:'auto'}}/></div>
 
 ## Example 3: Servo Minimal Example
 
@@ -427,9 +427,9 @@ Upload as before. On boot the servo is commanded to center (`normPos = 0`, 1500 
 
 After power-up, watch the servo horn move and check the Serial Monitor output — it should match the two figures below.
 
-![Servo demo](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example3_servo_demo.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example3_servo_demo.gif" style={{width:700, height:'auto'}}/></div>
 
-![Servo serial log](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example3_servo_log.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example3_servo_log.gif" style={{width:700, height:'auto'}}/></div>
 
 :::tip Calibrating the pulse widths
 The three macros `SERVO_PULSE_MIN / CENTER / MAX` map a normalized position to a pulse width. If your servo buzzes at the ends of travel, narrow `MIN`/`MAX` — the mechanical limits differ between servo models and depend on the linkage.
@@ -562,9 +562,9 @@ Upload as before. The motor stays still until the first rising quarter of the si
 
 Watch the wheel driven by M1 and check the Serial Monitor output — it should match the two figures below.
 
-![Motor demo](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example4_motor_demo.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example4_motor_demo.gif" style={{width:700, height:'auto'}}/></div>
 
-![Motor serial log](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example4_motor_log.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example4_motor_log.gif" style={{width:700, height:'auto'}}/></div>
 
 :::tip Counts per revolution
 `kCountsPerRev = 7200` = 12 PPR × 4 (quadrature ×4 decoding) × 150 (gear ratio). If you swap the gear motor, update this constant so the rpm reading stays correct.

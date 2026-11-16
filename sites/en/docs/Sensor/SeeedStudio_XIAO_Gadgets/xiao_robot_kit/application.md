@@ -75,7 +75,7 @@ Copy the address from your own log and paste it into the browser. That one alway
 
 Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new IP because the firmware advertises the name itself over mDNS. Some networks block mDNS and the name will not resolve there — the IP from your log is then the way in.
 
-![The two lines the board prints after the upload](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app1_serial_log.jpg)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app1_serial_log.jpg" style={{width:700, height:'auto'}}/></div>
 
 ### Drive It
 
@@ -115,7 +115,7 @@ This one is an ESP-IDF project rather than an Arduino sketch. It makes the kit a
 - If it asks for a target, choose `esp32s3`; if it asks for a port, take the one that appeared when you plugged the board in.
 - Press **Build** in the ESP-IDF status bar, then **Flash**.
 
-<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_idf_build_bar.jpg" style={{width:600, height:'auto'}}/></div>
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_idf_build_bar.jpg" style={{width:700, height:'auto'}}/></div>
 
 Nothing else needs configuring: the 16 MB flash, the 8 MB PSRAM and the USB Serial/JTAG console are already pinned in `sdkconfig.defaults`.
 
@@ -130,7 +130,7 @@ Open the monitor when the flash finishes — it drops into a `robot>` prompt. Ty
 <table align="center">
    <tr>
        <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_scan.jpg" style={{width:220, height:'auto'}}/></div></td>
-       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_write_format.jpg" style={{width:200, height:'auto'}}/></div></td>
+       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_write_format.jpg" style={{width:220, height:'auto'}}/></div></td>
   </tr>
 </table>
 

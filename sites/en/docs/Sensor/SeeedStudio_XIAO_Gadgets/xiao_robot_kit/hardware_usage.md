@@ -361,9 +361,9 @@ roll=  +0.4  pitch=  -1.1  yaw=   +0.1  temp=27.9C
 
 Tilt the board forward and back, then roll it side to side, and watch which angle answers:
 
-![IMU demo](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example2_imu_demo.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example2_imu_demo.gif" style={{width:700, height:'auto'}}/></div>
 
-![IMU Euler angle serial log](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment1_imu_euler_log.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment1_imu_euler_log.gif" style={{width:700, height:'auto'}}/></div>
 
 Set the board down flat and press the on-board **KEY** button: the sketch prints `re-cal (keep still...)`, measures the offset again, and the angles return to near zero.
 
@@ -388,7 +388,7 @@ Four `#define`s at the top of the sketch cover the cases where the defaults do n
 
 The hardware side is one cable — no jumpers, no breadboard:
 
-![Experiment 2 hardware connection](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_hardware_connection.jpg)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_hardware_connection.jpg" style={{width:700, height:'auto'}}/></div>
 
 **Step 1. Create the sketch**
 
@@ -722,7 +722,7 @@ state=FWD count=14400 rpm=150.0 remain=57600 (8.00 rev) target=72000
 done: 10.00 rev, enc=72000 (0.00 rev past target)
 ```
 
-![BLE encoder motor serial log](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_ble_encoder_motor_log.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_ble_encoder_motor_log.gif" style={{width:700, height:'auto'}}/></div>
 
 ## Experiment 3: Button-Switched RGB LED
 
@@ -873,7 +873,7 @@ The board starts dark. Every press of **KEY** advances the palette by one step, 
 | 3 | blue |
 | 4 | off again |
 
-![Button-switched RGB board](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment3_button_rgb_sweep.gif)
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment3_button_rgb_sweep.gif" style={{width:700, height:'auto'}}/></div>
 
 :::tip
 A press that lands while a sweep is still running is ignored — wait until the last LED has changed color before pressing again.
