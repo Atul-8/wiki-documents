@@ -96,8 +96,6 @@ hello world in the serial log. Leave the motors and the driving page alone, and 
 which files you touched.
 ```
 
-Expect a few rounds: the page, the request handler and the log line all have to line up. Answer its questions in one line each.
-
 ### What You Should See
 
 Upload again, open the page and press the new button: the serial monitor prints `hello world`. If it compiles and nothing appears, paste the serial output back into the chat.
