@@ -110,8 +110,6 @@ The battery sense sits on the **2S pack rail**, not on the 5 V input. The BQ2588
 
 This one is an ESP-IDF project rather than an Arduino sketch. It makes the kit a BLE peripheral with a single writable characteristic, and whatever you write there runs as the same command the `robot>` shell accepts — the phone is a remote control for the firmware you already have.
 
-**[TBD-43]** Screenshot: a BLE tool writing `drive 20 20` and the `OK` reply coming back.
-
 ### Required Parts
 
 - A **XIAO Robot Kit** and a USB-C cable
@@ -135,11 +133,26 @@ The monitor drops into a `robot>` prompt. Type `drive 20 20`, then `stop`. If th
 
 ### Connect and Write
 
-1. Scan for **XIAO Robot Kit** and connect — the same scanner app and the same screens as [Experiment 2 in Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/#experiment-2-ble-control-of-the-encoder-motor).
+1. Scan for **XIAO Robot Kit** and connect — the screenshots below use **nRF Connect**, and [Experiment 2 in Hardware Usage](https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/#experiment-2-ble-control-of-the-encoder-motor) covers that app in more detail.
 2. Open the service `a2f39c10-7e4b-4d21-8a61-0f3bc9d15001`, pick the single characteristic `a2f39c11-7e4b-4d21-8a61-0f3bc9d15001` under it, and subscribe to notifications.
 3. Keep the write format at **UTF-8** and write `drive 20 20`.
 
+<table align="center">
+   <tr>
+       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_scan.jpg" style={{width:220, height:'auto'}}/></div></td>
+       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_characteristic.jpg" style={{width:220, height:'auto'}}/></div></td>
+       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_write_format.jpg" style={{width:200, height:'auto'}}/></div></td>
+  </tr>
+</table>
+
 Both wheels turn and the characteristic notifies back `OK|drive 20 20|$`. Write `stop` to end the run.
+
+<table align="center">
+   <tr>
+       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_write.jpg" style={{width:260, height:'auto'}}/></div></td>
+       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_reply.jpg" style={{width:260, height:'auto'}}/></div></td>
+  </tr>
+</table>
 
 A command the shell does not know answers `ERR|UNKNOWN|$`, one that failed while running answers `ERR|EXEC|$`, and a write over 63 bytes answers `ERR|LENGTH|$` — 63 bytes is all a single write carries, so a full-length command needs an ATT MTU of 66.
 
