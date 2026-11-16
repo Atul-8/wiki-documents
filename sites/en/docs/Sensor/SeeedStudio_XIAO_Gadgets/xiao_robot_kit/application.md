@@ -132,7 +132,6 @@ Open the monitor when the flash finishes — it drops into a `robot>` prompt. Ty
 <table align="center">
    <tr>
        <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_scan.jpg" style={{width:220, height:'auto'}}/></div></td>
-       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_characteristic.jpg" style={{width:220, height:'auto'}}/></div></td>
        <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_write_format.jpg" style={{width:200, height:'auto'}}/></div></td>
   </tr>
 </table>
