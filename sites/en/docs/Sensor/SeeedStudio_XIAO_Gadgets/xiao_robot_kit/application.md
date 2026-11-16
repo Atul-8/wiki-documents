@@ -158,7 +158,6 @@ The board leaves the factory called **XIAO Robot Kit**. Rename it by writing `bt
 | `stop` | Cancels whatever is running and switches both wheels off |
 | `move_forward`, `spin_clockwise` | IMU-measured: one second straight, or a full 360° turn |
 | `rgb <r> <g> <b>` | The 10-pixel light strip |
-| `battery`, `status` | Pack voltage, or the full status dump |
 
 The firmware accepts 45 commands in total, and `docs/BLE_COMMANDS.md` in the repository documents every one of them. Each also works in the `robot>` shell, which is the fastest place to debug.
 
