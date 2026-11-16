@@ -100,8 +100,6 @@ Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new
 - The battery row shows the raw ADC count next to the volts, for example `ADC 2312 · 8.47 V`.
 - Kill the Wi-Fi link and the car stops within 1.5 s on its own.
 
-**[TBD-42]** Close-up: the battery row on the page, with the battery cable in frame.
-
 :::tip
 The battery sense sits on the **2S pack rail**, not on the 5 V input. The BQ25886 PMIC charges and boosts the pack, so on USB-C alone that connector already reads 8.3–8.4 V — 8.5 V is normal, not a calibration error. The firmware calls 8.40 V full and 6.00 V empty.
 :::
