@@ -108,18 +108,6 @@ Upload again, open the page and press the new button: the serial monitor prints 
 
 A: Arduino caches builds. Ask for `compile --clean`, then upload again.
 
-### Q2: It edited five files instead of one
-
-A: Say *revert everything except `car_config.h`*, then repeat the task with the scope spelled out.
-
-### Q3: It just says "should work"
-
-A: Ask for the command it ran and the output it produced.
-
-### Q4: It answers about the hardware without checking
-
-A: Power, pin assignment and flash layout are facts. Stop it, ask what it based the answer on, and decide yourself.
-
 ## Tech Support & Product Discussion
 
 Thank you for choosing our products! We are here to provide you with different support to ensure that your experience with our products is as smooth as possible. We offer several communication channels to cater to different preferences and needs.
