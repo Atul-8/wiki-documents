@@ -71,14 +71,9 @@ The board joins **2.4 GHz** networks only. If your router publishes one name for
 
 ### Open the Page
 
-Open the serial monitor at 115200 baud. Once the board has joined your network it prints where the page is — the address below comes from one kit, so yours will be different:
+Open the serial monitor at 115200 baud. Once the board has joined your network it prints two lines: the IP it was given, and the address of the page. Your router hands out its own, so the address in the screenshot below will not be the one you get.
 
-```text
-[wifi] connected, IP 192.168.1.42
-open http://xiaorobot.local or http://192.168.1.42
-```
-
-Copy the address from your own two lines and paste it into the browser. That one always works.
+Copy the address from your own log and paste it into the browser. That one always works.
 
 Try `http://xiaorobot.local` first: it is shorter to type, and it survives a new IP because the firmware advertises the name itself over mDNS. Some networks block mDNS and the name will not resolve there — the IP from your log is then the way in.
 
