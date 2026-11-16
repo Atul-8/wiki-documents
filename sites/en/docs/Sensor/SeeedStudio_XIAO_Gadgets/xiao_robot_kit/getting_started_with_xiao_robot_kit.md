@@ -124,6 +124,8 @@ Pick the port that only showed up **after** you plugged this board in. It is cre
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/arduino_ide_select_board_and_port.jpg" style={{width:700, height:'auto'}}/></div>
 
+The picture shows the **Select Board** dropdown in the IDE toolbar — the quick way to set both values in one place. It reaches the same board and port as the **Tools** menu, so use whichever is closer to hand.
+
 :::tip More detailed setup guide
 For more detailed **XIAO ESP32-S3 Plus** setup instructions, see the Software Preparation section of the [Seeed Studio XIAO ESP32-S3 Getting Started](https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/#software-preparation) guide.
 :::
