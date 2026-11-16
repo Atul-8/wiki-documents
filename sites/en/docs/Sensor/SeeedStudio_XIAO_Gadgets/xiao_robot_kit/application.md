@@ -46,8 +46,6 @@ Both projects live in the [example repository](https://github.com/Atul-8/XIAO_Ro
 
 Upload one project and the kit becomes a web server: the page it serves is the entire remote control, so there is no app to install and no library to add.
 
-**[TBD-39]** Photo: phone held in portrait with the page open, the car in the same frame.
-
 ### Required Parts
 
 - A **XIAO Robot Kit** with a charged battery on the **battery connector** — the motors pull more than a USB port can give

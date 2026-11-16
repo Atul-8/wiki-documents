@@ -60,7 +60,7 @@ Tell me which file and which lines you changed.
 
 It reads the project, edits the two values and reports which lines changed.
 
-**[TBD-46]** Screenshot: the two changed lines side by side.
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/AI_Agent_Quickstart/Image/ai_agent_wifi_change.jpg" style={{width:700, height:'auto'}}/></div>
 
 ### Upload It
 
