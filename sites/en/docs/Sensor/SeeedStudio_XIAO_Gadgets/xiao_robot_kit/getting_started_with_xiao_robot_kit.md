@@ -118,7 +118,11 @@ Then open **Tools > Board > Boards Manager**, search for `esp32`, and install **
 
 **Step 3. Select the board and port**
 
-Connect the kit with the USB-C cable, then in **Tools > Board > esp32** choose **XIAO_ESP32S3_PLUS**. Open **Tools > Port** and pick the new COM port that appeared when you plugged the board in.
+Connect the kit with the USB-C cable. In **Tools > Board > esp32** choose **XIAO_ESP32S3_PLUS**, then open **Tools > Port**.
+
+Pick the port that only showed up **after** you plugged this board in. It is created by your own computer, so it will not match the one in the picture below — and if you unplug the board and use another USB socket, the number can change again.
+
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/arduino_ide_select_board_and_port.jpg" style={{width:700, height:'auto'}}/></div>
 
 :::tip More detailed setup guide
 For more detailed **XIAO ESP32-S3 Plus** setup instructions, see the Software Preparation section of the [Seeed Studio XIAO ESP32-S3 Getting Started](https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/#software-preparation) guide.
@@ -208,7 +212,7 @@ button pressed = 1
 ![Button serial log](https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example1_button_log.gif)
 
 :::tip
-If the Serial Monitor stays empty or prints garbled text, check the selected port and the 115200 baud setting — see [FAQs](#faqs).
+If the Serial Monitor stays empty or prints garbled text, check the selected port and the 115200 baud setting — see [Troubleshooting](#troubleshooting).
 :::
 
 ## Example 2: IMU 6-Axis Raw Data + Temperature
@@ -564,7 +568,7 @@ Watch the wheel driven by M1 and check the Serial Monitor output — it should m
 `kCountsPerRev = 7200` = 12 PPR × 4 (quadrature ×4 decoding) × 150 (gear ratio). If you swap the gear motor, update this constant so the rpm reading stays correct.
 :::
 
-## FAQs
+## Troubleshooting
 
 ### Q1: No COM port appears after I plug in the board
 
