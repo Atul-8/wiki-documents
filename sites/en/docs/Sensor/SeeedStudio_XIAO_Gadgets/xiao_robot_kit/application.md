@@ -113,23 +113,20 @@ This one is an ESP-IDF project rather than an Arduino sketch. It makes the kit a
 ### Required Parts
 
 - A **XIAO Robot Kit** and a USB-C cable
+- **VS Code** with the **ESP-IDF extension** and ESP-IDF **v6.1**
 - A BLE scanner app on your phone, such as nRF Connect
 
 ### Flash the Firmware
 
-ESP-IDF **v6.1**, with the 16 MB flash, the 8 MB PSRAM and the USB Serial/JTAG console already pinned in `sdkconfig.defaults`:
-
-```bash
-cd examples/xiao_robot_kit_ble_control
-idf.py set-target esp32s3
-idf.py -p <serial-port> flash monitor
-```
-
-In VS Code with the ESP-IDF extension the same build sits in the bottom bar as a button — either route ends at the same binary.
+- Right-click the folder `examples/xiao_robot_kit_ble_control` and choose **Open with Code** — the extension takes over the project from there.
+- If it asks for a target, choose `esp32s3`; if it asks for a port, take the one that appeared when you plugged the board in.
+- Press **Build** in the ESP-IDF status bar, then **Flash**.
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_idf_build_bar.jpg" style={{width:600, height:'auto'}}/></div>
 
-The monitor drops into a `robot>` prompt. Type `drive 20 20`, then `stop`. If the car drives over the cable, the firmware is fine and whatever is left to fix is in the radio.
+Nothing else needs configuring: the 16 MB flash, the 8 MB PSRAM and the USB Serial/JTAG console are already pinned in `sdkconfig.defaults`.
+
+Open the monitor when the flash finishes — it drops into a `robot>` prompt. Type `drive 20 20`, then `stop`. If the car drives over the cable, the firmware is fine and whatever is left to fix is in the radio.
 
 ### Connect and Write
 
