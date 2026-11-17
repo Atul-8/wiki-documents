@@ -50,7 +50,7 @@ Two tasks below, easiest first: change the Wi-Fi password, then add a button tha
 ## What You Need
 
 - A **XIAO Robot Kit** with a charged battery on the **battery connector** — the motors pull more than a USB port can give
-- Arduino IDE with the **esp32 core 3.x**, as described in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) — nothing has to be set up in advance: [AGENTS.md](https://github.com/Seeed-Projects/XIAO-Robot-Kit/blob/main/AGENTS.md) tells the agent how to handle a missing toolchain, and it asks before it installs anything
+- The **esp32 core 3.x** in the Arduino IDE — [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/) walks through it. If it is missing, just say so: the agent sets it up for you, and asks before installing anything
 - The example code: [XIAO-Robot-Kit](https://github.com/Seeed-Projects/XIAO-Robot-Kit) — you do not have to clone it yourself; both prompts below ask the agent to check for the repository and clone it when it is missing
 - One AI coding tool, installed and signed in with your own account — **Claude Code** or **Codex**, terminal agents, or **Cursor**, an editor with a chat panel next to the files
 
