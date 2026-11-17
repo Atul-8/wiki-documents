@@ -26,6 +26,8 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
 
 # Hardware Usage
 
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/XIAO_Robot_Board_Overview_all_annotated.jpg" style={{width:700, height:'auto'}} /></div>
+
 ## Overview
 
 Three experiments, easiest first — read angles from the IMU, move one motor over Bluetooth LE, then switch an RGB strip with the on-board button. Each one is a single sketch: prepare, upload, observe.
@@ -42,7 +44,7 @@ Experiments 1 and 3 need nothing beyond the kit. Experiment 2 also needs the mot
 
 You need the **[XIAO Robot Kit](https://www.seeedstudio.com/XIAO-Robot-Kit-p-100058302.html?utm_source=wiki)**, a USB-C **data** cable, and a computer — that covers Experiments 1 and 2. Experiment 3 adds one part: a WS2812 light board wired to `D13` (the photos use one from CH Maker Ed; any board works, and `LED_COUNT` must match its number of LEDs).
 
-<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/XIAO_Robot_Board_Overview_all_annotated.jpg" style={{width:700, height:'auto'}} /></div>
+<div class="get_one_now_container" style={{textAlign: 'center'}}><a class="get_one_now_item" href="https://www.seeedstudio.com/XIAO-Robot-Kit-p-100058302.html?utm_source=wiki" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div>
 
 :::tip
 Motors and servos draw a large current. A computer's USB port alone can be too weak, so power the kit from the **battery connector** when you drive them.
