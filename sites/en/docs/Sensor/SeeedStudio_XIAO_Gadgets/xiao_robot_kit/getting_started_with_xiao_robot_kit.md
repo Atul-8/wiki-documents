@@ -87,6 +87,48 @@ A `Dxx` marking is **not** a GPIO number. For example, `D11` maps to `GPIO38`.
 Motors and servos draw a large current. A computer's USB port alone can be too weak, so power the kit from the **battery connector** for Examples 3 and 4.
 :::
 
+### Specification
+
+<table align="center" style={{display:'table', width:'100%'}}>
+  <thead>
+    <tr><th>Component</th><th>Specification</th><th>Details</th></tr>
+  </thead>
+  <tbody>
+    <tr><td rowspan="12">XIAO Robot Board</td><td>Main Controller</td><td>Seeed Studio XIAO ESP32-S3 Plus</td></tr>
+    <tr><td>Processor</td><td>Dual-Core ESP32-S3, up to 240 MHz</td></tr>
+    <tr><td>Memory</td><td>8 MB PSRAM + 16 MB Flash</td></tr>
+    <tr><td>Wireless</td><td>2.4 GHz Wi-Fi + Bluetooth LE 5.0</td></tr>
+    <tr><td>Motor Driver</td><td>2 × GC9112 H-Bridge Drivers</td></tr>
+    <tr><td>Motor Interfaces</td><td>2 × DC Motor Outputs<br />2 × Encoder Interfaces</td></tr>
+    <tr><td>Grove Servo Interfaces</td><td>4 Channels</td></tr>
+    <tr><td>Onboard Sensor</td><td>LSM6DS3TR-C 6-Axis IMU</td></tr>
+    <tr><td>Grove Expansion</td><td>2 × I²C<br />1 × UART<br />1 × RGB/Digital</td></tr>
+    <tr><td>Onboard Buttons</td><td>1 × User button<br />1 × Reset button</td></tr>
+    <tr><td>Power Input</td><td>5V USB-C / 7.4V Lithium Battery System</td></tr>
+    <tr><td>Development</td><td>Arduino / ESP-IDF</td></tr>
+    <tr><td rowspan="10">N20 Encoder Motors</td><td>Motor Type</td><td>Brushed DC Geared Motor with Quadrature Encoder</td></tr>
+    <tr><td>Operating Voltage</td><td>DC 2.5–5.5V</td></tr>
+    <tr><td>Gear Ratio</td><td>1:101</td></tr>
+    <tr><td>No-Load Speed</td><td>170 RPM ±10%</td></tr>
+    <tr><td>No-Load Current</td><td>≤90 mA</td></tr>
+    <tr><td>Stall Torque</td><td>0.4 kg·cm</td></tr>
+    <tr><td>Stall Current</td><td>≤1.3 A</td></tr>
+    <tr><td>Starting Voltage</td><td>≤2.0V</td></tr>
+    <tr><td>Output Shaft</td><td>3 mm D-Shaft, 8 mm Length</td></tr>
+    <tr><td>Connection</td><td>6-Pin Motor &amp; Encoder Harness</td></tr>
+    <tr><td rowspan="8">Feetech FT1190M Servos</td><td>Model</td><td>Customized FT1190M (FT-1190-C016)</td></tr>
+    <tr><td>Motor &amp; Gears</td><td>Coreless Motor, Metal Gears</td></tr>
+    <tr><td>Input Voltage</td><td>3.3–7.4V</td></tr>
+    <tr><td>Stall Torque</td><td>3.5 kg·cm @ 6V</td></tr>
+    <tr><td>Rated Torque</td><td>1.15 kg·cm @ 6V</td></tr>
+    <tr><td>No-Load Speed</td><td>0.10 sec/60° @ 6V</td></tr>
+    <tr><td>Dimensions</td><td>23.2 × 12.1 × 25.25 mm</td></tr>
+    <tr><td>Weight</td><td>13 ± 2 g</td></tr>
+    <tr><td rowspan="2">Wheels</td><td>Drive Wheels</td><td>Ø34 × 6.5 mm, 3 mm D-Shaft Mount</td></tr>
+    <tr><td>Ball Caster Wheels</td><td>25 × 25 × 13 mm (L × W × H), with Steel Ball</td></tr>
+  </tbody>
+</table>
+
 ## Getting Started
 
 ### Hardware Preparation
