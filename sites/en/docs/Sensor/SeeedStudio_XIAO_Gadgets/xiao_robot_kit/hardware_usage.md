@@ -700,18 +700,16 @@ nRF Connect is a third-party app published by Nordic Semiconductor. It is not pa
 
 Then follow the four screenshots: scan for **XIAO Robot Kit** and connect, open **Unknown Service**, and type a command into the write field. Keep the data format at **UTF-8** rather than hex.
 
-<div class="table-center">
-<table align="center">
+<table align="center" style={{display:'table', tableLayout:'fixed', width:'100%'}}>
 <tr>
-  <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_nrfconnect_scan_and_connect.jpg" style={{width:320, height:'auto'}}/></div></td>
-  <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_nrfconnect_open_characteristic.jpg" style={{width:320, height:'auto'}}/></div></td>
+  <td style={{padding:'4px'}}><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_nrfconnect_scan_and_connect.jpg" style={{width:'100%', height:'auto'}}/></div></td>
+  <td style={{padding:'4px'}}><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_nrfconnect_open_characteristic.jpg" style={{width:'100%', height:'auto'}}/></div></td>
 </tr>
 <tr>
-  <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_nrfconnect_write_format.jpg" style={{width:320, height:'auto'}}/></div></td>
-  <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_nrfconnect_send_command.jpg" style={{width:320, height:'auto'}}/></div></td>
+  <td style={{padding:'4px'}}><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_nrfconnect_write_format.jpg" style={{width:'100%', height:'auto'}}/></div></td>
+  <td style={{padding:'4px'}}><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_nrfconnect_send_command.jpg" style={{width:'100%', height:'auto'}}/></div></td>
 </tr>
 </table>
-</div>
 
 Write one of these lines — the Serial Monitor accepts the same ones, so you can skip the phone entirely:
 
@@ -879,12 +877,10 @@ Confirm **Tools > Board** is `XIAO_ESP32S3_PLUS` and **Tools > Port** shows your
 
 The board starts dark. Every press of **KEY** advances the palette by one step, and the LEDs take the new color in order rather than all at once:
 
-| Press | Color |
-| --- | --- |
-| 1 | red |
-| 2 | green |
-| 3 | blue |
-| 4 | off again |
+- First press: red
+- Second press: green
+- Third press: blue
+- Fourth press: off again
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment3_button_rgb_sweep.gif" style={{width:700, height:'auto'}}/></div>
 
