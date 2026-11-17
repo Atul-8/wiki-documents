@@ -41,7 +41,11 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
 </table>
 </div>
 
-> **You type a sentence. An AI agent edits the firmware, flashes the board and reads the serial log back to you.**
+:::info How this page works
+
+**You type a sentence. An AI agent edits the firmware, flashes the board and reads the serial log back to you.**
+
+:::
 
 An *agent* here is a tool that acts on its own: Claude Code, Codex, Cursor or any other AI coding agent. It reads the project folder, runs the compiler and the uploader, and keeps the serial port open. You decide what should change; it types it, flashes it and tells you what came back.
 
