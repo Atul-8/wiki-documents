@@ -48,10 +48,10 @@ Two tasks below, easiest first: change the Wi-Fi password, then add a button tha
 
 - A **XIAO Robot Kit** with a charged battery on the **battery connector** — the motors pull more than a USB port can give
 - Arduino IDE with the **esp32 core 3.x** installed, as described in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/)
-- The example code: [XIAO-Robot-Kit](https://github.com/Seeed-Projects/XIAO-Robot-Kit) — `git clone https://github.com/Seeed-Projects/XIAO-Robot-Kit.git`, or **Code → Download ZIP** on that page if you have no Git
-- One AI coding tool, installed and signed in with your own account — **Claude Code**, a terminal agent you start inside the project folder, or **Cursor**, an editor with a chat panel next to the files
+- The example code: [XIAO-Robot-Kit](https://github.com/Seeed-Projects/XIAO-Robot-Kit) — you do not have to clone it yourself; both prompts below ask the agent to check for the repository and clone it when it is missing
+- One AI coding tool, installed and signed in with your own account — **Claude Code**, a terminal agent, or **Cursor**, an editor with a chat panel next to the files
 
-Install whichever one you pick from the vendor's own page — everything below starts once it is running. Open the **repository folder**, not your home directory, and say `test`: an answer means it is running.
+Install whichever one you pick from the vendor's own page — everything below starts once it is running. Start it in any folder you can write to, not necessarily the repository. Say `test` first: an answer means the tool is running.
 
 :::tip
 Every task below lets the agent flash the board and read its serial port. To upload by hand instead, follow the Arduino IDE steps in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/).
@@ -64,7 +64,11 @@ Every task below lets the agent flash the board and read its serial port. To upl
 Plug the battery in, connect the USB cable, and paste this:
 
 ```text
-This folder holds two example projects: examples/xiao_robot_kit_web_remote (Arduino,
+First check where you are: run git remote -v and look for github.com/Seeed-Projects/XIAO-Robot-Kit.
+If that remote is not there, clone https://github.com/Seeed-Projects/XIAO-Robot-Kit.git and do
+everything below inside it.
+
+The repository holds two example projects: examples/xiao_robot_kit_web_remote (Arduino,
 a Wi-Fi remote control) and examples/xiao_robot_kit_ble_control (ESP-IDF, BLE commands).
 Read the Wi-Fi remote one and put my home network into it: name MyHome-2.4G, password
 12345678.
@@ -100,6 +104,9 @@ The board joins **2.4 GHz** networks only. If the name and the password are righ
 ### The Second Prompt
 
 ```text
+If you are not inside the XIAO Robot Kit repository yet — github.com/Seeed-Projects/XIAO-Robot-Kit
+— clone it first and work inside it.
+
 In examples/xiao_robot_kit_web_remote, add a button to the web page. Pressing it prints
 hello world in the serial log. Leave the motors and the driving page alone.
 Then flash it, open the page, press the new button, and keep reading the serial port until
