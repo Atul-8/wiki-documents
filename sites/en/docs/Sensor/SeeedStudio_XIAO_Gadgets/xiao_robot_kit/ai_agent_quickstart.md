@@ -1,8 +1,9 @@
 ---
-description: Type a sentence and let an AI edit, flash and test the firmware. Two tasks, easiest first — the Wi-Fi password, then a page button that prints hello world.
-title: AI Agent Quickstart
+description: Type a sentence and let a coding agent edit, flash and test the firmware. Two tasks, easiest first — the Wi-Fi password, then a page button that prints hello world.
+title: Coding Agent Quickstart
 keywords:
   - xiao robot kit
+  - coding agent
   - ai agent
   - vibe coding
   - claude code
@@ -22,7 +23,7 @@ updatedAt: '2026-11-17'
 url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
 ---
 
-# AI Agent Quickstart
+# Coding Agent Quickstart
 
 <div class="table-center">
 <table align="center">
@@ -43,7 +44,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
 
 :::info How this page works
 
-**You type a sentence. An AI agent edits the firmware, flashes the board and reads the serial log back to you.**
+**You type a sentence. A coding agent edits the firmware, flashes the board and reads the serial log back to you.**
 
 :::
 
