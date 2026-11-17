@@ -14,10 +14,10 @@ sku: 100058302
 sidebar_position: 1
 type: gettingstarted
 last_update:
-  date: 11/11/2026
-  author: 划水佬
+  date: 11/17/2026
+  author: Atul
 createdAt: '2026-11-11'
-updatedAt: '2026-11-11'
+updatedAt: '2026-11-17'
 url: https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/
 ---
 
@@ -43,54 +43,6 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/
 ## Introduction
 
 The XIAO Robot Kit is a modular robotics development kit built around the **Seeed Studio XIAO ESP32-S3 Plus**. The carrier board already holds the electronics of a small mobile robot: an ESP32-S3 controller with Wi-Fi and Bluetooth LE, two N20 gear motors with quadrature encoders, four servo channels, a 6-axis IMU and battery management. The kit adds two Feetech FT1190M metal-gear servos and Grove connectors for whatever you attach later. The body is yours to design and print — the motion hardware is already on the board.
-
-- **Build your own robot**: the electronics are done, so the structure is the part you get to invent. Print a wheeled chassis, or a character with moving arms.
-- **More ways to move, sense and interact**: two independently driven wheels, four servo channels and a 6-axis IMU, plus the two FT1190M metal-gear servos that come in the kit.
-- **Encoder feedback**: each N20 motor reports how far its wheel has actually turned, so a sketch can measure motion instead of assuming it from a delay.
-- **Wireless**: Wi-Fi and Bluetooth LE on the ESP32-S3 Plus, enough for a phone-controlled robot or a link to an external AI application.
-- **AI-assisted coding**: describe the behavior you want and let a coding agent such as Codex or Claude Code write the Arduino sketch with you.
-
-## Hardware Overview
-
-The **XIAO ESP32-S3 Plus** module forms the core of the kit. The table below maps each on-board hardware function to its dedicated pin.
-
-:::caution `Dxx` is a silkscreen marking, not a GPIO number
-A `Dxx` marking is **not** a GPIO number. For example, `D11` maps to `GPIO38`.
-:::
-
-### On-board Peripheral Pin Mapping
-
-<table align="center" style={{display:'table', width:'100%'}}>
-  <thead>
-    <tr><th>Function</th><th>Pin</th><th>GPIO</th><th>Note</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>SERVO3</td><td>D0</td><td>GPIO1</td><td>Servo 3</td></tr>
-    <tr><td>M1 PWM1</td><td>D1</td><td>GPIO2</td><td>Motor 1 drive</td></tr>
-    <tr><td>M1 PWM2</td><td>D2</td><td>GPIO3</td><td>Motor 1 drive</td></tr>
-    <tr><td>M1 Encoder A</td><td>D3</td><td>GPIO4</td><td>Motor 1 encoder A</td></tr>
-    <tr><td>I²C SDA</td><td>D4</td><td>GPIO5</td><td>on-board IMU</td></tr>
-    <tr><td>I²C SCL</td><td>D5</td><td>GPIO6</td><td>on-board IMU</td></tr>
-    <tr><td>UART TX</td><td>D6</td><td>GPIO43</td><td>Grove UART TX</td></tr>
-    <tr><td>UART RX</td><td>D7</td><td>GPIO44</td><td>Grove UART RX</td></tr>
-    <tr><td>SERVO4</td><td>D8</td><td>GPIO7</td><td>Servo 4</td></tr>
-    <tr><td>SERVO2</td><td>D9</td><td>GPIO8</td><td>Servo 2</td></tr>
-    <tr><td>M2 Encoder B</td><td>D10</td><td>GPIO9</td><td>Motor 2 encoder B</td></tr>
-    <tr><td>KEY</td><td>D11</td><td>GPIO38</td><td>User button</td></tr>
-    <tr><td>IMU Heater PWM</td><td>D12</td><td>GPIO39</td><td>Drives the heater resistor next to the IMU</td></tr>
-    <tr><td>RGB</td><td>D13</td><td>GPIO40</td><td>Grove RGB / Digital</td></tr>
-    <tr><td>M1 Encoder B</td><td>D14</td><td>GPIO41</td><td>Motor 1 encoder B</td></tr>
-    <tr><td>SERVO1</td><td>D15</td><td>GPIO42</td><td>Servo 1</td></tr>
-    <tr><td>ADC</td><td>D16</td><td>GPIO10</td><td>On-board ADC</td></tr>
-    <tr><td>M2 Encoder A</td><td>D17</td><td>GPIO13</td><td>Motor 2 encoder A</td></tr>
-    <tr><td>M2 PWM2</td><td>D18</td><td>GPIO12</td><td>Motor 2 drive</td></tr>
-    <tr><td>M2 PWM1</td><td>D19</td><td>GPIO11</td><td>Motor 2 drive</td></tr>
-  </tbody>
-</table>
-
-:::tip
-Motors and servos draw a large current. A computer's USB port alone can be too weak, so power the kit from the **battery connector** for Examples 3 and 4.
-:::
 
 ### Specification
 
@@ -131,6 +83,62 @@ Motors and servos draw a large current. A computer's USB port alone can be too w
     <tr><td>Weight</td><td>13 ± 2 g</td></tr>
     <tr><td rowspan="2">Wheels</td><td>Drive Wheels</td><td>Ø34 × 6.5 mm, 3 mm D-Shaft Mount</td></tr>
     <tr><td>Ball Caster Wheels</td><td>25 × 25 × 13 mm (L × W × H), with Steel Ball</td></tr>
+  </tbody>
+</table>
+
+### Features
+
+- **Build your own robot**: the electronics are done, so the structure is the part you get to invent. Print a wheeled chassis, or a character with moving arms.
+- **More ways to move, sense and interact**: two independently driven wheels, four servo channels and a 6-axis IMU, plus the two FT1190M metal-gear servos that come in the kit.
+- **Encoder feedback**: each N20 motor reports how far its wheel has actually turned, so a sketch can measure motion instead of assuming it from a delay.
+- **Wireless**: Wi-Fi and Bluetooth LE on the ESP32-S3 Plus, enough for a phone-controlled robot or a link to an external AI application.
+- **AI-assisted coding**: describe the behavior you want and let a coding agent such as Codex or Claude Code write the Arduino sketch with you.
+
+## Hardware Overview
+
+### XIAO Robot Board
+
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/XIAO_Robot_Board_Overview_all_annotated.jpg" style={{width:700, height:'auto'}}/></div>
+
+Motor and servo connectors, the IMU, the two USB-C ports, the power switch and the battery connector all sit on this board. Later sections use the same names.
+
+:::tip
+Motors and servos draw a large current. A computer's USB port alone can be too weak, so power the kit from the **battery connector** for Examples 3 and 4.
+:::
+
+### On-board Peripheral Pin Mapping
+
+The **XIAO ESP32-S3 Plus** module forms the core of the kit. The table below maps each on-board hardware function to its dedicated pin.
+
+:::caution `Dxx` is a silkscreen marking, not a GPIO number
+A `Dxx` marking is **not** a GPIO number. For example, `D11` maps to `GPIO38`.
+:::
+
+<table align="center" style={{display:'table', width:'100%'}}>
+  <thead>
+    <tr><th>Function</th><th>Pin</th><th>GPIO</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>SERVO3</td><td>D0</td><td>GPIO1</td><td>Servo 3</td></tr>
+    <tr><td>M1 PWM1</td><td>D1</td><td>GPIO2</td><td>Motor 1 drive</td></tr>
+    <tr><td>M1 PWM2</td><td>D2</td><td>GPIO3</td><td>Motor 1 drive</td></tr>
+    <tr><td>M1 Encoder A</td><td>D3</td><td>GPIO4</td><td>Motor 1 encoder A</td></tr>
+    <tr><td>I²C SDA</td><td>D4</td><td>GPIO5</td><td>on-board IMU</td></tr>
+    <tr><td>I²C SCL</td><td>D5</td><td>GPIO6</td><td>on-board IMU</td></tr>
+    <tr><td>UART TX</td><td>D6</td><td>GPIO43</td><td>Grove UART TX</td></tr>
+    <tr><td>UART RX</td><td>D7</td><td>GPIO44</td><td>Grove UART RX</td></tr>
+    <tr><td>SERVO4</td><td>D8</td><td>GPIO7</td><td>Servo 4</td></tr>
+    <tr><td>SERVO2</td><td>D9</td><td>GPIO8</td><td>Servo 2</td></tr>
+    <tr><td>M2 Encoder B</td><td>D10</td><td>GPIO9</td><td>Motor 2 encoder B</td></tr>
+    <tr><td>KEY</td><td>D11</td><td>GPIO38</td><td>User button</td></tr>
+    <tr><td>IMU Heater PWM</td><td>D12</td><td>GPIO39</td><td>Drives the heater resistor next to the IMU</td></tr>
+    <tr><td>RGB</td><td>D13</td><td>GPIO40</td><td>Grove RGB / Digital</td></tr>
+    <tr><td>M1 Encoder B</td><td>D14</td><td>GPIO41</td><td>Motor 1 encoder B</td></tr>
+    <tr><td>SERVO1</td><td>D15</td><td>GPIO42</td><td>Servo 1</td></tr>
+    <tr><td>ADC</td><td>D16</td><td>GPIO10</td><td>On-board ADC</td></tr>
+    <tr><td>M2 Encoder A</td><td>D17</td><td>GPIO13</td><td>Motor 2 encoder A</td></tr>
+    <tr><td>M2 PWM2</td><td>D18</td><td>GPIO12</td><td>Motor 2 drive</td></tr>
+    <tr><td>M2 PWM1</td><td>D19</td><td>GPIO11</td><td>Motor 2 drive</td></tr>
   </tbody>
 </table>
 
