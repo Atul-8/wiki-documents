@@ -6,6 +6,7 @@ keywords:
   - ai agent
   - vibe coding
   - claude code
+  - codex
   - cursor
   - beginner
   - esp32s3
@@ -40,7 +41,9 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
 </table>
 </div>
 
-You type a sentence. An AI edits the firmware, flashes the board and reads the serial log back to you.
+> **You type a sentence. An AI agent edits the firmware, flashes the board and reads the serial log back to you.**
+
+An *agent* here is a tool that acts on its own: Claude Code, Codex, Cursor or any other AI coding agent. It reads the project folder, runs the compiler and the uploader, and keeps the serial port open. You decide what should change; it types it, flashes it and tells you what came back.
 
 Two tasks below, easiest first: change the Wi-Fi password, then add a button that prints hello world.
 
@@ -49,7 +52,7 @@ Two tasks below, easiest first: change the Wi-Fi password, then add a button tha
 - A **XIAO Robot Kit** with a charged battery on the **battery connector** — the motors pull more than a USB port can give
 - Arduino IDE with the **esp32 core 3.x** installed, as described in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/)
 - The example code: [XIAO-Robot-Kit](https://github.com/Seeed-Projects/XIAO-Robot-Kit) — you do not have to clone it yourself; both prompts below ask the agent to check for the repository and clone it when it is missing
-- One AI coding tool, installed and signed in with your own account — **Claude Code**, a terminal agent, or **Cursor**, an editor with a chat panel next to the files
+- One AI coding tool, installed and signed in with your own account — **Claude Code** or **Codex**, terminal agents, or **Cursor**, an editor with a chat panel next to the files
 
 Install whichever one you pick from the vendor's own page — everything below starts once it is running. Start it in any folder you can write to, not necessarily the repository. Say `test` first: an answer means the tool is running.
 
