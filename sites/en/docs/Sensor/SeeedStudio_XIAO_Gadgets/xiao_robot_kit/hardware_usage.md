@@ -43,6 +43,16 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
 </table>
 </div>
 
+## Overview
+
+Three experiments, easiest first — read angles from the IMU, move one motor over Bluetooth LE, then switch an RGB strip with the on-board button. Each one is a single sketch: prepare, upload, observe.
+
+- **[Experiment 1: IMU Zero Calibration + Euler Angle Fusion](#exp-1-imu)** — the board prints roll, pitch and yaw in degrees, and holds yaw flat by re-zeroing itself while it sits still.
+- **[Experiment 2: BLE Control of the Encoder Motor](#exp-2-ble)** — the board becomes a BLE peripheral; write `set 1` and the M1 motor turns exactly ten revolutions.
+- **[Experiment 3: Button-Switched RGB LED](#exp-3-led)** — press KEY and the WS2812 strip steps through red, green, blue and back to dark, one LED at a time.
+
+Experiments 1 and 3 need nothing beyond the kit. Experiment 2 also needs the motor cable and a BLE scanner app on your phone.
+
 ## Getting Started
 
 ### Hardware Preparation
@@ -57,7 +67,12 @@ Motors and servos draw a large current. A computer's USB port alone can be too w
 
 Arduino IDE with the ESP32 board package installed, and `XIAO_ESP32S3_PLUS` selected under **Tools > Board** — [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/#software-preparation) covers the install if you have not done it yet. Nothing beyond the ESP32 core needs installing: all three sketches build with only what the board package already ships with.
 
-## Experiment 1: IMU Zero Calibration + Euler Angle Fusion
+## Experiment 1: IMU Zero Calibration + Euler Angle Fusion {#exp-1-imu}
+
+The sketch turns the IMU's raw acceleration and rotation rates into three angles — roll, pitch and yaw — in degrees, and prints them 50 times a second. There is no sensor library involved: `Wire` reads the registers and the attitude filter is written out in the file, which is why it is worth reading even if you never change it.
+
+Two halves do the work. `readImu()` scales the raw counts by the sensitivities of the ±2 g and ±2000 dps ranges into `g` and `dps`. `mahony_update()` then runs a Mahony complementary filter: integrate the gyro for the fast response, pull the result back toward the measured gravity vector with `KP`, and keep the attitude as a quaternion so nothing ever sits at a gimbal lock. `quat_to_euler()` converts that to three angles once per print, and `fmtAng()` pads each one to a fixed width so the columns stay put while the numbers change.
+
 
 **Step 1. Create the sketch**
 
@@ -71,21 +86,26 @@ In the Arduino IDE, open **File > New Sketch**, delete the template code, and pa
 /* SPDX-License-Identifier: MIT */
 /* Experiment 1: LSM6DS3TR-C + Mahony AHRS -> roll/pitch/yaw (deg), zero-lib.
  * Warm-up 12s -> auto-cal 6s (hold still). Still-tracker nulls yaw drift.
- * Press KEY (D11) to re-zero. I2C SDA=D4 SCL=D5, addr 0x6A, Serial 115200. */
+ * Press KEY (D11) to re-zero. I2C SDA=D4 SCL=D5, addr 0x6A, Serial 115200.
+ *
+ * The whole chain is four calls: readImu() -> mahony_update() ->
+ * quat_to_euler() -> Serial. Everything between them is written out here. */
 
 #include <Arduino.h>
 #include <Wire.h>
 #include <math.h>
 #include <stdlib.h>
 
-#define ADDR       0x6A
-#define WHO_AM_I   0x0F
-#define CTRL1_XL   0x10
-#define CTRL2_G    0x11
-#define CTRL3_C    0x12
-#define OUT_TEMP_L 0x20
-#define OUTX_L_G   0x22
-#define OUTX_L_XL  0x28
+/* The seven registers this sketch touches; names follow the LSM6DS3TR-C
+ * datasheet, so you can look any of them up. */
+#define ADDR       0x6A     /* I2C address, fixed by the chip */
+#define WHO_AM_I   0x0F     /* identity register, always reads 0x6A */
+#define CTRL1_XL   0x10     /* accelerometer: output rate + full scale */
+#define CTRL2_G    0x11     /* gyroscope: output rate + full scale */
+#define CTRL3_C    0x12     /* block data update + register auto-increment */
+#define OUT_TEMP_L 0x20     /* temperature, first byte of the output block */
+#define OUTX_L_G   0x22     /* gyro X/Y/Z, 6 bytes */
+#define OUTX_L_XL  0x28     /* accel X/Y/Z, 6 bytes */
 
 #define PIN_SDA    5      // D4
 #define PIN_SCL    6      // D5
@@ -94,11 +114,13 @@ In the Arduino IDE, open **File > New Sketch**, delete the template code, and pa
 #define ACCEL_LSB  0.000061f  // +-2g, g/LSB
 #define GYRO_LSB   0.070f     // +-2000dps, dps/LSB
 
-#define ODR_HZ     104
-#define PERIOD_US  (1000000u / ODR_HZ)
-#define CALIB_MS   6000
-#define SETTLE_MS  12000
+#define ODR_HZ     104                    // output data rate set in setup()
+#define PERIOD_US  (1000000u / ODR_HZ)    // one sample every 9.6 ms
+#define CALIB_MS   6000                   // length of the zero-offset average
+#define SETTLE_MS  12000                  // warm-up before that average starts
 
+/* Filter gains: KP pulls the attitude toward the measured gravity vector,
+ * KI would trim a residual rate and is left at zero here. */
 #define KP         2.0f
 #define KI         0.0f
 #define STILL_DPS  1.0f    // sum|gyro| under this = still
@@ -108,20 +130,24 @@ In the Arduino IDE, open **File > New Sketch**, delete the template code, and pa
 #define RAD2DEG    57.2958f
 #define PI         3.14159265f
 
+/* Attitude is carried as a quaternion: four numbers, no gimbal lock.
+ * ImuSample / ImuBias hold the scaled sensor values in g and dps. */
 struct Quat { float w, x, y, z; };
 struct Mahony { Quat q; float kp, ki, dt; float integral[3]; };
 struct ImuSample { float gx, gy, gz, ax, ay, az; };
 struct ImuBias { float gx, gy, gz, ax, ay, az; };
 
 static Mahony    mahony;
-static ImuBias   bias;
-static ImuSample cur;
+static ImuBias   bias;         /* offset subtracted from every reading */
+static ImuSample cur;          /* last sample, in g and dps */
 static float     imuTemp;
-static unsigned long gLastUs;
+static unsigned long gLastUs;  /* timestamp of the previous filter update */
 
+/* Write one 8-bit register. */
 static void wr(uint8_t r, uint8_t v) {
     Wire.beginTransmission(ADDR); Wire.write(r); Wire.write(v); Wire.endTransmission(true);
 }
+/* Read n bytes from register r; false = the bus did not answer. */
 static bool rd(uint8_t r, uint8_t *b, uint8_t n) {
     Wire.beginTransmission(ADDR); Wire.write(r);
     if (Wire.endTransmission(false)) return false;
@@ -129,8 +155,11 @@ static bool rd(uint8_t r, uint8_t *b, uint8_t n) {
     for (uint8_t i = 0; i < n; i++) b[i] = Wire.read();
     return true;
 }
+/* Two little-endian bytes -> one signed 16-bit sample. */
 static int16_t i16(const uint8_t *p) { return (int16_t)(p[0] | p[1] << 8); }
 
+/* Grab one full sample: gyro, accel, temperature. Counts are multiplied by the
+ * sensitivity of the +-2 g / +-2000 dps ranges, so cur is already in g and dps. */
 static bool readImu() {
     uint8_t b[6];
     if (!rd(OUTX_L_G, b, 6)) return false;
@@ -146,8 +175,11 @@ static bool readImu() {
     return true;
 }
 
+/* w = 1, x = y = z = 0: the quaternion that means "no rotation". */
 static void quat_identity() { mahony.q.w = 1.0f; mahony.q.x = mahony.q.y = mahony.q.z = 0.0f; }
 
+/* A quaternion has to stay unit length, or the rotation it describes stretches.
+ * Renormalize after every integration step; a zero-length q means broken state. */
 static void quat_normalize() {
     float n = sqrtf(mahony.q.w * mahony.q.w + mahony.q.x * mahony.q.x
                   + mahony.q.y * mahony.q.y + mahony.q.z * mahony.q.z);
@@ -156,6 +188,8 @@ static void quat_normalize() {
 }
 
 // quaternion -> ZYX euler (rad)
+/* roll about X, pitch about Y, yaw about Z, in that order. asinf() is clamped
+ * because rounding can push its argument just past +-1. */
 static void quat_to_euler(float *roll, float *pitch, float *yaw) {
     float w = mahony.q.w, x = mahony.q.x, qy = mahony.q.y, z = mahony.q.z;
     *roll  = atan2f(2.0f * (w * x + qy * z), 1.0f - 2.0f * (x * x + qy * qy));
@@ -164,16 +198,22 @@ static void quat_to_euler(float *roll, float *pitch, float *yaw) {
     *yaw   = atan2f(2.0f * (w * z + x * qy), 1.0f - 2.0f * (qy * qy + z * z));
 }
 
+/* Reset the filter to "level, not turning" and seed it with the gains.
+ * dt starts at the nominal 1/ODR; loop() replaces it with the measured one. */
 static void mahony_init() {
     quat_identity();
     mahony.kp = KP; mahony.ki = KI; mahony.dt = 1.0f / ODR_HZ;
     mahony.integral[0] = mahony.integral[1] = mahony.integral[2] = 0.0f;
 }
 
+/* One complementary-filter step: the gyro says how fast the board is turning,
+ * the accelerometer says where "down" is. Blend them, integrate, renormalize. */
 static void mahony_update(float ax, float ay, float az, float gx, float gy, float gz) {
     const float dt = mahony.dt;
     const float twoKp = 2.0f * mahony.kp, twoKi = 2.0f * mahony.ki;
 
+    /* Normalize the measured gravity vector; a zero vector carries no direction,
+     * which happens during a hard shake, so skip that step. */
     float n = sqrtf(ax * ax + ay * ay + az * az);
     if (n < 1e-6f) return;
     ax /= n; ay /= n; az /= n;
@@ -181,6 +221,8 @@ static void mahony_update(float ax, float ay, float az, float gx, float gy, floa
     float q0 = mahony.q.w, q1 = mahony.q.x, q2 = mahony.q.y, q3 = mahony.q.z;
 
     // estimated gravity dir, error = cross(measured, estimated)
+    /* v = where gravity should point for the current attitude; the cross product
+     * with the measured vector is the correction the filter has to apply. */
     float vx = 2.0f * (q1 * q3 - q0 * q2);
     float vy = 2.0f * (q0 * q1 + q2 * q3);
     float vz = q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3;
@@ -188,16 +230,19 @@ static void mahony_update(float ax, float ay, float az, float gx, float gy, floa
     float ey = az * vx - ax * vz;
     float ez = ax * vy - ay * vx;
 
+    /* KI is zero here, so this stays at zero; kept so raising KI works. */
     mahony.integral[0] += twoKi * ex * dt;
     mahony.integral[1] += twoKi * ey * dt;
     mahony.integral[2] += twoKi * ez * dt;
 
+    /* Corrected rate in rad/s: gyro reading + KP * attitude error. */
     const float d2r = PI / 180.0f;   // dps -> rad/s
     gx = gx * d2r + twoKp * ex + mahony.integral[0];
     gy = gy * d2r + twoKp * ey + mahony.integral[1];
     gz = gz * d2r + twoKp * ez + mahony.integral[2];
 
     // first-order quaternion integration
+    /* q_dot = 0.5 * q ⊗ w, stepped by dt. Simple, and accurate enough at 104 Hz. */
     float hdt = 0.5f * dt;
     mahony.q.w += hdt * (-q1 * gx - q2 * gy - q3 * gz);
     mahony.q.x += hdt * ( q0 * gx + q2 * gz - q3 * gy);
@@ -207,6 +252,9 @@ static void mahony_update(float ax, float ay, float az, float gx, float gy, floa
     quat_normalize();
 }
 
+/* Average the sensor for CALIB_MS while the board sits still, and store that
+ * average as the offset. Held still, a gyro should read zero and the accel
+ * should read exactly 1 g on one axis: whatever is left over is the error. */
 static void calibrateImu() {
     float gxs = 0, gys = 0, gzs = 0, axs = 0, ays = 0, azs = 0;
     int n = 0;
@@ -226,6 +274,8 @@ static void calibrateImu() {
     float axm = axs * inv, aym = ays * inv, azm = azs * inv;
 
     // remove 1g from the dominant accel axis
+    /* Whichever axis carries the largest reading is the one pointing down;
+     * subtract 1 g from it so a level board reads 0 / 0 / 0 afterwards. */
     float aa[3] = { fabsf(axm), fabsf(aym), fabsf(azm) };
     int axis = 0;
     if (aa[1] > aa[0]) axis = 1;
@@ -240,6 +290,7 @@ static void calibrateImu() {
     else                 bias.az -= sign * 1.0f;
 }
 
+/* The KEY handler: say so, measure again, and restart the filter from level. */
 static void recalibrate() {
     Serial.println("re-cal (keep still...)");
     calibrateImu();
@@ -248,6 +299,8 @@ static void recalibrate() {
 }
 
 // right-aligned, fixed-width "+12.3" style
+/* dtostrf() pads on the left, which would put the spaces between the sign and
+ * the digits. Move the sign in front of them so the columns line up. */
 static void fmtAng(char *out, float deg, int width) {
     char m[12];
     dtostrf(deg < 0.0f ? -deg : deg, width - 1, 1, m);
@@ -263,20 +316,24 @@ static void fmtAng(char *out, float deg, int width) {
 void setup() {
     Serial.begin(115200);
     delay(200);
-    Wire.begin(PIN_SDA, PIN_SCL);
-    Wire.setClock(400000);
+    Wire.begin(PIN_SDA, PIN_SCL);   /* I2C on D4 / D5 */
+    Wire.setClock(400000);          /* 400 kHz fast mode */
     pinMode(PIN_BUTTON, INPUT_PULLUP);
 
     uint8_t id = 0;
+    /* Talk to the chip before trusting anything it sends. */
     if (!rd(WHO_AM_I, &id, 1) || id != 0x6A) {
         Serial.println("IMU init failed");
         while (1) delay(1000);
     }
+    /* Output rate and full scale, matching ACCEL_LSB / GYRO_LSB above. */
     wr(CTRL1_XL, 0x40);   // +-2g @104Hz
     wr(CTRL2_G,  0x4C);   // +-2000dps @104Hz
     wr(CTRL3_C,  0x44);   // BDU + IF_INC
     mahony_init();
 
+    /* Warm-up: the temperature sensor needs a moment, and the user needs a
+     * visible countdown before being asked to hold the board still. */
     Serial.println("warm-up...");
     for (unsigned long s = millis(); millis() - s < SETTLE_MS; ) {
         readImu(); delay(500);
@@ -293,6 +350,8 @@ void loop() {
     static uint32_t stillSince = 0;
 
     // button: debounce + falling edge -> re-zero
+    /* Same debounce as Example 1 in Getting Started: a level counts only after
+     * it has held for 10 ms, and only the press edge starts a re-calibration. */
     static bool lastRaw = HIGH, lastStable = HIGH;
     static uint32_t lastChange = 0;
     uint32_t bNow = millis();
@@ -304,6 +363,8 @@ void loop() {
     }
 
     // non-blocking tick, measured dt
+    /* Run the filter only when a new sensor sample is due. dt is measured, not
+     * assumed, so a slow print or a busy Wi-Fi stack cannot shift the angles. */
     unsigned long nowUs = micros();
     if (nowUs - gLastUs >= PERIOD_US) {
         mahony.dt = (float)(nowUs - gLastUs) / 1000000.0f;
@@ -314,6 +375,9 @@ void loop() {
             float gz = cur.gz - bias.gz;
 
             // still-tracker: null residual zero-rate so yaw holds flat
+            /* A gyro never reads exactly zero, and any leftover rate is
+             * integrated into yaw forever. While the board is still, leak a
+             * little of that leftover into the stored offset instead. */
             if (fabsf(gx) + fabsf(gy) + fabsf(gz) < STILL_DPS) {
                 if (stillSince == 0) stillSince = millis();
                 if (millis() - stillSince >= STILL_MS) {
@@ -330,6 +394,8 @@ void loop() {
         }
     }
 
+    /* Print 50 times a second: the angles are filtered, so a faster line on the
+     * Serial Monitor would only repeat the same numbers. */
     uint32_t now = millis();
     if (now - tPrint >= 20) {
         tPrint = now;
@@ -398,7 +464,12 @@ Four `#define`s at the top of the sketch cover the cases where the defaults do n
   </tbody>
 </table>
 
-## Experiment 2: BLE Control of the Encoder Motor
+## Experiment 2: BLE Control of the Encoder Motor {#exp-2-ble}
+
+The sketch makes the board a BLE peripheral and moves the M1 motor by counting encoder edges, so a command travels an exact number of revolutions instead of running for a fixed time. Write `set 1` and it turns ten revolutions and stops; write `set 1 20` and it turns twenty.
+
+The position loop is the interesting part. `execCmd()` takes the reference from the encoder count at that moment (`gTarget = gStart + dir × revs × 7200`) and `loop()` stops the motor when the count gets there, so an overshoot never accumulates into the next move. Encoder edges are decoded in an interrupt with a 16-entry quadrature table. BLE writes arrive in the Bluetooth task, so they are pushed into a 4-slot queue and executed by `loop()` — the motor is only ever driven from one thread. `MOTOR_INVERT` fixes the drive polarity so +duty always increases the count, and a guard aborts the move if the count runs the wrong way instead.
+
 
 The hardware side is one cable — no jumpers, no breadboard:
 
@@ -456,8 +527,11 @@ In the Arduino IDE, open **File > New Sketch**, delete the template code, and pa
 
 /* command = run state; "stop" is simply the command to go back to idle */
 enum : uint8_t { CMD_NONE = 0, CMD_FWD, CMD_REV };
+/* Names printed in the telemetry line, indexed by the run state. */
 static const char *const kStateName[] = { "IDLE", "FWD", "REV" };
 
+/* The move is a target count, not a duration: execCmd() sets gTarget from the
+ * count at that instant, and loop() stops the motor when the count gets there. */
 static uint8_t gState  = CMD_NONE;   /* loop only */
 static int32_t gTarget = 0;          /* absolute encoder count to reach */
 static int32_t gStart  = 0;          /* count when the current move began */
@@ -481,6 +555,8 @@ static void IRAM_ATTR onEncoderChange() {
 
 static int32_t readEnc() { noInterrupts(); int32_t c = encCount; interrupts(); return c; }
 
+/* Called from the BLE task. Producers only append; loop() is the consumer, so
+ * the motor is driven from one thread. A full queue drops the command. */
 static void pushCmd(uint16_t packed) {
     uint8_t h = gQHead;
     if ((uint8_t)(h - gQTail) >= CMD_QUEUE_LEN) return;   /* full: drop */
@@ -513,6 +589,7 @@ static void execCmd(uint16_t packed) {
     gState = cmd;
     int8_t  dir = (cmd == CMD_FWD) ? +1 : -1;
     gStart  = readEnc();
+    /* Reference from the current count, so a past overshoot never adds up. */
     gTarget = gStart + dir * revs * COUNTS_PER_REV;
     gGuard  = (revs < GUARD_REVS ? revs : GUARD_REVS) * COUNTS_PER_REV;
     motorSet(dir * RUN_DUTY);
@@ -538,6 +615,7 @@ static uint16_t parseCmd(const char *s) {
     return (uint16_t)(((uint16_t)revs << 8) | cmd);
 }
 
+/* BLE write -> parse -> queue. Runs in the Bluetooth task, never in loop(). */
 class CmdCallbacks : public BLECharacteristicCallbacks {
     void onWrite(BLECharacteristic *p) override {
         String v = p->getValue();
@@ -606,6 +684,7 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(PIN_ENC_A), onEncoderChange, CHANGE);
     attachInterrupt(digitalPinToInterrupt(PIN_ENC_B), onEncoderChange, CHANGE);
 
+    /* 20 kHz sits above the audible range, so the motor does not whine. */
     ledcAttach(PIN_M1_IN1, MOTOR_PWM_FREQ, MOTOR_PWM_RES);
     ledcAttach(PIN_M1_IN2, MOTOR_PWM_FREQ, MOTOR_PWM_RES);
     motorSet(0);
@@ -668,7 +747,7 @@ void loop() {
         Serial.println("[BLE] advertising restarted");
     }
 
-    /* telemetry */
+    /* telemetry: one line every 200 ms, so a move can be watched converging */
     if (now - tPrint >= 200) {
         int32_t c  = readEnc();
         float   dt = (now - tPrint) / 1000.0f;
@@ -745,7 +824,12 @@ done: 10.00 rev, enc=72000 (0.00 rev past target)
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_ble_encoder_motor_log.gif" style={{width:700, height:'auto'}}/></div>
 
-## Experiment 3: Button-Switched RGB LED
+## Experiment 3: Button-Switched RGB LED {#exp-3-led}
+
+There is no LED library here either: `show()` builds the bit stream by hand and hands it to the ESP32-S3's RMT peripheral, which reproduces it with hardware timing. The WS2812 protocol allows very little jitter, and a busy loop would never hold it.
+
+The pieces are small. `putBit()` turns one bit into one 1.25 µs RMT symbol, `putByte()` emits eight of them MSB first, and each LED wants green, red, blue in that order. `sweepStep()` repaints the strip once every `SWEEP_MS` so the color change crawls along it, `pollButton()` debounces KEY and asks for the next palette entry, and both are called from `loop()` — nothing blocks, so the sweep keeps running while the button is read.
+
 
 :::note
 The light board used in this experiment is a WS2812 board from **CH Maker Ed**, a third party. It is not part of the kit — you supply your own — and it is not required to be that particular board: the sketch only sends the standard WS2812 bit stream, so any WS2812 board wired to `D13` behaves the same way.
@@ -797,9 +881,11 @@ static const uint8_t kPalette[][3] = {
 };
 #define N_COLOR ((uint8_t)(sizeof(kPalette) / sizeof(kPalette[0])))
 
+/* 24 RMT symbols per LED: 8 bits each of G, R and B. */
 static uint8_t sPix[LED_COUNT][3];              /* r, g, b of every LED */
 static rmt_data_t sFrame[LED_COUNT * 24];       /* RMT symbols, 24 bits per LED */
 
+/* Sweep state: which palette entry, which LED is next, when it is due. */
 static uint8_t gColor = 0;          /* palette index being painted */
 static uint8_t gNext = LED_COUNT;   /* next LED to paint; LED_COUNT = idle */
 static unsigned long gStepAt = 0;   /* millis() when the next LED is due */
@@ -826,6 +912,7 @@ static void show() {
         d = putByte(d, sPix[n][0]);   /* R */
         d = putByte(d, sPix[n][2]);   /* B */
     }
+    /* One call sends the whole frame; the RMT hardware holds the bit timing. */
     rmtWrite(PIN_WS2812, sFrame, (size_t)LED_COUNT * 24, 100);
     delayMicroseconds(RESET_US);
 }
