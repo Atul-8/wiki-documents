@@ -172,7 +172,9 @@ Come back once the IDE can see the board. Every example below starts from there.
 
 ## Example 1: Button + Hello World Serial Print
 
-This is the "hello world" of the kit and the quickest way to confirm that your toolchain works. The sketch does two things: it prints `hello world N` once per second, and it counts every press of the on-board **KEY** button — no wiring needed, because the button is already on the board.
+The "hello world" of the kit, and the quickest proof that the toolchain works: it prints `hello world N` once a second and counts presses of the on-board **KEY** button. There is nothing to wire.
+
+`setup()` opens the serial port and puts the KEY pin in `INPUT_PULLUP`, so the pin reads `HIGH` at rest and `LOW` only while the button is held. `loop()` never calls `delay(1000)`: it compares `millis()` against the next deadline, so the printing and the button check keep running side by side. A new level counts only after it has held for 10 ms, which turns one physical press into one line of output.
 
 **Step 1. Create the sketch**
 
@@ -184,15 +186,20 @@ In the Arduino IDE, open **File > New Sketch**, delete the template code, and pa
 
 ```c
 /* Example 1: prints "hello world N" once per second,
- * and counts presses of the on-board KEY button. */
+ * and counts presses of the on-board KEY button.
+ *
+ * Nothing to wire: the KEY button and the USB serial port are on the board. */
 #include <Arduino.h>
 
-#define PIN_BUTTON  38
+#define PIN_BUTTON  38          /* silkscreen KEY = GPIO38 */
 
 void setup()
 {
-    Serial.begin(115200);
-    delay(200);
+    Serial.begin(115200);       /* must match the Serial Monitor baud rate */
+    delay(200);                 /* give the port a moment to come up */
+
+    /* KEY shorts to ground when pressed, so the internal pull-up holds the
+     * pin HIGH at rest and lets it drop to LOW while the button is held. */
     pinMode(PIN_BUTTON, INPUT_PULLUP);
 
     Serial.println("01 button + hello world");
@@ -203,31 +210,36 @@ void loop()
 {
     uint32_t now = millis();
 
-    static uint32_t nextHello = 0;
-    static uint32_t n = 0;
+    /* ---- print one line every 1000 ms, without blocking the loop ---- */
+    static uint32_t nextHello = 0;      /* when the next line is due */
+    static uint32_t n = 0;              /* how many lines printed so far */
     if ((int32_t)(now - nextHello) >= 0) {
         nextHello = now + 1000;
         Serial.print("hello world ");
         Serial.println(++n);
     }
 
-    static bool     lastRaw    = HIGH;
-    static bool     lastStable = HIGH;
-    static uint32_t lastChange = 0;
+    /* ---- watch the button ---- */
+    static bool     lastRaw    = HIGH;  /* last level seen on the pin */
+    static bool     lastStable = HIGH;  /* last level we accepted */
+    static uint32_t lastChange = 0;     /* when that level last moved */
     static uint32_t presses    = 0;
 
-    bool cur = (digitalRead(PIN_BUTTON) == LOW);
+    bool cur = (digitalRead(PIN_BUTTON) == LOW);    /* true = pressed */
     if (cur != lastRaw) { lastRaw = cur; lastChange = now; }
+
+    /* A new level counts only after it has held for 10 ms, so one press
+     * becomes one line instead of a burst of them. */
     if (now - lastChange >= 10 && cur != lastStable) {
         lastStable = cur;
-        if (lastStable) {
+        if (lastStable) {               /* count on release, not on press */
             presses++;
             Serial.print("button pressed = ");
             Serial.println(presses);
         }
     }
 
-    delay(10);
+    delay(10);                  /* keeps the loop light for everything else */
 }
 ```
 
@@ -259,7 +271,9 @@ If the Serial Monitor stays empty or prints garbled text, check the selected por
 
 ## Example 2: IMU 6-Axis Raw Data + Temperature
 
-This example reads the on-board **LSM6DS3TR-C** 6-axis IMU (3-axis accelerometer + 3-axis gyroscope) and streams all seven channels at 20 Hz — acceleration in `g`, angular rate in `dps`, and die temperature in `°C` — so you can watch the readings respond as you move the board. Again, no wiring is needed.
+Reads the on-board **LSM6DS3TR-C** 6-axis IMU over I2C and prints all seven channels at 20 Hz: acceleration in `g`, angular rate in `dps` and the die temperature in `°C`.
+
+The chip sits on the two-wire bus on `D4`/`D5`, so the sketch needs only three small helpers: `wr()` writes one register, `rd()` bursts bytes out of it, and `i16()` joins two little-endian bytes into a signed 16-bit sample. `setup()` reads `WHO_AM_I` first — a wrong answer means a bus problem, and the sketch stops with `IMU init failed` instead of streaming zeros forever — then sets the output rate and the full-scale range. Each loop reads temperature, gyro and accelerometer in one 14-byte burst and scales the counts with the sensitivity those settings imply.
 
 **Step 1. Create the sketch**
 
@@ -271,27 +285,30 @@ Create a new sketch (**File > New Sketch**) and paste the full code below:
 
 ```c
 /* Example 2: streams 6-axis acceleration (g), angular rate (dps)
- * and temperature (C) from the LSM6DS3TR-C IMU over I2C. */
+ * and temperature (C) from the LSM6DS3TR-C IMU over I2C.
+ *
+ * The IMU is on the board: SDA = D4, SCL = D5, address 0x6A. */
 #include <Arduino.h>
 #include <Wire.h>
 #include <stdlib.h>
 
-#define ADDR     0x6A
-#define PIN_SDA  5
-#define PIN_SCL  6
+#define ADDR     0x6A      /* I2C address of the on-board IMU */
+#define PIN_SDA  5         /* silkscreen D4 */
+#define PIN_SCL  6         /* silkscreen D5 */
 
-#define WHO_AM_I 0x0F
-#define CTRL1_XL 0x10
-#define CTRL2_G  0x11
-#define CTRL3_C  0x12
-#define OUT_TEMP 0x20
+/* Registers used below, straight out of the LSM6DS3TR-C datasheet. */
+#define WHO_AM_I 0x0F      /* identity register, always reads 0x6A */
+#define CTRL1_XL 0x10      /* accelerometer: output rate + full scale */
+#define CTRL2_G  0x11      /* gyroscope: output rate + full scale */
+#define CTRL3_C  0x12      /* block data update + register auto-increment */
+#define OUT_TEMP 0x20      /* first of the 14 output bytes read here */
 
-/* write one register */
+/* Write one 8-bit register. */
 static void wr(uint8_t r, uint8_t v) {
     Wire.beginTransmission(ADDR); Wire.write(r); Wire.write(v); Wire.endTransmission(true);
 }
 
-/* read n bytes starting at register r */
+/* Read n bytes starting at register r; false = the bus did not answer. */
 static bool rd(uint8_t r, uint8_t *b, uint8_t n) {
     Wire.beginTransmission(ADDR); Wire.write(r);
     if (Wire.endTransmission(false)) return false;
@@ -300,10 +317,11 @@ static bool rd(uint8_t r, uint8_t *b, uint8_t n) {
     return true;
 }
 
-/* little-endian 16-bit word */
+/* Join two little-endian bytes into one signed 16-bit sample. */
 static int16_t i16(const uint8_t *p) { return (int16_t)(p[0] | p[1] << 8); }
 
-/* print one "tag=value" field */
+/* Print one "tag=value" field: value right-aligned in w characters,
+ * d digits after the decimal point. */
 static void p(const char *tag, float v, int w, int d) {
     char s[10];
     Serial.print(tag);
@@ -314,25 +332,31 @@ static void p(const char *tag, float v, int w, int d) {
 void setup() {
     Serial.begin(115200);
     delay(200);
-    Wire.begin(PIN_SDA, PIN_SCL);
-    Wire.setClock(400000);
 
+    Wire.begin(PIN_SDA, PIN_SCL);   /* start the I2C bus on D4 / D5 */
+    Wire.setClock(400000);          /* 400 kHz fast mode, plenty for this */
+
+    /* Read the identity register first: a wrong answer means the bus or the
+     * address is wrong, so stop with a clear message instead of streaming
+     * meaningless zeros forever. */
     uint8_t id = 0;
     if (!rd(WHO_AM_I, &id, 1) || id != 0x6A) {
         Serial.println("IMU init failed");
         while (1) delay(1000);
     }
 
-    wr(CTRL1_XL, 0x40);
-    wr(CTRL2_G,  0x4C);
-    wr(CTRL3_C,  0x44);
+    wr(CTRL1_XL, 0x40);     /* accel 104 Hz, +/-2 g     -> 0.061 mg/LSB */
+    wr(CTRL2_G,  0x4C);     /* gyro  104 Hz, +/-2000 dps -> 0.070 dps/LSB */
+    wr(CTRL3_C,  0x44);     /* block data update + register auto-increment */
     Serial.println("IMU ready  (ax/ay/az in g, gx/gy/gz in dps, t in C)");
 }
 
 void loop() {
+    /* One burst covers temperature, gyro and accelerometer: 14 bytes. */
     uint8_t b[14];
     if (!rd(OUT_TEMP, b, 14)) { delay(50); return; }
 
+    /* Convert the raw counts with the sensitivity set in setup(). */
     float t  = 25.0f + i16(&b[0])  / 256.0f;
     float gx = i16(&b[2])  * 0.070f;
     float gy = i16(&b[4])  * 0.070f;
@@ -341,6 +365,7 @@ void loop() {
     float ay = i16(&b[10]) * 0.000061f;
     float az = i16(&b[12]) * 0.000061f;
 
+    /* All seven channels on one line, so a plotter sees one sample per row. */
     p("ax=", ax, 6, 3);
     p("ay=", ay, 6, 3);
     p("az=", az, 6, 3);
@@ -350,7 +375,7 @@ void loop() {
     p("t=",  t,  6, 2);
     Serial.println("C");
 
-    delay(50);
+    delay(50);      /* 50 ms + the read time is about 20 Hz */
 }
 ```
 
@@ -379,7 +404,9 @@ ax= 0.012 ay= 0.008 az= 0.995 gx=   0.12 gy=  -0.03 gz=   0.05 t=25.31 C
 
 ## Example 3: Servo Minimal Example
 
-This example drives a **position servo** connected to servo port **SERVO1**. It outputs a 50 Hz PWM signal whose pulse width follows a sine wave between 500 µs and 2500 µs, sweeping the servo horn smoothly across its full travel. The Serial Monitor prints the commanded position and pulse width so you can correlate PWM with motion.
+Drives a position servo on **SERVO1** with a 50 Hz PWM signal whose pulse width sweeps between 500 µs and 2500 µs — one full cycle every 4 s.
+
+A hobby servo does not take an angle, it takes a pulse width. `servoPulseUs()` turns a position between -1.0 and +1.0 into 500–2500 µs and clamps anything outside that range, and `servoWrite()` converts the pulse width into the duty cycle the LEDC peripheral needs at 14-bit resolution over a 20 ms period. `loop()` feeds it `sinf()` of the elapsed time, so the horn glides instead of jumping.
 
 ### Hardware Setup
 
@@ -395,24 +422,28 @@ Create a new sketch and paste the full code below:
 
 ```c
 /* Example 3: sweeps a position servo smoothly across its full range
- * (one sine cycle every 4 s) on servo port SERVO1. */
+ * (one sine cycle every 4 s) on servo port SERVO1.
+ *
+ * Plug the servo cable into SERVO1; nothing else to wire. */
 #include <Arduino.h>
 #include <math.h>
 
-#define PIN_SERVO      42
+#define PIN_SERVO      42          /* silkscreen SERVO1 = GPIO42 */
 
-#define PWM_FREQ       50
-#define PWM_RES_BITS   14
-#define PWM_PERIOD_US  20000
+#define PWM_FREQ       50          /* hobby servos expect 50 Hz, i.e. 20 ms */
+#define PWM_RES_BITS   14          /* 16384 steps across one period */
+#define PWM_PERIOD_US  20000       /* 1 / 50 Hz, in microseconds */
 
-#define SERVO_PULSE_CENTER   1500
-#define SERVO_PULSE_MIN      500
-#define SERVO_PULSE_MAX      2500
+#define SERVO_PULSE_CENTER   1500  /* center position */
+#define SERVO_PULSE_MIN      500   /* full travel one way */
+#define SERVO_PULSE_MAX      2500  /* full travel the other way */
 
-#define SWEEP_PERIOD         4000
+#define SWEEP_PERIOD         4000  /* one complete sweep, milliseconds */
 #define TWO_PI               6.2831853f
 
-/* map position -1.0..+1.0 to pulse width in us */
+/* Map a position between -1.0 and +1.0 to a pulse width in microseconds.
+ * Anything outside that range is clamped, so a bad number cannot drive the
+ * servo past its mechanical stop. */
 static float servoPulseUs(float normPos) {
     if (normPos < -1.0f) normPos = -1.0f;
     if (normPos >  1.0f) normPos =  1.0f;
@@ -421,7 +452,8 @@ static float servoPulseUs(float normPos) {
         : (float)SERVO_PULSE_CENTER + normPos * (float)(SERVO_PULSE_MAX - SERVO_PULSE_CENTER);
 }
 
-/* set servo position, -1.0..+1.0 */
+/* Move the servo: -1.0 = one end, 0.0 = center, +1.0 = the other end.
+ * The pulse width becomes a duty cycle out of 2^14 steps. */
 static void servoWrite(float normPos) {
     float us = servoPulseUs(normPos);
     uint32_t duty = (uint32_t)(us * (1u << PWM_RES_BITS) / (float)PWM_PERIOD_US + 0.5f);
@@ -435,18 +467,23 @@ void setup() {
     Serial.println("servo - full-range sweep (SERVO1)");
     Serial.println("WARN: servos on Motor_5V rail - use battery / external 5V");
 
+    /* Park the pin low first, then hand it to the LEDC peripheral at 50 Hz
+     * with 14-bit resolution. */
     pinMode(PIN_SERVO, OUTPUT); digitalWrite(PIN_SERVO, LOW);
     ledcAttach(PIN_SERVO, PWM_FREQ, PWM_RES_BITS);
-    servoWrite(0.0f);
+    servoWrite(0.0f);       /* start from the center position */
 }
 
 void loop() {
     static unsigned long tPrint = 0;
     uint32_t now = millis();
 
+    /* sinf() of the elapsed time gives a smooth -1 .. +1 over SWEEP_PERIOD;
+     * the modulo keeps the argument small so precision never degrades. */
     float normPos = sinf(TWO_PI * (float)(now % SWEEP_PERIOD) / (float)SWEEP_PERIOD);
     servoWrite(normPos);
 
+    /* Print 10 times a second: enough to follow, not enough to flood. */
     if (now - tPrint >= 100) {
         tPrint = now;
         Serial.print("normPos=");   Serial.print(normPos, 2);
@@ -465,7 +502,7 @@ Upload as before. On boot the servo is commanded to center (`normPos = 0`, 1500 
 
 **Step 3. Observe the result**
 
-After power-up, watch the servo horn move and check the Serial Monitor output — it should match the two figures below.
+After power-up the horn moves to center first, then starts sweeping. The Serial Monitor prints a line every 100 ms: `normPos=` is the commanded position between -1.00 and 1.00, `us=` the matching pulse width in microseconds. Watch the horn and the numbers together — they rise and fall in step, as in the two figures below.
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example3_servo_demo.gif" style={{width:700, height:'auto'}}/></div>
 
@@ -477,7 +514,9 @@ The three macros `SERVO_PULSE_MIN / CENTER / MAX` map a normalized position to a
 
 ## Example 4: Encoder Motor Minimal Example
 
-This example drives the **M1 DC gear motor** and reads its **quadrature encoder** to measure speed. The Serial Monitor prints the commanded duty cycle, the encoder count and the resulting speed.
+Spins the **M1** gear motor with a sine-shaped duty cycle and reads its quadrature encoder, so the Serial Monitor can print the commanded duty, the encoder count and the measured speed.
+
+`motorSet()` takes -100 to +100, drops anything inside a ±15 dead zone that the gearbox cannot move anyway, and puts the magnitude on one of the two direction pins. The encoder is decoded in an interrupt: `onEncoderChange()` reads both channels and adds -1, 0 or +1 from a 16-entry quadrature table, while `readEnc()` copies the total with interrupts off so a 32-bit read cannot be torn. Speed comes from the counts gained between two prints, divided by the 7200 counts one wheel revolution produces.
 
 ### Hardware Setup
 
@@ -493,32 +532,36 @@ Create a new sketch and paste the full code below:
 
 ```c
 /* Example 4: drives the M1 gear motor with a sine-shaped duty cycle
- * (one cycle every 4 s) and prints encoder count and speed (rpm). */
+ * (one cycle every 4 s) and prints encoder count and speed (rpm).
+ *
+ * Plug the motor cable into the M1 connector; nothing else to wire. */
 #include <Arduino.h>
 #include <math.h>
 
-#define PIN_M1_IN1  2
-#define PIN_M1_IN2  3
-#define PIN_ENC_A   4
-#define PIN_ENC_B   41
+#define PIN_M1_IN1  2       /* silkscreen M1 PWM1, D1 */
+#define PIN_M1_IN2  3       /* silkscreen M1 PWM2, D2 */
+#define PIN_ENC_A   4       /* silkscreen M1 Encoder A, D3 */
+#define PIN_ENC_B   41      /* silkscreen M1 Encoder B, D14 */
 
-#define DRIVE_PERIOD 4000
+#define DRIVE_PERIOD 4000   /* one drive cycle, milliseconds */
 #define TWO_PI       6.2831853f
-#define DEAD_ZONE    15
+#define DEAD_ZONE    15     /* duty below this cannot move the gearbox */
 
+/* 12 pulses per motor revolution x 4 (quadrature x4) x 150 (gear ratio). */
 const uint32_t kCountsPerRev = 7200;
 
-/* quadrature transition table (x4 decoding) */
+/* Quadrature table: index = (previous state << 2) | new state, where a state
+ * is (A << 1) | B. The value is the direction of that one step: -1, 0 or +1. */
 static const int8_t kQuad[16] = {
      0,  1, -1,  0,
     -1,  0,  0,  1,
      1,  0,  0, -1,
      0, -1,  1,  0
 };
-static volatile int32_t encCount = 0;
-static volatile uint8_t  encState = 0;
+static volatile int32_t encCount = 0;   /* written by the ISR, read by loop */
+static volatile uint8_t  encState = 0;  /* previous A/B level */
 
-/* encoder ISR: quadrature decode */
+/* Runs on every edge of A or B and adds -1, 0 or +1 to the count. */
 void IRAM_ATTR onEncoderChange() {
     uint8_t a    = (uint8_t)digitalRead(PIN_ENC_A);
     uint8_t b    = (uint8_t)digitalRead(PIN_ENC_B);
@@ -527,7 +570,7 @@ void IRAM_ATTR onEncoderChange() {
     encState  = next;
 }
 
-/* atomic snapshot of the encoder count */
+/* Copy the count with interrupts off, so a 32-bit read cannot be torn. */
 static int32_t readEnc() {
     noInterrupts();
     int32_t c = encCount;
@@ -535,13 +578,14 @@ static int32_t readEnc() {
     return c;
 }
 
-/* apply motor duty, -100..100 (0 = coast) */
+/* Apply a duty cycle from -100 (reverse) to +100 (forward); 0 = coast.
+ * The magnitude goes to one direction pin, the other one stays at zero. */
 static void motorSet(int duty) {
     if (duty >  100) duty =  100;
     if (duty < -100) duty = -100;
     if (duty > -DEAD_ZONE && duty < DEAD_ZONE) duty = 0;
 
-    uint32_t d = (uint32_t)((duty < 0 ? -duty : duty) * 1023 / 100);
+    uint32_t d = (uint32_t)((duty < 0 ? -duty : duty) * 1023 / 100);   /* 10-bit */
     if (duty > 0)      { ledcWrite(PIN_M1_IN1, d); ledcWrite(PIN_M1_IN2, 0); }
     else if (duty < 0) { ledcWrite(PIN_M1_IN1, 0); ledcWrite(PIN_M1_IN2, d); }
     else               { ledcWrite(PIN_M1_IN1, 0); ledcWrite(PIN_M1_IN2, 0); }
@@ -553,15 +597,18 @@ void setup() {
 
     Serial.println("encoder motor - auto duty");
 
+    /* Both direction pins low = motor stopped. */
     pinMode(PIN_M1_IN1, OUTPUT); digitalWrite(PIN_M1_IN1, LOW);
     pinMode(PIN_M1_IN2, OUTPUT); digitalWrite(PIN_M1_IN2, LOW);
 
+    /* Encoder channels use the internal pull-ups and interrupt on any edge. */
     pinMode(PIN_ENC_A, INPUT_PULLUP);
     pinMode(PIN_ENC_B, INPUT_PULLUP);
     encState = (uint8_t)((digitalRead(PIN_ENC_A) << 1) | digitalRead(PIN_ENC_B));
     attachInterrupt(digitalPinToInterrupt(PIN_ENC_A), onEncoderChange, CHANGE);
     attachInterrupt(digitalPinToInterrupt(PIN_ENC_B), onEncoderChange, CHANGE);
 
+    /* 20 kHz PWM sits above the audible range, so the motor does not whine. */
     ledcAttach(PIN_M1_IN1, 20000, 10);
     ledcAttach(PIN_M1_IN2, 20000, 10);
     motorSet(0);
@@ -572,9 +619,12 @@ void loop() {
     static int32_t      lastCount = 0;
     uint32_t now = millis();
 
+    /* The sine takes the duty from 0 up to 100, back through 0 down to -100:
+     * the wheel speeds up, stops and reverses with no abrupt step. */
     int duty = (int)(100.0f * sinf(TWO_PI * (float)(now % DRIVE_PERIOD) / (float)DRIVE_PERIOD));
     motorSet(duty);
 
+    /* Every 200 ms: turn the counts gained since the last print into rpm. */
     if (now - tPrint >= 200) {
         int32_t c  = readEnc();
         float   dt = (now - tPrint) / 1000.0f;
@@ -600,7 +650,7 @@ Upload as before. The motor stays still until the first rising quarter of the si
 
 **Step 3. Observe the result**
 
-Watch the wheel driven by M1 and check the Serial Monitor output — it should match the two figures below.
+The wheel speeds up, stops, then reverses, in time with the sine. The Serial Monitor prints a line every 200 ms: `duty=` is the commanded value, `count=` the encoder total, `rpm=` the speed worked out from it. `count` climbs and falls as the wheel turns both ways; `rpm` changes sign together with `duty`. Compare with the two figures below.
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example4_motor_demo.gif" style={{width:700, height:'auto'}}/></div>
 
