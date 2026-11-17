@@ -15,10 +15,10 @@ slug: /xiao_robot_kit_ai_agent_quickstart
 sku: 100058302
 sidebar_position: 4
 last_update:
-  date: 11/15/2026
-  author: 划水佬
+  date: 11/17/2026
+  author: Atul
 createdAt: '2026-11-13'
-updatedAt: '2026-11-15'
+updatedAt: '2026-11-17'
 url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
 ---
 

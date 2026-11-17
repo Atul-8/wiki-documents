@@ -17,7 +17,7 @@ sku: 100058302
 sidebar_position: 3
 last_update:
   date: 11/13/2026
-  author: 划水佬
+  author: Atul
 createdAt: '2026-11-13'
 updatedAt: '2026-11-13'
 url: https://wiki.seeedstudio.com/xiao_robot_kit_application/
