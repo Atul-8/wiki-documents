@@ -263,6 +263,8 @@ button pressed = 1
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example1_button_demo.gif" style={{width:700, height:'auto'}}/></div>
 
+Now look at the **Serial Monitor** — the same run looks like this:
+
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example1_button_log.gif" style={{width:700, height:'auto'}}/></div>
 
 :::tip
@@ -400,6 +402,8 @@ ax= 0.012 ay= 0.008 az= 0.995 gx=   0.12 gy=  -0.03 gz=   0.05 t=25.31 C
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example2_imu_demo.gif" style={{width:700, height:'auto'}}/></div>
 
+Now look at the **Serial Monitor** — the same run looks like this:
+
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example2_imu_data.gif" style={{width:700, height:'auto'}}/></div>
 
 ## Example 3: Servo Minimal Example
@@ -505,6 +509,8 @@ Upload as before. On boot the servo is commanded to center (`normPos = 0`, 1500 
 After power-up the horn moves to center first, then starts sweeping. The Serial Monitor prints a line every 100 ms: `normPos=` is the commanded position between -1.00 and 1.00, `us=` the matching pulse width in microseconds. Watch the horn and the numbers together — they rise and fall in step, as in the two figures below.
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example3_servo_demo.gif" style={{width:700, height:'auto'}}/></div>
+
+Now look at the **Serial Monitor** — the same run looks like this:
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example3_servo_log.gif" style={{width:700, height:'auto'}}/></div>
 
@@ -653,6 +659,8 @@ Upload as before. The motor stays still until the first rising quarter of the si
 The wheel speeds up, stops, then reverses, in time with the sine. The Serial Monitor prints a line every 200 ms: `duty=` is the commanded value, `count=` the encoder total, `rpm=` the speed worked out from it. `count` climbs and falls as the wheel turns both ways; `rpm` changes sign together with `duty`. Compare with the two figures below.
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example4_motor_demo.gif" style={{width:700, height:'auto'}}/></div>
+
+Now look at the **Serial Monitor** — the same run looks like this:
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example4_motor_log.gif" style={{width:700, height:'auto'}}/></div>
 

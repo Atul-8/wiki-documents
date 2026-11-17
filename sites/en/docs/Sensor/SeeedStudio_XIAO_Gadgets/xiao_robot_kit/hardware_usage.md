@@ -438,6 +438,8 @@ Tilt the board forward and back, then roll it side to side, and watch which angl
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/example2_imu_demo.gif" style={{width:700, height:'auto'}}/></div>
 
+Now look at the **Serial Monitor** — the same tilting, as numbers:
+
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment1_imu_euler_log.gif" style={{width:700, height:'auto'}}/></div>
 
 Set the board down flat and press the on-board **KEY** button: the sketch prints `re-cal (keep still...)`, measures the offset again, and the angles return to near zero.
