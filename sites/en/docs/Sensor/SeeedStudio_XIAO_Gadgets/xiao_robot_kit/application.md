@@ -158,13 +158,18 @@ The board leaves the factory called **XIAO Robot Kit**. Rename it by writing `bt
 
 ### Commands Worth Trying
 
-| Command | What it does |
-| --- | --- |
-| `drive <left> <right>` | Open-loop PWM, `-100` to `100`, running until `stop` |
-| `speed <left> <right>` | The same range on the encoder PID: `100` asks for 5766 counts/s |
-| `stop` | Cancels whatever is running and switches both wheels off |
-| `move_forward`, `spin_clockwise` | IMU-measured: one second straight, or a full 360° turn |
-| `rgb <r> <g> <b>` | The 10-pixel light strip |
+<table align="center" style={{display:'table', width:'100%'}}>
+  <thead>
+    <tr><th>Command</th><th>What it does</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>`drive <left> <right>`</td><td>Open-loop PWM, `-100` to `100`, running until `stop`</td></tr>
+    <tr><td>`speed <left> <right>`</td><td>The same range on the encoder PID: `100` asks for 5766 counts/s</td></tr>
+    <tr><td>`stop`</td><td>Cancels whatever is running and switches both wheels off</td></tr>
+    <tr><td>`move_forward`, `spin_clockwise`</td><td>IMU-measured: one second straight, or a full 360° turn</td></tr>
+    <tr><td>`rgb <r> <g> <b>`</td><td>The 10-pixel light strip</td></tr>
+  </tbody>
+</table>
 
 The firmware accepts 45 commands in total, and `docs/BLE_COMMANDS.md` in the repository documents every one of them. Each also works in the `robot>` shell, which is the fastest place to debug.
 

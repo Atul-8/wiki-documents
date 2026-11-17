@@ -386,12 +386,17 @@ A gyro never reads exactly zero, and the leftover offset gets integrated into a 
 
 Four `#define`s at the top of the sketch cover the cases where the defaults do not fit. The defaults are what produced the log above.
 
-| Constant | Default | Reach for it when |
-| --- | --- | --- |
-| `KP` | 2.0 | A tilt takes too long to follow (raise it), or the angles twitch (lower it). |
-| `STILL_DPS` | 1.0 | `yaw` still drifts with the board sitting flat (lower it), or a slow deliberate turn is mistaken for standing still (raise it). |
-| `BIAS_ALPHA` | 0.01 | Drift comes back quickly (raise it) — but a genuine slow rotation then gets pulled toward zero. |
-| `CALIB_MS` | 6000 | Re-zeroing is not repeatable enough (raise it), at the cost of a longer wait on **KEY**. |
+<table align="center" style={{display:'table', width:'100%'}}>
+  <thead>
+    <tr><th>Constant</th><th>Default</th><th>Reach for it when</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>`KP`</td><td>2.0</td><td>A tilt takes too long to follow (raise it), or the angles twitch (lower it).</td></tr>
+    <tr><td>`STILL_DPS`</td><td>1.0</td><td>`yaw` still drifts with the board sitting flat (lower it), or a slow deliberate turn is mistaken for standing still (raise it).</td></tr>
+    <tr><td>`BIAS_ALPHA`</td><td>0.01</td><td>Drift comes back quickly (raise it) — but a genuine slow rotation then gets pulled toward zero.</td></tr>
+    <tr><td>`CALIB_MS`</td><td>6000</td><td>Re-zeroing is not repeatable enough (raise it), at the cost of a longer wait on **KEY**.</td></tr>
+  </tbody>
+</table>
 
 ## Experiment 2: BLE Control of the Encoder Motor
 
@@ -713,12 +718,17 @@ Then follow the four screenshots: scan for **XIAO Robot Kit** and connect, open 
 
 Write one of these lines — the Serial Monitor accepts the same ones, so you can skip the phone entirely:
 
-| Command | What the motor does |
-| --- | --- |
-| `set 1` | Forward for 10 revolutions, then stop. |
-| `set -1` | Reverse for 10 revolutions, then stop. |
-| `set 1 20` | Forward for 20 revolutions. The second number is the revolution count, 1–255. |
-| `set 0` | Stop immediately and let the motor coast. |
+<table align="center" style={{display:'table', width:'100%'}}>
+  <thead>
+    <tr><th>Command</th><th>What the motor does</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>`set 1`</td><td>Forward for 10 revolutions, then stop.</td></tr>
+    <tr><td>`set -1`</td><td>Reverse for 10 revolutions, then stop.</td></tr>
+    <tr><td>`set 1 20`</td><td>Forward for 20 revolutions. The second number is the revolution count, 1–255.</td></tr>
+    <tr><td>`set 0`</td><td>Stop immediately and let the motor coast.</td></tr>
+  </tbody>
+</table>
 
 Commands are case-insensitive, and a command without a count uses the default 10 revolutions.
 
