@@ -110,6 +110,8 @@ hello world appears. Tell me which files you touched and whether the test passed
 
 It flashes, then knocks on the new control the way a browser would: it opens the page and sends the button press as an HTTP request. The serial port stays open throughout. The report you get is short — files touched, request sent, log line seen — and it arrives only after all three line up.
 
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/AI_Agent_Quickstart/Image/ai_agent_hello_button_report.jpg" style={{width:700, height:'auto'}}/></div>
+
 ### What You Should See
 
 Press the new button yourself and `hello world` shows up in the serial monitor. If it compiles and nothing appears, paste the serial output back into the chat.
