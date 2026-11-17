@@ -1,5 +1,5 @@
 ---
-description: Type a sentence, let an AI edit the firmware, press upload and the car does something new. Two tasks, easiest first — the Wi-Fi password, then a page button that prints hello world.
+description: Type a sentence and let an AI edit, flash and test the firmware. Two tasks, easiest first — the Wi-Fi password, then a page button that prints hello world.
 title: AI Agent Quickstart
 keywords:
   - xiao robot kit
@@ -38,7 +38,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
   </tr>
 </table>
 
-You type a sentence. An AI edits the firmware. You upload it and the car does something new.
+You type a sentence. An AI edits the firmware, flashes the board and reads the serial log back to you.
 
 Two tasks below, easiest first: change the Wi-Fi password, then add a button that prints hello world.
 
@@ -51,6 +51,10 @@ Two tasks below, easiest first: change the Wi-Fi password, then add a button tha
 
 Install whichever one you pick from the vendor's own page — everything below starts once it is running. Open the **repository folder**, not your home directory, and say `test`: an answer means it is running.
 
+:::tip
+Code reaches the car two ways. By hand: open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE, set **Tools > Board** to `XIAO_ESP32S3_PLUS`, pick the port that appeared when you plugged the board in, and click **Upload**. Automatically: let the agent do it. Every task below uses the automatic way — the agent downloads what it needs, compiles, flashes and reads the serial port itself, and asks your permission before each command.
+:::
+
 ## 1. Change the Wi-Fi Password {#first-task}
 
 ### The Prompt
@@ -60,37 +64,33 @@ Plug the battery in, connect the USB cable, and paste this:
 ```text
 This folder holds two example projects: examples/xiao_robot_kit_web_remote (Arduino,
 a Wi-Fi remote control) and examples/xiao_robot_kit_ble_control (ESP-IDF, BLE commands).
-Read the Wi-Fi remote one and change its Wi-Fi to my home network:
-SSID MyHome-2.4G, password 12345678.
+Read the Wi-Fi remote one and put my home network into it: name MyHome-2.4G, password
+12345678.
 Tell me which file and which lines you changed.
+Then flash the board, keep watching its serial port until it joins the network, and tell me
+the address it printed — both the IP and the name it answers to.
 ```
 
-It reads the project, edits the two values and reports which lines changed.
+Swap the two values for your own network before you paste. The board joins only when the name and the password both match your router.
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/AI_Agent_Quickstart/Image/ai_agent_wifi_change.jpg" style={{width:700, height:'auto'}}/></div>
 
-### Upload It
+### What Comes Back
 
-1. Open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE.
-2. Set **Tools > Board** to `XIAO_ESP32S3_PLUS`.
-3. Set **Tools > Port** to the port that appeared when you plugged the board in.
-4. Click **Upload** (→).
+Three things, in the order you asked for them: the file and the lines it touched, a sentence on what changed, and the address the board printed once it joined.
 
-Ask the tool to run the `arduino-cli` compile and upload for you instead, and it will ask permission for each command. Read the port in that command before you approve: `arduino-cli board list` prints the port that is really connected, and a guessed one fails with no output at all.
+The two values sit at the top of `examples/xiao_robot_kit_web_remote/src/app/car_config.h`, in `WIFI_SSID` and `WIFI_PASS` — check that those are the lines it edited and nothing else.
 
-### Check the Log
+Whatever address comes back belongs to one board on one network. Your router hands out its own, so yours will be different, and it changes again when the car joins a different network.
 
-Open the serial monitor at 115200 baud. The address below belongs to one computer on one network: your router hands out its own, so yours will be different, and it changes again on a different network.
+The log also carries a name, `xiaorobot.local`. That is mDNS: it survives a new IP and is shorter to type, so try it first, and fall back to the IP when your network does not pass the name through.
 
-```text
-[wifi] connected, IP 192.168.1.42
-open http://xiaorobot.local or http://192.168.1.42
-```
+### Open the Page
 
-Read the address from your own log and open it in the browser, then hold a direction key on the page. `http://xiaorobot.local` is shorter to type and survives a new IP — try it first, and fall back to the IP in your log if the name does not resolve.
+Open the address the agent reported and hold a direction key to drive.
 
 :::tip
-The board joins **2.4 GHz** networks only. If the password is right and it still will not connect, your router is probably publishing one name for both bands — give the 2.4 GHz band its own SSID.
+The board joins **2.4 GHz** networks only. If the name and the password are right and it still will not connect, your router is probably publishing one name for both bands — give the 2.4 GHz band its own SSID.
 :::
 
 ## 2. Add a Button {#extend}
@@ -99,13 +99,18 @@ The board joins **2.4 GHz** networks only. If the password is right and it still
 
 ```text
 In examples/xiao_robot_kit_web_remote, add a button to the web page. Pressing it prints
-hello world in the serial log. Leave the motors and the driving page alone, and tell me
-which files you touched.
+hello world in the serial log. Leave the motors and the driving page alone.
+Then flash it, open the page, press the new button, and keep reading the serial port until
+hello world appears. Tell me which files you touched and whether the test passed.
 ```
+
+### What the Agent Tests
+
+It flashes, then knocks on the new control the way a browser would: it opens the page and sends the button press as an HTTP request. The serial port stays open throughout. The report you get is short — files touched, request sent, log line seen — and it arrives only after all three line up.
 
 ### What You Should See
 
-Upload again, open the page and press the new button: the serial monitor prints `hello world`. If it compiles and nothing appears, paste the serial output back into the chat.
+Press the new button yourself and `hello world` shows up in the serial monitor. If it compiles and nothing appears, paste the serial output back into the chat.
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/AI_Agent_Quickstart/Image/ai_agent_hello_button.jpg" style={{width:320, height:'auto'}}/></div>
 
