@@ -12,7 +12,7 @@ keywords:
   - beginner
   - esp32s3
 image: https://files.seeedstudio.com/wiki/seeed_logo/logo_2023.png
-slug: /xiao_robot_kit_ai_agent_quickstart
+slug: /xiao_robot_kit_ai_assisted_development
 sku: 100058302
 sidebar_position: 4
 last_update:
@@ -20,7 +20,7 @@ last_update:
   author: Atul
 createdAt: '2026-11-13'
 updatedAt: '2026-11-17'
-url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
+url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_assisted_development/
 ---
 
 # AI-Assisted Development
@@ -36,8 +36,8 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
     <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/bazaar_xiao_robot_board1.jpg" style={{width:320, height:'auto'}}/></div></td>
   </tr>
   <tr>
-    <td><div class="get_one_now_container" style={{textAlign:'center'}}><a class="get_one_now_item" href="https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div></td>
-    <td><div class="get_one_now_container" style={{textAlign:'center'}}><a class="get_one_now_item" href="https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div></td>
+    <td><div class="get_one_now_container" style={{textAlign:'center'}}><a class="get_one_now_item" href="https://wiki.seeedstudio.com/xiao_robot_kit_ai_assisted_development/" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div></td>
+    <td><div class="get_one_now_container" style={{textAlign:'center'}}><a class="get_one_now_item" href="https://wiki.seeedstudio.com/xiao_robot_kit_ai_assisted_development/" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div></td>
   </tr>
 </table>
 </div>
