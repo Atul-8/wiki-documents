@@ -136,21 +136,25 @@ Open the monitor when the flash finishes — it drops into a `robot>` prompt. Ty
 2. Open the service `a2f39c10-7e4b-4d21-8a61-0f3bc9d15001`, pick the single characteristic `a2f39c11-7e4b-4d21-8a61-0f3bc9d15001` under it, and subscribe to notifications.
 3. Keep the write format at **UTF-8** and write `drive 20 20`.
 
+<div class="table-center">
 <table align="center">
-   <tr>
-       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_scan.jpg" style={{width:220, height:'auto'}}/></div></td>
-       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_write_format.jpg" style={{width:220, height:'auto'}}/></div></td>
-  </tr>
+<tr>
+  <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_scan.jpg" style={{width:320, height:'auto'}}/></div></td>
+  <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_write_format.jpg" style={{width:320, height:'auto'}}/></div></td>
+</tr>
 </table>
+</div>
 
 Both wheels turn and the characteristic notifies back `OK|drive 20 20|$`. Write `stop` to end the run.
 
+<div class="table-center">
 <table align="center">
-   <tr>
-       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_write.jpg" style={{width:260, height:'auto'}}/></div></td>
-       <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_reply.jpg" style={{width:260, height:'auto'}}/></div></td>
-  </tr>
+<tr>
+  <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_write.jpg" style={{width:320, height:'auto'}}/></div></td>
+  <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Application/Image/app2_ble_reply.jpg" style={{width:320, height:'auto'}}/></div></td>
+</tr>
 </table>
+</div>
 
 A command the shell does not know answers `ERR|UNKNOWN|$`, one that failed while running answers `ERR|EXEC|$`, and a write over 63 bytes answers `ERR|LENGTH|$` — 63 bytes is all a single write carries, so a full-length command needs an ATT MTU of 66.
 
