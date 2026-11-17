@@ -158,33 +158,9 @@ A charge-only cable shows up as no COM port, or the device does not respond at a
 
 ### Software Preparation
 
-**Step 1. Install the Arduino IDE**
+The board at the heart of this kit is the **XIAO ESP32-S3 Plus**, so its software setup is the board's own setup — no separate ritual for the kit. The board's [Getting Started guide](https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/) covers both halves: the tour of the board, and installing the Arduino IDE, adding the ESP32 board package, and selecting **XIAO_ESP32S3_PLUS** with the right port.
 
-Download the latest **Arduino IDE 2.x** from [arduino.cc/en/software](https://www.arduino.cc/en/software) and install it for your operating system.
-
-**Step 2. Add the ESP32 board package**
-
-Launch Arduino IDE, open **File > Preferences**, and paste the URL below into **"Additional Boards Manager URLs"**:
-
-```
-https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-```
-
-Then open **Tools > Board > Boards Manager**, search for `esp32`, and install **esp32 by Espressif Systems**.
-
-**Step 3. Select the board and port**
-
-Connect the kit with the USB-C cable. In **Tools > Board > esp32** choose **XIAO_ESP32S3_PLUS**, then open **Tools > Port**.
-
-Pick the port that only showed up **after** you plugged this board in. It is created by your own computer, so it will not match the one in the picture below — and if you unplug the board and use another USB socket, the number can change again.
-
-<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/arduino_ide_select_board_and_port.jpg" style={{width:700, height:'auto'}}/></div>
-
-The picture shows the **Select Board** dropdown in the IDE toolbar — the quick way to set both values in one place. It reaches the same board and port as the **Tools** menu, so use whichever is closer to hand.
-
-:::tip More detailed setup guide
-For more detailed **XIAO ESP32-S3 Plus** setup instructions, see the Software Preparation section of the [Seeed Studio XIAO ESP32-S3 Getting Started](https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/#software-preparation) guide.
-:::
+Come back once the IDE can see the board. Every example below starts from there.
 
 ## Example 1: Button + Hello World Serial Print
 
