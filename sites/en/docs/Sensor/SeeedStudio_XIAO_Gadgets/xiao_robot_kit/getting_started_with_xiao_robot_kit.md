@@ -60,28 +60,33 @@ A `Dxx` marking is **not** a GPIO number. For example, `D11` maps to `GPIO38`.
 
 ### On-board Peripheral Pin Mapping
 
-| Function | Pin | GPIO | Note |
-| --- | --- | --- | --- |
-| SERVO3 | D0 | GPIO1 | Servo 3 |
-| M1 PWM1 | D1 | GPIO2 | Motor 1 drive |
-| M1 PWM2 | D2 | GPIO3 | Motor 1 drive |
-| M1 Encoder A | D3 | GPIO4 | Motor 1 encoder A |
-| I²C SDA | D4 | GPIO5 | on-board IMU |
-| I²C SCL | D5 | GPIO6 | on-board IMU |
-| UART TX | D6 | GPIO43 | Grove UART TX |
-| UART RX | D7 | GPIO44 | Grove UART RX |
-| SERVO4 | D8 | GPIO7 | Servo 4 |
-| SERVO2 | D9 | GPIO8 | Servo 2 |
-| M2 Encoder B | D10 | GPIO9 | Motor 2 encoder B |
-| KEY | D11 | GPIO38 | User button |
-| IMU Heater PWM | D12 | GPIO39 | Drives the heater resistor next to the IMU |
-| RGB | D13 | GPIO40 | Grove RGB / Digital |
-| M1 Encoder B | D14 | GPIO41 | Motor 1 encoder B |
-| SERVO1 | D15 | GPIO42 | Servo 1 |
-| ADC | D16 | GPIO10 | On-board ADC |
-| M2 Encoder A | D17 | GPIO13 | Motor 2 encoder A |
-| M2 PWM2 | D18 | GPIO12 | Motor 2 drive |
-| M2 PWM1 | D19 | GPIO11 | Motor 2 drive |
+<table align="center" style={{display:'table', width:'100%'}}>
+  <thead>
+    <tr><th>Function</th><th>Pin</th><th>GPIO</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>SERVO3</td><td>D0</td><td>GPIO1</td><td>Servo 3</td></tr>
+    <tr><td>M1 PWM1</td><td>D1</td><td>GPIO2</td><td>Motor 1 drive</td></tr>
+    <tr><td>M1 PWM2</td><td>D2</td><td>GPIO3</td><td>Motor 1 drive</td></tr>
+    <tr><td>M1 Encoder A</td><td>D3</td><td>GPIO4</td><td>Motor 1 encoder A</td></tr>
+    <tr><td>I²C SDA</td><td>D4</td><td>GPIO5</td><td>on-board IMU</td></tr>
+    <tr><td>I²C SCL</td><td>D5</td><td>GPIO6</td><td>on-board IMU</td></tr>
+    <tr><td>UART TX</td><td>D6</td><td>GPIO43</td><td>Grove UART TX</td></tr>
+    <tr><td>UART RX</td><td>D7</td><td>GPIO44</td><td>Grove UART RX</td></tr>
+    <tr><td>SERVO4</td><td>D8</td><td>GPIO7</td><td>Servo 4</td></tr>
+    <tr><td>SERVO2</td><td>D9</td><td>GPIO8</td><td>Servo 2</td></tr>
+    <tr><td>M2 Encoder B</td><td>D10</td><td>GPIO9</td><td>Motor 2 encoder B</td></tr>
+    <tr><td>KEY</td><td>D11</td><td>GPIO38</td><td>User button</td></tr>
+    <tr><td>IMU Heater PWM</td><td>D12</td><td>GPIO39</td><td>Drives the heater resistor next to the IMU</td></tr>
+    <tr><td>RGB</td><td>D13</td><td>GPIO40</td><td>Grove RGB / Digital</td></tr>
+    <tr><td>M1 Encoder B</td><td>D14</td><td>GPIO41</td><td>Motor 1 encoder B</td></tr>
+    <tr><td>SERVO1</td><td>D15</td><td>GPIO42</td><td>Servo 1</td></tr>
+    <tr><td>ADC</td><td>D16</td><td>GPIO10</td><td>On-board ADC</td></tr>
+    <tr><td>M2 Encoder A</td><td>D17</td><td>GPIO13</td><td>Motor 2 encoder A</td></tr>
+    <tr><td>M2 PWM2</td><td>D18</td><td>GPIO12</td><td>Motor 2 drive</td></tr>
+    <tr><td>M2 PWM1</td><td>D19</td><td>GPIO11</td><td>Motor 2 drive</td></tr>
+  </tbody>
+</table>
 
 :::tip
 Motors and servos draw a large current. A computer's USB port alone can be too weak, so power the kit from the **battery connector** for Examples 3 and 4.
