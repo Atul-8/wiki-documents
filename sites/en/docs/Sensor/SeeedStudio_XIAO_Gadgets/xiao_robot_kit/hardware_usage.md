@@ -26,23 +26,6 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
 
 # Hardware Usage
 
-<div class="table-center">
-<table align="center">
-  <tr>
-    <th>XIAO Robot Kit</th>
-    <th>XIAO Robot Board</th>
-  </tr>
-  <tr>
-    <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/bazaar_xiao_robot_board1.jpg" style={{width:320, height:'auto'}}/></div></td>
-    <td><div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/bazaar_xiao_robot_board1.jpg" style={{width:320, height:'auto'}}/></div></td>
-  </tr>
-  <tr>
-    <td><div class="get_one_now_container" style={{textAlign:'center'}}><a class="get_one_now_item" href="https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div></td>
-    <td><div class="get_one_now_container" style={{textAlign:'center'}}><a class="get_one_now_item" href="https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div></td>
-  </tr>
-</table>
-</div>
-
 ## Overview
 
 Three experiments, easiest first — read angles from the IMU, move one motor over Bluetooth LE, then switch an RGB strip with the on-board button. Each one is a single sketch: prepare, upload, observe.
@@ -57,7 +40,9 @@ Experiments 1 and 3 need nothing beyond the kit. Experiment 2 also needs the mot
 
 ### Hardware Preparation
 
-To work through all three experiments you need the **[XIAO Robot Kit](https://www.seeedstudio.com/XIAO-Robot-Kit-p-100058302.html?utm_source=wiki)**, a USB-C **data** cable, and a computer. Experiments 1 and 2 add nothing: the IMU sits on the carrier board, and the encoder motor arrives with its cable in the box. Experiment 3 is the only one that asks you to supply a part — a WS2812 light board. The photos show a board from CH Maker Ed, but nothing in the sketch depends on it: any WS2812 board wired to `D13` works, and the single number you have to match is `LED_COUNT`, the number of LEDs it carries.
+You need the **[XIAO Robot Kit](https://www.seeedstudio.com/XIAO-Robot-Kit-p-100058302.html?utm_source=wiki)**, a USB-C **data** cable, and a computer — that covers Experiments 1 and 2. Experiment 3 adds one part: a WS2812 light board wired to `D13` (the photos use one from CH Maker Ed; any board works, and `LED_COUNT` must match its number of LEDs).
+
+<div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Getting_Started/Image/XIAO_Robot_Board_Overview_all_annotated.jpg" style={{width:700, height:'auto'}} /></div>
 
 :::tip
 Motors and servos draw a large current. A computer's USB port alone can be too weak, so power the kit from the **battery connector** when you drive them.
@@ -72,7 +57,6 @@ Arduino IDE with the ESP32 board package installed, and `XIAO_ESP32S3_PLUS` sele
 The sketch turns the IMU's raw acceleration and rotation rates into three angles — roll, pitch and yaw — in degrees, and prints them 50 times a second. There is no sensor library involved: `Wire` reads the registers and the attitude filter is written out in the file, which is why it is worth reading even if you never change it.
 
 Two halves do the work. `readImu()` scales the raw counts by the sensitivities of the ±2 g and ±2000 dps ranges into `g` and `dps`. `mahony_update()` then runs a Mahony complementary filter: integrate the gyro for the fast response, pull the result back toward the measured gravity vector with `KP`, and keep the attitude as a quaternion so nothing ever sits at a gimbal lock. `quat_to_euler()` converts that to three angles once per print, and `fmtAng()` pads each one to a fixed width so the columns stay put while the numbers change.
-
 
 **Step 1. Create the sketch**
 
@@ -472,7 +456,6 @@ The sketch makes the board a BLE peripheral and moves the M1 motor by counting e
 
 The position loop is the interesting part. `execCmd()` takes the reference from the encoder count at that moment (`gTarget = gStart + dir × revs × 7200`) and `loop()` stops the motor when the count gets there, so an overshoot never accumulates into the next move. Encoder edges are decoded in an interrupt with a 16-entry quadrature table. BLE writes arrive in the Bluetooth task, so they are pushed into a 4-slot queue and executed by `loop()` — the motor is only ever driven from one thread. `MOTOR_INVERT` fixes the drive polarity so +duty always increases the count, and a guard aborts the move if the count runs the wrong way instead.
 
-
 The hardware side is one cable — no jumpers, no breadboard:
 
 <div style={{textAlign:'center'}}><img src="https://files.seeedstudio.com/wiki/xiao_gadgets_xiao_robot_kit/Hardware_Usage/Image/experiment2_hardware_connection.jpg" style={{width:700, height:'auto'}}/></div>
@@ -831,7 +814,6 @@ done: 10.00 rev, enc=72000 (0.00 rev past target)
 There is no LED library here either: `show()` builds the bit stream by hand and hands it to the ESP32-S3's RMT peripheral, which reproduces it with hardware timing. The WS2812 protocol allows very little jitter, and a busy loop would never hold it.
 
 The pieces are small. `putBit()` turns one bit into one 1.25 µs RMT symbol, `putByte()` emits eight of them MSB first, and each LED wants green, red, blue in that order. `sweepStep()` repaints the strip once every `SWEEP_MS` so the color change crawls along it, `pollButton()` debounces KEY and asks for the next palette entry, and both are called from `loop()` — nothing blocks, so the sweep keeps running while the button is read.
-
 
 :::note
 The light board used in this experiment is a WS2812 board from **CH Maker Ed**, a third party. It is not part of the kit — you supply your own — and it is not required to be that particular board: the sketch only sends the standard WS2812 bit stream, so any WS2812 board wired to `D13` behaves the same way.
