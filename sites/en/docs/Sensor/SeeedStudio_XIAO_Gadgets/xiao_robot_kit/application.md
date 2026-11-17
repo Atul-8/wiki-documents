@@ -25,6 +25,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_application/
 
 # Application
 
+<div class="table-center">
 <table align="center">
   <tr>
     <th>XIAO Robot Kit</th>
@@ -39,6 +40,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_application/
     <td><div class="get_one_now_container" style={{textAlign:'center'}}><a class="get_one_now_item" href="https://wiki.seeedstudio.com/xiao_robot_kit_application/" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div></td>
   </tr>
 </table>
+</div>
 
 ## Overview
 

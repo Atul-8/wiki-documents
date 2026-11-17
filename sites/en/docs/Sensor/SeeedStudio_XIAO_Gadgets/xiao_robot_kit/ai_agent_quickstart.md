@@ -23,6 +23,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
 
 # AI Agent Quickstart
 
+<div class="table-center">
 <table align="center">
   <tr>
     <th>XIAO Robot Kit</th>
@@ -37,6 +38,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
     <td><div class="get_one_now_container" style={{textAlign:'center'}}><a class="get_one_now_item" href="https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div></td>
   </tr>
 </table>
+</div>
 
 You type a sentence. An AI edits the firmware, flashes the board and reads the serial log back to you.
 

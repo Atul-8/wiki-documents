@@ -26,6 +26,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
 
 # Hardware Usage
 
+<div class="table-center">
 <table align="center">
   <tr>
     <th>XIAO Robot Kit</th>
@@ -40,6 +41,7 @@ url: https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/
     <td><div class="get_one_now_container" style={{textAlign:'center'}}><a class="get_one_now_item" href="https://wiki.seeedstudio.com/xiao_robot_kit_hardware_usage/" target="_blank"><strong><span><font color={'FFFFFF'} size={'4'}> Get One Now 🖱️</font></span></strong></a></div></td>
   </tr>
 </table>
+</div>
 
 ## Getting Started
 
