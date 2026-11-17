@@ -1,6 +1,6 @@
 ---
 description: Type a sentence and let a coding agent edit, flash and test the firmware. Two tasks, easiest first — the Wi-Fi password, then a page button that prints hello world.
-title: Agent-Assisted Development
+title: AI-Assisted Development
 keywords:
   - xiao robot kit
   - coding agent
@@ -23,7 +23,7 @@ updatedAt: '2026-11-17'
 url: https://wiki.seeedstudio.com/xiao_robot_kit_ai_agent_quickstart/
 ---
 
-# Agent-Assisted Development
+# AI-Assisted Development
 
 <div class="table-center">
 <table align="center">
