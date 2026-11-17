@@ -52,7 +52,7 @@ Two tasks below, easiest first: change the Wi-Fi password, then add a button tha
 Install whichever one you pick from the vendor's own page — everything below starts once it is running. Open the **repository folder**, not your home directory, and say `test`: an answer means it is running.
 
 :::tip
-Code reaches the car two ways. By hand: open `examples/xiao_robot_kit_web_remote/xiao_robot_kit_web_remote.ino` in the Arduino IDE, set **Tools > Board** to `XIAO_ESP32S3_PLUS`, pick the port that appeared when you plugged the board in, and click **Upload**. Automatically: let the agent do it. Every task below uses the automatic way — the agent downloads what it needs, compiles, flashes and reads the serial port itself, and asks your permission before each command.
+Every task below lets the agent flash the board and read its serial port. To upload by hand instead, follow the Arduino IDE steps in [Getting Started](https://wiki.seeedstudio.com/xiao_robot_kit_getting_started/).
 :::
 
 ## 1. Change the Wi-Fi Password {#first-task}
