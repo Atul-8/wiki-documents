@@ -522,7 +522,7 @@ The three macros `SERVO_PULSE_MIN / CENTER / MAX` map a normalized position to a
 
 Spins the **M1** gear motor with a sine-shaped duty cycle and reads its quadrature encoder, so the Serial Monitor can print the commanded duty, the encoder count and the measured speed.
 
-`motorSet()` takes -100 to +100, drops anything inside a ±15 dead zone that the gearbox cannot move anyway, and puts the magnitude on one of the two direction pins. The encoder is decoded in an interrupt: `onEncoderChange()` reads both channels and adds -1, 0 or +1 from a 16-entry quadrature table, while `readEnc()` copies the total with interrupts off so a 32-bit read cannot be torn. Speed comes from the counts gained between two prints, divided by the 7200 counts one wheel revolution produces.
+`motorSet()` takes -100 to +100 and puts the magnitude on one of the two direction pins. The encoder is decoded in an interrupt: `onEncoderChange()` reads both channels and adds -1, 0 or +1 from a 16-entry quadrature table, while `readEnc()` copies the total with interrupts off so a 32-bit read cannot be torn. Speed comes from the counts gained between two prints, divided by the 7200 counts one wheel revolution produces.
 
 ### Hardware Setup
 
